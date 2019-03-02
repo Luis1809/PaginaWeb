@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Cities Flood Monitoring System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&callback=initMap">
+    </script>
+  </head>
+  <body>
+    <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-dark">
+  <span class="navbar-brand text-light "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-white" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="Localidades.html"> Localidades </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#"> Valores Historicos (BD) </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#"> Contacto </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#"> Sobre Nosotros </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search
+</button>
+    </form>
+  </div>
+
+  <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
+    ALL-RIGHTS RESERVED 2019</p>
+</nav>
+
+   <!--< button class="btn btn-primary btn-lg"><i class="fa fa-id-card"></i> Prueba_Tras</button>-->
+  <br><br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card text-white bg-dark float-left" style="max-width: 18rem; height:500px;">
+        <div class="card-header"> Monitoreo <i class="fas fa-info-circle"></i></div>
+        <div class="card-body">
+          <p class="card-title">Cercania al nivel tierra</p>
+          <h6> 250 cm </h6>
+          <hr>
+          <p class="card-title">Rango Seguro</p>
+          <h6> 400-200 Cm </h6>
+          <hr>
+          <p class="card-title">Lluvia Caida ml</p>
+          <p class="text-muted"> (Ultimas 24 horas) </p><p> 55 ml </p>
+          <hr>
+          <p class="card-title">Temperatura y Carga CPU </p>
+          <p> 52.3 °C / 34 % </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div id="googleMap" style="max-width:40rem; height:200px;">
+      <script>
+      function initMap() {
+      var pucmm = {lat: 19.4410, lng: -70.6827};
+      var map = new google.maps.Map(
+          document.getElementById('googleMap'), {zoom: 13, center: pucmm});
+      var marker = new google.maps.Marker({position: pucmm,
+
+         map: map});
+         var infoWindow= new google.maps.InfoWindow({content:  "jose"});
+
+         marker.addListener('click',function(){
+
+          infoWindow.open(map,marker);
+         });
+      }
+      </script>
+      </div>
+      <div class="embed-responsive embed-responsive-16by9">
+      <!--  <iframe style="max-width:40rem;height:600px;" src="http://proyectopucmm.ddns.net/"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <iframe style="max-width:40rem;height:600px;" src="https://appointive-dunlin-6511.dataplicity.io/?action=stream"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      -->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/CRibIUw3sd8?&autoplay=1"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="card text-white float-right bg-dark" style="max-width: 18rem; height:500px;">
+        <div class="card-header">Datos GPS <i class="fas fa-location-arrow"></i></div>
+        <div class="card-body">
+          <p class="card-title">Hora y Fecha</p>
+          <h6>20:40:10 - 18 Sep 2097</h6>
+          <hr>
+          <p class="card-title">Latitud</p>
+          <h6>19.4410</h6>
+          <hr>
+          <p class="card-title">Longitud</p>
+          <h6>-70.6827</h6>
+        </div>
+        <div class="card-header"> Estado Bateria <i class="fas fa-battery-three-quarters"></i></div>
+        <div class="card-body">
+        <p class="card-title">Porcentaje</p>
+        <h6> 93% </h6>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class=" fixed-bottom mb-4 alert alert-dismissible alert-warning">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4 class="alert-heading">Aviso!</h4>
+  <p class="mb-0"> Inundaciones en El Caimito, La Vega. <a href="#" class="alert-link"> Ver mas detalles</a>.</p>
+  </div>
+  </body>
+</html>
