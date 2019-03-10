@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <!--<meta http-equiv="refresh" content="5">-->
     <meta charset="utf-8">
     <title>Cities Flood Monitoring System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -57,16 +58,16 @@
         <div class="card-header"> Monitoreo <i class="fas fa-info-circle"></i></div>
         <div class="card-body">
           <p class="card-title">Cercania al nivel tierra</p>
-          <h6> 250 cm </h6>
+          <h6> <?php include("ConnBaseDatos.php"); echo$fila1[0]; ?> cm </h6>
           <hr>
           <p class="card-title">Rango Seguro</p>
-          <h6> 400-200 Cm </h6>
+          <h6> 400-200 cm </h6>
           <hr>
           <p class="card-title">Lluvia Caida ml</p>
-          <p class="text-muted"> (Ultimas 24 horas) </p><p> 55 ml </p>
+          <p class="text-muted"> (Ultimas 24 horas) </p><p> <?php include("ConnBaseDatos.php"); echo$fila2[0]; ?> ml </p>
           <hr>
           <p class="card-title">Temperatura y Carga CPU </p>
-          <p> 52.3 °C / 34 % </p>
+          <p> <?php include("ConnBaseDatos.php"); echo$fila4[0]; ?> °C / <?php include("ConnBaseDatos.php"); echo$fila3[0]; ?> % </p>
         </div>
       </div>
     </div>
@@ -75,13 +76,12 @@
       <div id="googleMap" style="max-width:40rem; height:200px;">
       <script>
       function initMap() {
-      var pucmm = {lat: 19.4410, lng: -70.6827};
+      var pucmm = {lat: <?php include("ConnBaseDatos.php"); echo$fila7[0];?><?php include("ConnBaseDatos.php"); echo$fila8[0];?>,
+            lng:<?php include("ConnBaseDatos.php"); echo$fila9[0];?><?php include("ConnBaseDatos.php"); echo$fila10[0]; ?>};
       var map = new google.maps.Map(
           document.getElementById('googleMap'), {zoom: 13, center: pucmm});
-      var marker = new google.maps.Marker({position: pucmm,
-
-         map: map});
-         var infoWindow= new google.maps.InfoWindow({content:  "jose"});
+      var marker = new google.maps.Marker({position: pucmm, map: map});
+         var infoWindow= new google.maps.InfoWindow({content:  "Sistema principal"});
 
          marker.addListener('click',function(){
 
@@ -91,15 +91,8 @@
       </script>
       </div>
       <div class="embed-responsive embed-responsive-16by9">
-      <!--  <iframe style="max-width:40rem;height:600px;" src="http://proyectopucmm.ddns.net/"
-        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-        <iframe style="max-width:40rem;height:600px;" src="https://appointive-dunlin-6511.dataplicity.io/?action=stream"
-        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      -->
         <iframe width="560" height="315" src="https://www.youtube.com/embed/CRibIUw3sd8?&autoplay=1"
         frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
       </div>
     </div>
 
@@ -108,18 +101,18 @@
         <div class="card-header">Datos GPS <i class="fas fa-location-arrow"></i></div>
         <div class="card-body">
           <p class="card-title">Hora y Fecha</p>
-          <h6>20:40:10 - 18 Sep 2097</h6>
+          <h6><?php include("ConnBaseDatos.php"); echo$fila5[0]; ?> - <?php include("ConnBaseDatos.php"); echo$fila6[0]; ?></h6>
           <hr>
           <p class="card-title">Latitud</p>
-          <h6>19.4410</h6>
+          <h6><?php include("ConnBaseDatos.php"); echo$fila7[0];?><?php include("ConnBaseDatos.php"); echo$fila8[0]; ?></h6>
           <hr>
           <p class="card-title">Longitud</p>
-          <h6>-70.6827</h6>
+          <h6><?php include("ConnBaseDatos.php"); echo$fila9[0];?><?php include("ConnBaseDatos.php"); echo$fila10[0]; ?></h6>
         </div>
         <div class="card-header"> Estado Bateria <i class="fas fa-battery-three-quarters"></i></div>
         <div class="card-body">
         <p class="card-title">Porcentaje</p>
-        <h6> 93% </h6>
+        <h6> <?php include("ConnBaseDatos.php"); echo$fila11[0]; ?> % </h6>
       </div>
       </div>
     </div>
