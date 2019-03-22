@@ -1,7 +1,13 @@
 <!DOCTYPE html>
+<?php
+  session_start();
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+    header("Location: index.php");
+  }
+?>
 <html lang="en" dir="ltr">
   <head>
-    <!--<meta http-equiv="refresh" content="5">-->
+    <!--<meta http-equiv="refresh" content="30">-->
     <meta charset="utf-8">
     <title>Cities Flood Monitoring System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -51,7 +57,7 @@
 
    <!--< button class="btn btn-primary btn-lg"><i class="fa fa-id-card"></i> Prueba_Tras</button>-->
   <br><br><br>
-<div class="container">
+<div class="container" >
   <div class="row">
     <div class="col-sm-3">
       <div class="card text-white bg-dark float-left" style="max-width: 18rem; height:500px;">
@@ -74,12 +80,11 @@
 
     <div class="col-sm-6">
       <div id="googleMap" style="max-width:40rem; height:200px;">
-      <script>
+      <script type="text/javascript">
       function initMap() {
-      var pucmm = {lat: <?php include("ConnBaseDatos.php"); echo$fila7[0];?><?php include("ConnBaseDatos.php"); echo$fila8[0];?>,
-            lng:<?php include("ConnBaseDatos.php"); echo$fila9[0];?><?php include("ConnBaseDatos.php"); echo$fila10[0]; ?>};
+      var pucmm = {lat: <?php include("ConnBaseDatos.php");echo$fila7[0];?>,lng:(<?php include("ConnBaseDatos.php");echo$fila9[0];?>)+0.00039};
       var map = new google.maps.Map(
-          document.getElementById('googleMap'), {zoom: 13, center: pucmm});
+          document.getElementById('googleMap'), {zoom: 15, center: pucmm});
       var marker = new google.maps.Marker({position: pucmm, map: map});
          var infoWindow= new google.maps.InfoWindow({content:  "Sistema principal"});
 
@@ -91,7 +96,7 @@
       </script>
       </div>
       <div class="embed-responsive embed-responsive-16by9">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/CRibIUw3sd8?&autoplay=1"
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/PRxaAZ7n9Gs?&autoplay=1"
         frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
@@ -104,10 +109,10 @@
           <h6><?php include("ConnBaseDatos.php"); echo$fila5[0]; ?> - <?php include("ConnBaseDatos.php"); echo$fila6[0]; ?></h6>
           <hr>
           <p class="card-title">Latitud</p>
-          <h6><?php include("ConnBaseDatos.php"); echo$fila7[0];?><?php include("ConnBaseDatos.php"); echo$fila8[0]; ?></h6>
+          <h6><?php include("ConnBaseDatos.php"); echo$fila7[0];?></h6>
           <hr>
           <p class="card-title">Longitud</p>
-          <h6><?php include("ConnBaseDatos.php"); echo$fila9[0];?><?php include("ConnBaseDatos.php"); echo$fila10[0]; ?></h6>
+          <h6><?php include("ConnBaseDatos.php"); echo$fila9[0];?></h6>
         </div>
         <div class="card-header"> Estado Bateria <i class="fas fa-battery-three-quarters"></i></div>
         <div class="card-body">

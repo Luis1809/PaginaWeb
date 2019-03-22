@@ -1,3 +1,9 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+    header("Location: index.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -78,14 +84,14 @@
 
       </div>
 
-    </div>
+    <div>
       <div class="mt-5 container" id="googleMap" style="width:80%;height:400px;"></div>
       <script>
       function initMap() {
       var pucmm = {lat: 19.4410, lng: -70.6827};
       var map = new google.maps.Map(
-          document.getElementById('googleMap'), {zoom: 13, center: pucmm});
-      var marker = new google.maps.Marker({position: pucmm, map: map});
+          document.getElementById('googleMap'), {zoom: 10, center: pucmm});
+      // var marker = new google.maps.Marker({position: pucmm, map: map});
       }
       </script>
     </div>

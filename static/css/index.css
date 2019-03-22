@@ -1,0 +1,81 @@
+body{
+background-color: ;
+
+}
+
+.col-12im{
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+
+}
+
+.col-sm-8main{
+margin: 0 auto;
+margin-top: 25%;
+padding: 0;
+}
+
+.modal-content{
+background-color: #3b4652;
+opacity: .85;
+padding: 0.20px;
+box-shadow: 0px 0px 3px #848484;
+height: 400px;
+
+}
+
+.form-group input{
+height: 42px;
+font-size: 18px;
+padding-left: 54px;
+border-radius: 5px;
+}
+.form-group::before{
+  font-family: "font awesome\ 5 free";
+  position: absolute;
+  left:28px;
+  font-size: 22px;
+  padding-top: 5px;
+}
+
+.form-group#user-group::before{
+  content:"\f007";
+}
+
+.form-group#contrasena-group::before{
+  content:"\f023";
+}
+
+button{
+
+  width: 40%;
+  margin-right:200px;
+}
+
+
+
+.col-12ll{
+
+  margin-top: -210px;
+}
+.col-12reg{
+margin-top: -10px;
+
+}
+
+.col-12reg2{
+margin-top: -40px;
+margin-left: 20px;
+
+}
+.col-12forgot{
+margin-top: 18px;
+
+}
+.col-12but{
+
+  margin-left: 130px;
+  margin-top:   30px;
+  width: 100%;
+}

@@ -1,0 +1,75 @@
+<?php
+  session_start();
+  if($_SESSION['nc']==false){
+    header("Location: index.php");
+  }
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Reseteo de contraseña</title>
+    <!--JQUERY-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+        <!-- Los iconos tipo Solid de Fontawesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+        <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+        <!-- Nuestro css-->
+        <link rel="stylesheet" type="text/css" href="static/css/nuevacontra.css" th:href="@{static/css/index.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="modal-dialog text-center">
+      <div class="col-sm-main">
+          <div class="modal-content">
+              <form method="post" role="form" class="col-12" action="">
+                <div class="col-12ti">
+                <p class="text-left"> Cambia tu contraseña </p>
+              </div>
+                <div class="form-group" id= "user-group">
+                  <input required name="clave" type="password" class="form-control" placeholder="Nueva contraseña"/>
+                </div>
+                <div class="form-group" id="contrasena-group">
+                  <input required name="cclave" type="password" class="form-control" placeholder="Confirme contraseña"/>
+                </div>
+                <div class="col-12button" >
+                <button name="siguiente" type="submit" class="btn btn btn-secundary" > Resetear contraseña </button>
+              </div>
+              </form>
+              <?php
+                $codigo=$_SESSION['codigo'];
+                if(isset($_POST['siguiente'])){
+                  $clave = $_POST['clave'];
+                  $cclave = $_POST['cclave'];
+                  if($clave!=$cclave){
+                    echo '<script type="text/javascript">alert("Las contraseñas no son iguales")</script>';
+                    exit();
+                  }
+                  else{
+                    $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                    $query1 = ("UPDATE usuario set clave='$clave' where codigov = '$codigo';");
+                    $sql = pg_query($con,$query1);
+                    $query2 = ("UPDATE usuario SET codigov = null WHERE codigov = '$codigo';");
+                    $sql2 = pg_query($con,$query2);
+                    $_SESSION['nc']=false;
+                  }
+                  echo '<script type="text/javascript">
+                  alert("La contraseña ha sido actualizada")
+                  window.location="index.php";
+                  </script>';
+                }
+              ?>
+        </div>
+        </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+  </body>
+</html>
