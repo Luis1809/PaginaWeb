@@ -9,14 +9,122 @@
   <head>
     <meta charset="utf-8">
     <title>Localidades</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+
+      var service;
+      var infowindow;
+
+      function initMap() {
+        var place = new google.maps.LatLng(18.8969, -70.3714);
+        infowindow = new google.maps.InfoWindow();
+        window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8});
+
+      }
+
+      function createMarker(place) {
+        var marker = new google.maps.Marker({
+          map: window.map,
+          position: place.geometry.location
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name);
+          infowindow.open(map, this);
+        });
+      }
+
+      function reloadMap(place){
+        var request = {
+          query: place.join(),
+          fields: ['name', 'geometry'],
+        };
+        service = new google.maps.places.PlacesService(map);
+        service.findPlaceFromQuery(request, function(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            window.map.setCenter(results[0].geometry.location);
+            window.map.setZoom(10);
+          }
+        });
+      }
+
+      function reloadMapC(place){
+        var request = {
+          query: place.join(),
+          fields: ['name', 'geometry'],
+        };
+        service = new google.maps.places.PlacesService(map);
+        service.findPlaceFromQuery(request, function(results, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // for (var i = 0; i < results.length; i++) {
+            //   createMarker(results[i]);
+            // }
+            window.map.setCenter(results[0].geometry.location);
+            if(place.length==2){
+              window.map.setZoom(13);}
+            else {
+              window.map.setZoom(16);}
+          }
+        });
+      }
+
+    $(document).ready(function(){
+      $("#provi").change(function(){
+        var provincia = ($("#provi").val()).substr(0, 3);
+        var provincian = [($("#provi").val()).substr(3, 40),"Republica Dominicana"];
+        window.provincian = ($("#provi").val()).substr(3, 40);
+        reloadMap(provincian);
+          $.ajax({
+            url: 'FuncionesProv.php',
+            method: 'post',
+            data: 'provincia=' +provincia,
+          }).done(function(Ciudades){
+          console.log(Ciudades);
+          Ciudades = JSON.parse(Ciudades);
+          $('#Ciudades').empty();
+          $('#Sectores').empty();
+          $('#Sectores').append('<option selected="" disabled="">Seleccione una ciudad</option>')
+          $('#Ciudades').append('<option selected="" disabled="">Ciudad</option>')
+          Ciudades.forEach(function(Ciudad){
+            $('#Ciudades').append('<option>' + Ciudad.nombre + '</option>')
+          })
+        })
+      })
+    $("#Ciudades").change(function(){
+        var Ciudades = $("#Ciudades").val();
+        window.Ciudades = $("#Ciudades").val();
+        var place = [Ciudades,window.provincian];
+        reloadMapC(place);
+          $.ajax({
+            url: 'FuncionesProv.php',
+            method: 'post',
+            data: 'Ciudades=' +Ciudades
+          }).done(function(Sectores){
+          console.log(Sectores);
+          Sectores = JSON.parse(Sectores);
+          $('#Sectores').empty();
+          $('#Sectores').append('<option selected="" disabled="">Sector</option>')
+          Sectores.forEach(function(Sector){
+            $('#Sectores').append('<option>' + Sector.nombre + '</option>')
+          })
+        })
+      })
+    $("#Sectores").change(function(){
+        var Sectores = $("#Sectores").val();
+        var place = [Sectores,window.Ciudades,window.provincian];
+        reloadMapC(place);
+      })
+    })
+    </script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&callback=initMap">
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&libraries=places&callback=initMap">
 </script>
 
   </head>
@@ -56,44 +164,41 @@
 
     <h3></h3>
     <br><br><br>
+    <form class="col-12" role="form" method="post" action="">
     <div class="container">
       <div>
-        <button class=" dropdown text-center btn btn-secondary dropdown-toggle" type="button" style="width:40%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Cuidad
-        </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
 
+        <select name="provi" id="provi" class=" dropdown text-center btn btn-secondary dropdown-toggle" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <option selected="" disabled="">Provincia</option>
+           <?php
+           require 'FuncionesProv.php';
+           $sql = Prov();
+           foreach ($sql as $rs){
+                  echo'<option id="'.$rs['prov_id'].'" value="'.$rs['prov_id'], $rs['nombre'].'">'.$rs['nombre'].'</option>';
 
-        <button class=" dropdown text-center btn btn-secondary dropdown-toggle ml-5" style="width:40%;" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sector
-        </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+             }
+           ?>
+        </select>
 
-          <button class="btn btn-secondary ml-5" style="width:10%;" type="button" id="GO"  >
-            Visitar
-          </button>
-      </div>
+        <select name="Ciudades" id="Ciudades" class=" dropdown text-center btn btn-secondary dropdown-toggle ml-5" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <option selected="" disabled="">Seleccione una provincia</option>
+
+        </select>
+
+        <select name="Sectores" id="Sectores" class=" dropdown text-center btn btn-secondary dropdown-toggle ml-5" style="width:30%;" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <option selected="" disabled="">Seleccione una ciudad</option>
+          </select>
 
       </div>
 
+      </div>
+      </form>
     <div>
       <div class="mt-5 container" id="googleMap" style="width:80%;height:400px;"></div>
       <script>
-      function initMap() {
-      var pucmm = {lat: 19.4410, lng: -70.6827};
-      var map = new google.maps.Map(
-          document.getElementById('googleMap'), {zoom: 10, center: pucmm});
-      // var marker = new google.maps.Marker({position: pucmm, map: map});
-      }
+
       </script>
+
     </div>
   </body>
 </html>
