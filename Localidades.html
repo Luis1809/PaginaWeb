@@ -18,21 +18,18 @@
 
       function initMap() {
         var place = new google.maps.LatLng(18.8969, -70.3714);
-        infowindow = new google.maps.InfoWindow();
+        var contenido = 'CFMS '
+        var conterido2 = '\n Sistema Principal'
         window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8});
-
-      }
-
-      function createMarker(place) {
-        var marker = new google.maps.Marker({
-          map: window.map,
-          position: place.geometry.location
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
-          infowindow.open(map, this);
-        });
+        //for (var i = 0; i < results.length; i++) {
+          var sistema = new google.maps.LatLng((<?php include("ConnBaseDatos.php");echo$fila7[0];?>)-0.0002,<?php include("ConnBaseDatos.php");echo$fila9[0];?>);
+          var marker = new google.maps.Marker({position: sistema, map: window.map});
+          var infoWindow= new google.maps.InfoWindow(
+            {content:
+              contenido.bold()+''+conterido2});
+          marker.addListener('click',function(){
+            infoWindow.open(window.map,marker);
+          });
       }
 
       function reloadMap(place){
@@ -57,9 +54,6 @@
         service = new google.maps.places.PlacesService(map);
         service.findPlaceFromQuery(request, function(results, status) {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            // for (var i = 0; i < results.length; i++) {
-            //   createMarker(results[i]);
-            // }
             window.map.setCenter(results[0].geometry.location);
             if(place.length==2){
               window.map.setZoom(13);}
@@ -143,7 +137,7 @@
           <a class="nav-link text-white" href="Localidades.html"> Localidades </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#"> Valores Historicos (BD) </a>
+          <a class="nav-link text-white" href="valoresh.html"> Valores Historicos (BD) </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#"> Contacto </a>

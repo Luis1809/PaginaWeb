@@ -1,0 +1,128 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+    header("Location: index.php");
+  }
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Localidades</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <link href="pagination/css/pagination.css" rel="stylesheet" type="text/css" />
+    <link href="pagination/css/A_green.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <span class="navbar-brand text-light "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="Localidades.html"> Localidades </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="valoresh.html"> Valores Historicos (BD) </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#"> Contacto </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#"> Sobre Nosotros </a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search
+        </button>
+      </form>
+      </div>
+      <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
+      ALL-RIGHTS RESERVED 2019</p>
+    </nav>
+
+    <h3></h3>
+    <br><br><br>
+    <form class="col-12" role="form" method="post" action="">
+    <div class="container">
+
+<table class="table">
+  <thead class="bg-secondary">
+    <tr>
+      <th scope="col">#</th>
+      <th class="text-sm-center" scope="col">Hora y Fecha</th>
+      <th class="text-sm-center" scope="col">Ultrasonico</th>
+      <th class="text-sm-center" scope="col">Lluvia</th>
+      <th class="text-sm-center" scope="col">Temperatura CPU</th>
+      <th class="text-sm-center" scope="col">Carga CPU</th>
+      <th class="text-sm-center" scope="col">Porcentaje de bateria</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php
+
+        include("PagFunc.php");
+        $page = (int) (!isset($_GET["page"]) ? 1 : $_GET["page"]);
+        $limit = 8;
+        $startpoint= ($page * $limit) - $limit;
+
+        $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+        $query1 = ("CREATE TEMPORARY VIEW datos AS SELECT datos_ultrasonicos.profundida_act,
+          datos_pluviometro.movimiento, datos_micro.cpu_usage, datos_micro.cpu_temp, datos_micro.hora,
+          datos_micro.fecha, datos_bateria.porcentaje FROM datos_ultrasonicos, datos_pluviometro,
+          datos_micro, datos_bateria WHERE datos_ultrasonicos.fecha = datos_pluviometro.fecha AND
+          datos_pluviometro.fecha = datos_micro.fecha AND datos_micro.fecha = datos_bateria.fecha
+          AND datos_ultrasonicos.hora = datos_pluviometro.hora AND datos_pluviometro.hora =
+          datos_micro.hora AND datos_micro.hora = datos_bateria.hora;");
+        $cview = pg_query($con,$query1);
+        $statement = ("datos");
+        $query2 = ("SELECT * FROM {$statement} LIMIT {$limit} OFFSET {$startpoint};");
+        $view = pg_query($con,$query2);
+        if(pg_num_rows($view)){
+          $rs = pg_fetch_all($view);
+          $numero=0;
+          foreach ($rs as $dt){
+            echo '<tr><th scope="row">'.++$numero.
+              '</th><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
+              '</td><td class="text-sm-center">'.$dt['profundida_act']. ' cm ' .
+              '</td><td class="text-sm-center">'.$dt['movimiento']. ' ml ' .
+              '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .
+              '</td><td class="text-sm-center">'.$dt['cpu_usage']. ' % ' .
+              '</td><td class="text-sm-center">'.$dt['porcentaje']. ' % ' .
+              '</td></tr>';
+          }
+        }
+        else{
+          echo '<script type="text/javascript">alert("No se encontraron datos en el sistema, intente mas tarde")
+          window.location="Inicio.html";</script>';
+        }
+      ?>
+    </tbody>
+  </table>
+    <br>
+        <div>
+          <ul class="pagination d-flex justify-content-center">
+            <?php
+              echo "<li class='page-item active' id='pagingg'>";
+              echo pagination($statement,$limit,$page);
+              echo "</li>";
+            ?>
+          </ul>
+        </div>
+      <br>
+      </div>
+    </form>
+  </body>
+</html>
