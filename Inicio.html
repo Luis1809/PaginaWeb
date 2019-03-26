@@ -21,10 +21,10 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&callback=initMap"></script>
 
     <script type="text/javascript">
-      var elemento = ['ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','load_cpu','hora','fecha'];
+      var elemento = ['ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','load_cpu','hora','fecha','rango_i','rango_s'];
       $(document).ready(function(){
         setInterval(function(){
-          for (i = 0; i < 9; i++){
+          for (i = 0; i < 11; i++){
           $('#'+elemento[i]).load('query/'+elemento[i]+'.php')}
         }, 10000);
       });
@@ -77,7 +77,13 @@
           <h6 id="ultrasonico"> <?php include("ConnBaseDatos.php"); echo$fila1[0]; ?> cm </h6>
           <hr>
           <p class="card-title">Rango Seguro</p>
-          <h6 id="altsegura"> 400-200 cm </h6>
+          <!-- <h6 id="altsegura"> <?php include("ConnBaseDatos.php"); echo$fila12[0]; ?> - <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </h6> -->
+          <div style="overflow: hidden;">
+            <p style="float: left;" id="rango_i" ><?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>&nbsp;</p>
+
+            <p style="float: center;" id="rango_s">- <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </p>
+
+          </div>
           <hr>
           <p class="card-title">Lluvia Caida</p>
           <p class="text-muted"> (Ultimas 24 horas) </p><p id="pluviometro"> <?php include("ConnBaseDatos.php"); echo$fila2[0]; ?> ml </p>
@@ -95,19 +101,14 @@
       <div id="googleMap" style="max-width:40rem; height:200px;">
       <script type="text/javascript">
       function initMap() {
-        // setInterval(function(){}, 10000);
-          var olat = document.getElementById("latitud").value;
-          console.log(olat);
-          var olng = document.getElementById("longitud").value;
-
-      var pucmm = {lat: 18 ,lng: -17 };
-      var map = new google.maps.Map(
-          document.getElementById('googleMap'), {zoom: 15, center: pucmm});
-      var marker = new google.maps.Marker({position: pucmm, map: map});
-         var infoWindow= new google.maps.InfoWindow({content:"Sistema principal"});
-         marker.addListener('click',function(){
-           infoWindow.open(map,marker);
-         });
+          var sistema = new google.maps.LatLng((<?php include("ConnBaseDatos.php");echo$fila7[0];?>)-0.0002,<?php include("ConnBaseDatos.php");echo$fila9[0];?>);
+          window.map = new google.maps.Map(
+            document.getElementById('googleMap'), {zoom: 15, center: sistema});
+          var marker = new google.maps.Marker({position: sistema, map: window.map});
+          var infoWindow= new google.maps.InfoWindow({content:"Sistema principal"});
+          marker.addListener('click',function(){
+          infoWindow.open(window.map,marker);
+        });
       }
       </script>
       </div>

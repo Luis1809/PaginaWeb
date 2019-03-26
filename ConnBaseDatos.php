@@ -18,6 +18,10 @@ $query7 = ("SELECT latitud FROM datos_gps WHERE datos_g_id = (SELECT MAX(datos_g
 $query9 = ("SELECT longitud FROM datos_gps WHERE datos_g_id = (SELECT MAX(datos_g_id) FROM datos_gps);");
 #Porc_Bateria
 $query11 = ("SELECT porcentaje FROM datos_bateria WHERE id = (SELECT MAX(id) FROM datos_bateria);");
+#Rango_i
+$query12 = ("SELECT rango_i FROM micro WHERE id = 600;");
+#Rango_s
+$query13 = ("SELECT rango_s FROM micro WHERE id = 600;");
 
 $Ultrasonido = pg_query($con,$query1);
 $Pluviometro = pg_query($con,$query2);
@@ -28,6 +32,8 @@ $fecha = pg_query($con,$query6);
 $latitud = pg_query($con,$query7);
 $longitud = pg_query($con,$query9);
 $Porc_bateria = pg_query($con,$query11);
+$rango_i = pg_query($con,$query12);
+$rango_s = pg_query($con,$query13);
 
 $fila1= pg_fetch_row($Ultrasonido);
 $fila2= pg_fetch_row($Pluviometro);
@@ -38,6 +44,9 @@ $fila6= pg_fetch_row($fecha);
 $fila7= pg_fetch_row($latitud);
 $fila9= pg_fetch_row($longitud);
 $fila11= pg_fetch_row($Porc_bateria);
+$fila12= pg_fetch_row($rango_i);
+$fila13= pg_fetch_row($rango_s);
+
 
 pg_close($con);
 ?>
