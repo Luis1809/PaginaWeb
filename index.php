@@ -82,6 +82,7 @@
                             header("location: Inicio.html");}
                           if($privilegio==2){
                             $_SESSION['user']=$username;
+                            $_SESSION['privilegio']=$privilegio;
                             header("location: administrador.html");}
                         }
                         else

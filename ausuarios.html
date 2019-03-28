@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
   session_start();
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
     header("Location: index.php");
   }
 ?>
@@ -25,8 +25,7 @@
   <!-- CSS Files -->
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="../assets/js/uikit-icons.min.js"></script>
 </head>
 
 <body class="">
@@ -199,12 +198,13 @@
                               '</td><td class="text-sm-center">'.$dt['correo'].
                               '</td><td class="text-sm-center">'.$dt['privilegio'].
                               '</td><td class="text-sm-center">'.$fila1[0].
+                              '</td><td>'.'<a href="borrarusuario.php?id='.$dt["id"].'"><i class="far fa-trash-alt" style="color:#E63462;"></i></a>'.
                               '</td></tr>';
                           }
                         }
                         else{
                           echo '<script type="text/javascript">alert("No se encontraron datos en el sistema, intente mas tarde")
-                          window.location="Inicio.html";</script>';
+                          window.location="administrador.html";</script>';
                         }
                       ?>
                     </tbody>

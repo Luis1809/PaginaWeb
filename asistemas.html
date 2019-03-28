@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
   session_start();
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
     header("Location: index.php");
   }
 ?>
@@ -189,12 +189,13 @@
                               '</td><td id="load_cpu2" class="text-sm-center">'.$fila[1].' % '.
                               '</td><td id="rango_i2" class="text-sm-center">'.$dt['rango_i'].' cm '.
                               '</td><td id="rango_s" class="text-sm-center">'.$dt['rango_s'].' cm '.
+                                '</td><td>'.'<a href="modificarsistema.php?id='.$dt["id"].'"><i class="far fa-edit" style="color:#ff963e ;"></i></a>'.
                               '</td></tr>';
                           }
                         }
                         else{
                           echo '<script type="text/javascript">alert("No se encontraron datos en el sistema, intente mas tarde")
-                          window.location="Inicio.html";</script>';
+                          window.location="administrador.html";</script>';
                         }
                       ?>
                       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
