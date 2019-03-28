@@ -14,7 +14,7 @@
 	ul.pagination li a
 	{
         color: #fff;
-		background:#4CAF50;
+		background:#c0c0c0;
 		background:-moz-linear-gradient(top,#c0c0c0,#848484);
 		background:-webkit-gradient(linear,0 0,0 100%,from(#c0c0c0),to(#848484));
 	}
@@ -22,6 +22,6 @@
 	ul.pagination li a:hover,
 	ul.pagination li a.current
 	{
-		color:#4F7119;
-		background:#E7F2C7;
+		color:#c0c0c0;
+		background:#848484;
 	}

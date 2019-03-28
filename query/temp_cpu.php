@@ -3,7 +3,7 @@ $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=P
 $query4 = ("SELECT cpu_temp FROM datos_micro WHERE id = (SELECT MAX(id) FROM datos_micro);");
 $CPU_temp = pg_query($con,$query4);
 $fila4= pg_fetch_row($CPU_temp);
-$str= ' °C &nbsp;';
+$str= ' °C ';
 echo$fila4[0].$str;
 pg_close($con);
 ?>

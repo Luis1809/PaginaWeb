@@ -42,12 +42,27 @@
         <li class="nav-item">
           <a class="nav-link text-white" href="#"> Sobre Nosotros </a>
         </li>
-      </ul>
+        </ul>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search
         </button>
       </form>
+      <p>&nbsp;&nbsp;</p>
+      <form method="post">
+        <button name="csesion" type="submit" class="btn btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
+      </form>
+        <?php
+          if(isset($_POST['csesion'])){
+            $_SESSION['loggedin']=false;
+            echo '<script type="text/javascript">
+            window.location="index.php";
+            </script>';
+          }
+        ?>
+      </div>
       </div>
       <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
       ALL-RIGHTS RESERVED 2019</p>

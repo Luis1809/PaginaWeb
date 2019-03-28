@@ -51,6 +51,7 @@
 
                 <div class="col-12but">
                      <button name="login" type="submit" class="btn btn btn-secundary"><i class="fas fa-sign-in-alt"> </i>  Ingresar  </button>
+                </div>
               <div class="col-12forgot">
                 <a  href="forget.html"  role="botton"> Olvidaste tu contraseña?</a>
               </div>
@@ -67,6 +68,7 @@
                       $rs=pg_fetch_array($sql);
                       $username= strtolower($rs['nombre_usu']);
                       $password= $rs['clave'];
+                      $privilegio= $rs['privilegio'];
 
                       if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']== true){
                         header("Location: Inicio.html");
@@ -75,7 +77,12 @@
                       if(isset($useri) && isset($passi)){
                         if ($useri == $username && $passi == $password){
                           $_SESSION['loggedin']=true;
-                          header("location: Inicio.html");
+                          if($privilegio==1){
+                            $_SESSION['usuario']=$username;
+                            header("location: Inicio.html");}
+                          if($privilegio==2){
+                            $_SESSION['user']=$username;
+                            header("location: administrador.html");}
                         }
                         else
                         {

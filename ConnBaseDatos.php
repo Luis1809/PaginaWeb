@@ -47,6 +47,5 @@ $fila11= pg_fetch_row($Porc_bateria);
 $fila12= pg_fetch_row($rango_i);
 $fila13= pg_fetch_row($rango_s);
 
-
 pg_close($con);
 ?>
