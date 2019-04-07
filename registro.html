@@ -86,7 +86,7 @@
 
     </head>
     <body>
-      <div class="modal-dialog text-center">
+      <div class="modal-dialog text-center container-fluid">
           <div class="col-sm-main">
               <div class="modal-content">
 
@@ -95,16 +95,16 @@
                     <p class="text-left"> Crea una cuenta </p>
                   </div>
 
-                  <div class="form-groupna">
+                  <div class="form-groupus">
                     <input required id="username" name="username" type="text" class="form-control" placeholder="Nombre Usuario"/>
                     <!-- value="<?php if(isset($_POST['registro'])){echo $usuario;}?>"/> -->
                   </div>
 
-                  <div class="form-groupna">
+                  <div class="form-groupcon">
                     <input required type="password" name="clave" class="form-control" placeholder="Contrasena"/>
                   </div>
 
-                  <div class="form-groupna">
+                  <div class="form-groupconcon">
                     <input required type="password" name="cclave" class="form-control" placeholder="Confirme Contrasena"/>
                   </div>
 
@@ -132,8 +132,8 @@
                       <input required type="text"  name="direccion" class="form-control" placeholder="Direccion"/>
                    </div>
 
-                      <div class="dropdown">
-                      <select type="button" name="provi" id="provi" class="dropdown text-center btn btn-secondary dropdown-toggle ml-1" style="width:80%;"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="dropdownprov">
+                      <select type="button" name="provi" id="provi" class="dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <option selected="" disabled="">Provincia</option>
                             <?php
                             require 'FuncionesProv.php';
@@ -145,20 +145,20 @@
                       </select>
                       </div>
 
-                      <div class="dropdown">
-                      <select type="button" name="Ciudades" id="Ciudades" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" style="width:80%;"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="dropdownci">
+                      <select type="button" name="Ciudades" id="Ciudades" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option selected="" disabled="">Seleccione una provincia</option>
                       </select>
                       </div>
 
-                      <div class="dropdown">
-                      <select type="button" name="Sectores" id="Sectores" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" style="width:80%;"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="dropdownse">
+                      <select type="button" name="Sectores" id="Sectores" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option selected="" disabled="">Seleccione una ciudad</option>
                       </select>
                       </div>
 
-                      <div class="dropdown">
-                      <select type="button" name="sexo" id="sexo" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" style="width:80%;"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <div class="dropdownsex">
+                      <select type="button" name="sexo" id="sexo" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <option selected="" disabled="">Sexo</option>
                            <option>Masculino</option>
                            <option>Femenino</option>

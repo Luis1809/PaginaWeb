@@ -4,10 +4,8 @@ background-color: ;
 }
 
 .col-12im{
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 30px;
-
-
 }
 
 .col-sm-8main{
@@ -21,7 +19,7 @@ background-color: #3b4652;
 opacity: .85;
 padding: 0.20px;
 box-shadow: 0px 0px 3px #848484;
-height: 400px;
+height: 465px;
 
 }
 
@@ -53,10 +51,7 @@ button{
   margin-right:200px;
 }
 
-
-
 .col-12ll{
-
   margin-top: -210px;
 }
 .col-12reg{
@@ -64,18 +59,20 @@ margin-top: -10px;
 
 }
 
+.col-12ing{
+  margin-top: 20px;
+  margin-left: 13px;
+}
+
+.col-12cfms{
+  margin-top: 20px;
+  margin-left: 13px;
+}
+
 .col-12reg2{
 margin-top: -40px;
 margin-left: 20px;
-
 }
 .col-12forgot{
 margin-top: 18px;
-
-}
-.col-12but{
-
-  margin-left: 130px;
-  margin-top:   30px;
-  width: 100%;
 }

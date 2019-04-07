@@ -28,7 +28,9 @@
     <div class="modal-dialog text-center">
       <div class="col-sm-8main">
           <div class="modal-content">
-
+            <div class="col-12cfms">
+                      <h3><b>Cities Flood Monitoring System</b></h3>
+            </div>
             <div class="col-12im">
                 <img src="static/image/users.png" width="100" height="100"/>
 
@@ -49,7 +51,7 @@
                           <a  href="registro.html"  role="botton">  Registrate Ya</a>
                 </div>
 
-                <div class="col-12but">
+                <div class="col-12ing">
                      <button name="login" type="submit" class="btn btn btn-secundary"><i class="fas fa-sign-in-alt"> </i>  Ingresar  </button>
                 </div>
               <div class="col-12forgot">
