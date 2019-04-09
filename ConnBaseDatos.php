@@ -3,7 +3,7 @@ $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=P
 #Valor Ultrasonido
 $query1 = ("SELECT profundida_act FROM datos_ultrasonicos WHERE datos_u_id = (SELECT MAX(datos_u_id) FROM datos_ultrasonicos);");
 #Valor Pluviometro
-$query2 = ("SELECT movimiento FROM datos_pluviometro WHERE datos_p_id = (SELECT MAX(datos_p_id) FROM datos_pluviometro);");
+$query2 = ("SELECT COALESCE(SUM(movimiento::jsonb::int),0) FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '1 day'::INTERVAL;");
 #Valor CPULoad
 $query3 = ("SELECT cpu_usage FROM datos_micro WHERE id = (SELECT MAX(id) FROM datos_micro);");
 #Valor CPUTemp
