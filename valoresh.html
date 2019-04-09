@@ -79,7 +79,7 @@
       <th scope="col">#</th>
       <th class="text-sm-center" scope="col">Hora y Fecha</th>
       <th class="text-sm-center" scope="col">Ultrasonico</th>
-      <th class="text-sm-center" scope="col">Lluvia</th>
+      <th class="text-sm-center" scope="col">Cant Lluvia</th>
       <th class="text-sm-center" scope="col">Temperatura CPU</th>
       <th class="text-sm-center" scope="col">Carga CPU</th>
       <th class="text-sm-center" scope="col">Porcentaje de bateria</th>
@@ -113,7 +113,7 @@
             echo '<tr><th scope="row">'.++$numero.
               '</th><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
               '</td><td class="text-sm-center">'.$dt['profundida_act']. ' cm ' .
-              '</td><td class="text-sm-center">'.($dt['Cant Lluvia'])*3.3630. ' mm ' .
+              '</td><td class="text-sm-center">'.($dt['movimiento'])*3.3630. ' mm ' .
               '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .
               '</td><td class="text-sm-center">'.$dt['cpu_usage']. ' % ' .
               '</td><td class="text-sm-center">'.$dt['porcentaje']. ' % ' .
