@@ -101,6 +101,7 @@
           datos_pluviometro.fecha = datos_micro.fecha AND datos_micro.fecha = datos_bateria.fecha
           AND datos_ultrasonicos.hora = datos_pluviometro.hora AND datos_pluviometro.hora =
           datos_micro.hora AND datos_micro.hora = datos_bateria.hora;");
+
         $cview = pg_query($con,$query1);
         $statement = ("datos");
         $query2 = ("SELECT * FROM {$statement} LIMIT {$limit} OFFSET {$startpoint};");
@@ -112,7 +113,7 @@
             echo '<tr><th scope="row">'.++$numero.
               '</th><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
               '</td><td class="text-sm-center">'.$dt['profundida_act']. ' cm ' .
-              '</td><td class="text-sm-center">'.$dt['movimiento']. ' mm ' .
+              '</td><td class="text-sm-center">'.$dt['Cant Lluvia']. ' mm ' .
               '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .
               '</td><td class="text-sm-center">'.$dt['cpu_usage']. ' % ' .
               '</td><td class="text-sm-center">'.$dt['porcentaje']. ' % ' .
