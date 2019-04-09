@@ -113,7 +113,7 @@
             echo '<tr><th scope="row">'.++$numero.
               '</th><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
               '</td><td class="text-sm-center">'.$dt['profundida_act']. ' cm ' .
-              '</td><td class="text-sm-center">'.$dt['Cant Lluvia']. ' mm ' .
+              '</td><td class="text-sm-center">'.($dt['Cant Lluvia'])*3.3630. ' mm ' .
               '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .
               '</td><td class="text-sm-center">'.$dt['cpu_usage']. ' % ' .
               '</td><td class="text-sm-center">'.$dt['porcentaje']. ' % ' .
