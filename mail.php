@@ -1,6 +1,6 @@
 <?php
 $subject = "Cities Flood Monitoring System";
-$link = "http://socketproy.ddns.net/veri.html";
+$link = "http://cfms.sytes.net/veri.html";
 $recipient_email = $_SESSION['correo'];
 $email = "lrivera.18@hotmail.com";
 
