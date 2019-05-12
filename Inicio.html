@@ -20,10 +20,10 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&callback=initMap"></script>
 
     <script type="text/javascript">
-      var elemento = ['ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','load_cpu','hora','fecha','rango_i','rango_s'];
+      var elemento = ['ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','load_cpu','hora','fecha','rango_i','rango_s','foto'];
       $(document).ready(function(){
         setInterval(function(){
-          for (i = 0; i < 11; i++){
+          for (i = 0; i < 12; i++){
           $('#'+elemento[i]).load('query/'+elemento[i]+'.php')}
         }, 10000);
       });
@@ -134,18 +134,19 @@
       <br>
 
       <div>
-          <?php
-            global $path;    // path to directory has to be global, using it later in html
-            $dir = "C:\Apache24\htdocs\Fotos";
-            $files = scandir($dir, 1);                // read directory backkwards
-            $picture = ($files[0]);                   // get las picture file name
-            $path = "C:\Apache24\htdocs\Fotos";
 
-            echo ' <img width="540" height="275" class="alignnone size-large" src="../Fotos/'.$picture.'"> '
-          ?>
+        <p id="foto" >
+        <?php
+          global $path;    // path to directory has to be global, using it later in html
+          $dir = "C:\Apache24\htdocs\Fotos";
+          $files = scandir($dir, 1);                // read directory backkwards
+          $picture = ($files[0]);                   // get las picture file name
+          $path = "C:\Apache24\htdocs\Fotos";
 
+          echo ' <img width="540" height="280" class="alignnone size-large" src="../Fotos/'.$picture.'"> '
+        ?>
+        <p>
       </div>
-
 
     </div>
 
