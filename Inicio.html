@@ -7,6 +7,7 @@
 ?>
 <html lang="en" dir="ltr">
   <head>
+
     <!-- <meta http-equiv="refresh" content="10"> -->
     <meta charset="utf-8">
     <title>Cities Flood Monitoring System</title>
@@ -28,6 +29,86 @@
         }, 10000);
       });
     </script>
+
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+    var checkbox = document.querySelector('input[type="checkbox"]');
+
+    checkbox.addEventListener('change', function () {
+      if (checkbox.checked) {
+          $("#video").show();
+          $("#foto").hide();
+          console.log('Checked');
+      } else {
+          $("#foto").show();
+          $("#video").hide();
+          console.log('Not checked');
+      }
+    });
+    });
+    </script>
+
+    <style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 25px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  </style>
 
   </head>
   <body>
@@ -126,16 +207,23 @@
       </script>
       </div>
 
-      <!--<div class="embed-responsive embed-responsive-16by9">
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+
+      <div id="video" class="embed-responsive embed-responsive-16by9">
+      <script  type="text/javascript">
+          $("#video").hide()
+      </script>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/live_stream?channel=UConA6Kxl3__1D07oaaNgFzA&autoplay=1"
         frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>--> <!-- Video youtube-->
+      </div> <!-- Video youtube -->
 
       <br>
 
-      <div>
-
-        <p id="foto" >
+      <div id="foto">
+        <p>
         <?php
           global $path;    // path to directory has to be global, using it later in html
           $dir = "C:\Apache24\htdocs\Fotos";
@@ -146,7 +234,7 @@
           echo ' <img width="540" height="280" class="alignnone size-large" src="../Fotos/'.$picture.'"> '
         ?>
         <p>
-      </div>
+      </div> <!-- Foto -->
 
     </div>
 
