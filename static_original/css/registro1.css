@@ -1,0 +1,134 @@
+body{
+background-color: ;
+
+}
+
+.col-12im{
+  margin-top: 10px;
+  margin-bottom: 30px;
+
+
+}
+
+.col-sm-8main{
+margin: 0 auto;
+margin-top: 35%;
+padding: 0;
+}
+
+.modal-content{
+background-color: #3b4652;
+opacity: .85;
+padding: 0.20px;
+box-shadow: 0px 0px 3px #848484;
+height: 665px;
+width: 900px;
+margin-left: -200px;
+
+}
+
+.col-12ti{
+  margin-top: 30px;
+}
+
+.form-groupus{
+  width: 45%;
+  margin-top: 35px;
+  height: 35px;
+
+
+}
+
+.form-groupcon{
+  width: 42%;
+  margin-left: 450px;
+  margin-top: -33px;
+height: 35px;
+}
+
+.form-groupconcon{
+  width: 45%;
+  margin-top: 30px;
+height: 35px;
+}
+
+.form-groupna{
+  width: 45%;
+  margin-top: 30px;
+  height: 35px;
+}
+
+.form-groupapp{
+  width: 45%;
+  margin-top: -34px;
+  margin-left: 450px;
+  height: 35px;
+}
+
+.form-groupcorreo{
+  width: 97%;
+  margin-top: 30px;
+height: 35px;
+
+}
+
+.form-groupcel{
+  width: 45%;
+  margin-top: 30px;
+height: 35px;
+}
+
+.form-grouptel{
+  width: 45%;
+  margin-top: -38px;
+  margin-left: 450px;
+  height: 35px;
+}
+
+.col-12button{
+
+  margin-top: 400px;
+}
+
+.form-groupdir{
+  width: 97%;
+  margin-top: 30px;
+
+}
+
+.dropdown{
+  width: 45%;
+  margin-top: 30px;
+  margin-left: -100px;
+}
+
+.dropdownprov{
+  width: 100%;
+  margin-left: -240PX;
+
+
+}
+
+.dropdownci{
+ width: 45%;
+ margin-top: -68px;
+margin-left: 450px;
+}
+
+.dropdownse{
+width: 45%;
+margin-left: -5px;
+}
+
+.dropdownsex{
+
+width: 45%;
+margin-left: 450px;
+margin-top: -67px;
+
+}
+
+.col-12button{
+
+  margin-top: 30px;
+}

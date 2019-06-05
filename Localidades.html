@@ -1,8 +1,8 @@
-<?php
-  session_start();
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-    header("Location: index.php");
-  }
+ <?php
+session_start();
+  /*if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+    header("Location: index.php");}*/
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -11,6 +11,7 @@
     <title>Localidades</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <script type="text/javascript">
 
       var service;
@@ -123,38 +124,34 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-      <span class="navbar-brand text-light "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
+    <style type="text/css">
+       body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link text-white" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-dark" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="Localidades.html"> Localidades </a>
+          <a class="nav-link text-dark" href="Localidades.html"> Localidades </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="valoresh.html"> Valores Historicos (BD) </a>
+          <a class="nav-link text-dark" href="valoresh.html"> Valores Historicos (BD) </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link text-white" href="#"> Contacto </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#"> Sobre Nosotros </a>
+          <a class="nav-link text-dark" href="nosotros.html">Nosotros </a>
         </li>
       </ul>
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search
-        </button>
-      </form>
       <p>&nbsp;&nbsp;</p>
       <form method="post">
-        <button name="csesion" type="submit" class="btn btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
+        <button id="cerrarc" name="csesion" type="submit" class="btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
       </form>
         <?php
           if(isset($_POST['csesion'])){
@@ -163,7 +160,37 @@
             window.location="index.php";
             </script>';
           }
+          if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+          echo  '<script type="text/javascript">
+          $("#cerrarc").hide()
+          </script>';
+        }
+
         ?>
+
+        <form method="post">
+        <button  id="iniciar" name="iniciar" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Iniciar sesion</button>
+      </form>
+      <?php
+        if(isset($_POST['iniciar'])){
+          $_SESSION['loggedin']=false;
+          echo '<script type="text/javascript">
+          window.location="index.php";
+          </script>';
+        }
+
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+  echo  '<script type="text/javascript">
+  $("#iniciar").show()
+  </script>';
+  }
+  else
+  {
+    echo  '<script type="text/javascript">
+    $("#iniciar").hide()
+    </script>';
+  }
+  ?>
       </div>
       </div>
       <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
@@ -176,7 +203,7 @@
     <div class="container">
       <div>
 
-        <select name="provi" id="provi" class=" dropdown text-center btn btn-secondary dropdown-toggle" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <select name="provi" id="provi" class=" dropdown text-center btn btn-info  dropdown-toggle" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <option selected="" disabled="">Provincia</option>
            <?php
            require 'FuncionesProv.php';
@@ -188,12 +215,12 @@
            ?>
         </select>
 
-        <select name="Ciudades" id="Ciudades" class=" dropdown text-center btn btn-secondary dropdown-toggle ml-5" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <select name="Ciudades" id="Ciudades" class=" dropdown text-center btn btn-info dropdown-toggle ml-5" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <option selected="" disabled="">Seleccione una provincia</option>
 
         </select>
 
-        <select name="Sectores" id="Sectores" class=" dropdown text-center btn btn-secondary dropdown-toggle ml-5" style="width:30%;" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <select name="Sectores" id="Sectores" class=" dropdown text-center btn btn-info dropdown-toggle ml-5" style="width:30%;" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <option selected="" disabled="">Seleccione una ciudad</option>
           </select>
 

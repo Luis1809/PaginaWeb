@@ -40,22 +40,18 @@
                   <input type="text" name="user" class="form-control" placeholder="Nombre de Usuario" required>
                 </div>
 
+                <div>
                 <div class="form-group" id="contrasena-group">
                   <input type="password" name="pass" class="form-control" placeholder="Contraseña" required>
                 </div>
 
                 <div class="col-12reg">
-                                <p class="text-left"> Aun no tienes una cuenta?</p>
-                </div>
-                <div class="col-12reg2">
-                          <a  href="registro.html"  role="botton">  Registrate Ya</a>
-                </div>
+                                <p class="text-left"> Aun no tienes una cuenta?<a  href="registro.html"  role="botton">  Registrate Ya</a><br>
+                                <p style="text-align:center"><button  name="login" type="submit" class="btn btn btn-secundary"><i class="fas fa-sign-in-alt"> </i>  Ingresar  </button><br>
+                                <a  href="inicio.html"  role="botton">  Acceder sin Credenciales</a><br></p>
 
-                <div class="col-12ing">
-                     <button name="login" type="submit" class="btn btn btn-secundary"><i class="fas fa-sign-in-alt"> </i>  Ingresar  </button>
+                                <a  href="forget.html"  role="botton"> Olvidaste tu contraseña?</a>
                 </div>
-              <div class="col-12forgot">
-                <a  href="forget.html"  role="botton"> Olvidaste tu contraseña?</a>
               </div>
             </form>
 

@@ -1,8 +1,8 @@
 <?php
   session_start();
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+  /*if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
     header("Location: index.php");
-  }
+  }*/
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -20,39 +20,36 @@
     <link href="pagination/css/A_green.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-      <span class="navbar-brand text-light "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
+    <style type="text/css">
+       body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link text-white" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
+          <a class="nav-link text-dark" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="Localidades.html"> Localidades </a>
+          <a class="nav-link text-dark" href="Localidades.html"> Localidades </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="valoresh.html"> Valores Historicos (BD) </a>
+          <a class="nav-link text-dark" href="valoresh.html"> Valores Historicos (BD) </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link text-white" href="#"> Contacto </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#"> Sobre Nosotros </a>
+          <a class="nav-link text-dark" href="Nosotros.html"> Nosotros </a>
         </li>
         </ul>
 
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search
-        </button>
-      </form>
+
       <p>&nbsp;&nbsp;</p>
       <form method="post">
-        <button name="csesion" type="submit" class="btn btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
+        <button id= "cerrarc" name="csesion" type="submit" class="btn btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
       </form>
         <?php
           if(isset($_POST['csesion'])){
@@ -61,7 +58,35 @@
             window.location="index.php";
             </script>';
           }
+          if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+          echo  '<script type="text/javascript">
+          $("#cerrarc").hide()
+          </script>';
+        }
         ?>
+        <form method="post">
+        <button  id="iniciar" name="iniciar" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Iniciar sesion</button>
+      </form>
+      <?php
+        if(isset($_POST['iniciar'])){
+          $_SESSION['loggedin']=false;
+          echo '<script type="text/javascript">
+          window.location="index.php";
+          </script>';
+        }
+
+  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+  echo  '<script type="text/javascript">
+  $("#iniciar").show()
+  </script>';
+  }
+  else
+  {
+    echo  '<script type="text/javascript">
+    $("#iniciar").hide()
+    </script>';
+  }
+  ?>
       </div>
       </div>
       <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
@@ -71,21 +96,27 @@
     <h3></h3>
     <br><br><br>
     <form class="col-12" role="form" method="post" action="">
-    <div class="container">
+    <div class="container" >
+      <div class="col-sm bg-white">
 
 <table class="table">
-  <thead class="bg-secondary">
+
+  <thead class="bg-white text-info" >
     <tr>
-      <th scope="col">#</th>
-      <th class="text-sm-center" scope="col">Hora y Fecha</th>
-      <th class="text-sm-center" scope="col">Ultrasonico</th>
-      <th class="text-sm-center" scope="col">Cant Lluvia</th>
-      <th class="text-sm-center" scope="col">Temperatura CPU</th>
-      <th class="text-sm-center" scope="col">Carga CPU</th>
-      <th class="text-sm-center" scope="col">Porcentaje de bateria</th>
+      <th scope="col ">#</th>
+      <th class="text-sm-center text-info" scope="col">Hora y Fecha</th>
+      <th class="text-sm-center text-info " scope="col">Ultrasonico</th>
+      <th class="text-sm-center text-info" scope="col">Cant Lluvia</th>
+      <th class="text-sm-center text-info" scope="col">Temperatura CPU</th>
+      <th class="text-sm-center text-info" scope="col">Carga CPU</th>
+      <th class="text-sm-center text-info" scope="col">Porcentaje de bateria</th>
     </tr>
   </thead>
   <tbody>
+    <style type="text/css">
+       body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    </style>
+
       <?php
 
         include("PagFunc.php");
@@ -110,10 +141,10 @@
           $rs = pg_fetch_all($view);
           $numero=0;
           foreach ($rs as $dt){
-            echo '<tr><th scope="row">'.++$numero.
+            echo '<tr><th scope="row" class="bg-white">'.++$numero.
               '</th><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
               '</td><td class="text-sm-center">'.$dt['profundida_act']. ' cm ' .
-              '</td><td class="text-sm-center">'.($dt['movimiento'])*3.3630. ' mm ' .
+              '</td><td class="text-sm-center">'.($dt['movimiento'])*0.30303. ' mm ' .
               '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .
               '</td><td class="text-sm-center">'.$dt['cpu_usage']. ' % ' .
               '</td><td class="text-sm-center">'.$dt['porcentaje']. ' % ' .
@@ -127,6 +158,8 @@
       ?>
     </tbody>
   </table>
+  </div>
+  </div>
     <br>
         <div>
           <ul class="pagination d-flex justify-content-center">
