@@ -20,27 +20,7 @@
   <body>
     <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="../assets/img/user.png">
-          </div>
-        </a>
-        <a class="simple-text logo-normal">
-          <?php
-          if(isset($_SESSION['loggedin'])){
-            $username=$_SESSION['user'];
-            $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-            $query1 = ("SELECT nombre,apellido FROM usuario where nombre_usu = '$username';");
-            $nombre = pg_query($con,$query1);
-            $fila1= pg_fetch_row($nombre);
-            echo$fila1[0].'&nbsp;';
-            echo$fila1[1];
-            pg_close($con);
-          }
-          ?>
-        </a>
-      </div>
+    
       <div class="sidebar-wrapper">
         <ul class="nav">
 <li>
