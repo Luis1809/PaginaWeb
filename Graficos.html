@@ -1,0 +1,163 @@
+<?php
+session_start();
+ /*if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+   header("Location: index.php");}*/
+
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <title>Localidades</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+   </head>
+   <body>
+     <style type="text/css">
+        body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+     </style>
+     <nav class="navbar navbar-expand-lg navbar-light bg-white">
+       <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+       <div class="collapse navbar-collapse" id="navbarColor03">
+       <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+           <a class="nav-link text-dark" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link text-dark" href="Localidades.html"> Localidades </a>
+         </li>
+         <li class="nav-item">
+           <a class="nav-link text-dark" href="valoresh.html"> Valores Historicos (BD) </a>
+         </li>
+
+         <li class="nav-item">
+           <a class="nav-link text-dark" href="nosotros.html">Nosotros </a>
+         </li>
+       </ul>
+       <div class="collapse navbar-collapse justify-content-end" id="navigation">
+       <p>&nbsp;&nbsp;</p>
+       <form method="post">
+         <button id="cerrarc" name="csesion" type="submit" class="btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
+       </form>
+         <?php
+           if(isset($_POST['csesion'])){
+             $_SESSION['loggedin']=false;
+             echo '<script type="text/javascript">
+             window.location="index.php";
+             </script>';
+           }
+           if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+           echo  '<script type="text/javascript">
+           $("#cerrarc").hide()
+           </script>';
+         }
+
+         ?>
+
+         <form method="post">
+         <button  id="iniciar" name="iniciar" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Iniciar sesion</button>
+       </form>
+       <?php
+         if(isset($_POST['iniciar'])){
+           $_SESSION['loggedin']=false;
+           echo '<script type="text/javascript">
+           window.location="index.php";
+           </script>';
+         }
+
+         if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+         echo  '<script type="text/javascript">
+         $("#iniciar").show()
+         </script>';
+         }
+         else
+         {
+           echo  '<script type="text/javascript">
+           $("#iniciar").hide()
+           </script>';
+         }
+         ?>
+       </div>
+       </div>
+       <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
+       ALL-RIGHTS RESERVED 2019</p>
+     </nav>
+
+     <h3></h3>
+     <br><br><br>
+     <div class="container">
+       <div id="chart_div"></div>
+       <script type="text/javascript">
+          google.charts.load('current', {packages: ['corechart', 'bar']});
+          google.charts.setOnLoadCallback(drawBasic);
+
+          // var jsondata;
+          // $.ajax({
+          //   'async': false,
+          //   'type': "GET",
+          //   'dataType': 'json',
+          //   'url': "db.php",
+          //
+          //   'success': function(data){
+          //              jsondata = data;
+          //   }
+          // });
+
+          function drawBasic() {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('timeofday', 'Time of Day');
+                data.addColumn('number', 'Motivation Level');
+
+                data.addRows([
+                  [{v: [8, 0, 0], f: '8 am'}, 1],
+                  [{v: [9, 0, 0], f: '9 am'}, 2],
+                  [{v: [10, 0, 0], f:'10 am'}, 3],
+                  [{v: [11, 0, 0], f: '11 am'}, 4],
+                  [{v: [12, 0, 0], f: '12 pm'}, 5],
+                  [{v: [13, 0, 0], f: '1 pm'}, 6],
+                  [{v: [14, 0, 0], f: '2 pm'}, 7],
+                  [{v: [15, 0, 0], f: '3 pm'}, 8],
+                  [{v: [16, 0, 0], f: '4 pm'}, 9],
+                  [{v: [17, 0, 0], f: '5 pm'}, 10],
+                  [{v: [17, 0, 0], f: '6 pm'}, 11],
+                ]);
+
+                var options = {
+                  title: 'Motivation Level Throughout the Day',
+                  hAxis: {
+                    title: 'Time of Day',
+                    format: 'h:mm a',
+                    viewWindow: {
+                      min: [7, 30, 0],
+                      max: [20, 30, 0]
+                    }
+                  },
+                  vAxis: {
+                    title: 'Rating (scale of 1-10)'
+                  }
+                };
+
+                var chart = new google.visualization.ColumnChart(
+                  document.getElementById('chart_div'));
+
+                chart.draw(data, options);
+              }
+
+              $(window).resize(function() {
+                drawBasic();
+              });
+            </script>
+     </div>
+   </body>
+  </html>
