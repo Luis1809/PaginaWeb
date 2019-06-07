@@ -20,13 +20,22 @@
   <body>
     <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
+      <div id="logo" class="logo">
         <a class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/user.png">
           </div>
         </a>
         <a class="simple-text logo-normal">
+          <?php
+             if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+            echo  '<script type="text/javascript">
+
+            $("#logo").hide()
+            </script>';
+            }?>
+            
+
           <?php
           if(isset($_SESSION['loggedin'])){
             $username=$_SESSION['user'];
