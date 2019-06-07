@@ -151,9 +151,6 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th class="text-sm-center text-info">
-                        ID
-                      </th>
                       <th class="text-sm-center text-info ">
                         Nombre Dispositivo
                       </th>
@@ -183,8 +180,7 @@
                             $micro2 = pg_query($con,$query2);
                             $fila= pg_fetch_row($micro2);
 
-                            echo '<tr><td class="text-sm-center">'.$dt['id'].
-                              '</td><td class="text-sm-center">'.$dt['nombre'].
+                            echo '<tr></td><td id="nombredp" class="text-sm-center">'.$dt['nombre'].
                               '</td><td id="temp_cpu" class="text-sm-center">'.$fila[0].' °C '.
                               '</td><td id="load_cpu2" class="text-sm-center">'.$fila[1].' % '.
                               '</td><td id="rango_i2" class="text-sm-center">'.$dt['rango_i'].' cm '.
@@ -213,10 +209,10 @@
                       <!-- <a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow',width=600,height=300); return false;">Click Here</a> -->
                       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                       <script type="text/javascript">
-                        var elemento = ['temp_cpu','load_cpu2','rango_i2','rango_s'];
+                        var elemento = ['nombredp','temp_cpu','load_cpu2','rango_i2','rango_s'];
                         $(document).ready(function(){
                           setInterval(function(){
-                            for (i = 0; i < 4; i++){
+                            for (i = 0; i < 5; i++){
                             $('#'+elemento[i]).load('query/'+elemento[i]+'.php')}
                           }, 500);
                         });
