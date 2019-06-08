@@ -18,6 +18,82 @@ session_start();
    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+   <script type="text/javascript">
+   google.charts.load('current', {packages: ['corechart', 'bar']});
+   google.charts.setOnLoadCallback(function() {
+      $(function() {
+        chartsload();
+      });
+    });
+
+    function drawBasic(chart_data) {
+      var jsonData = chart_data;
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Hora');
+      data.addColumn('number', 'Cant de lluvia');
+      $.each(chart_data, function(i, jsonData){
+         var hora = jsonData.horadia;
+         var lluvia = parseFloat($.trim(jsonData.cantidad));
+         data.addRows([[hora,lluvia]]);
+      });
+
+        var options = {
+          title: 'Cantidad de lluvia',
+          hAxis: {
+            title: 'Horas del dia',
+            //format: 'h:mm a',
+            //viewWindow: {
+            //min: [7, 30, 0],
+            //max: [12, 30, 0]
+            //}
+          },
+          vAxis: {
+            title: 'Cantidad de lluvia en mm'
+          }
+        };
+
+        var chart = new google.visualization.ColumnChart(
+          document.getElementById('chart_lluvia'));
+          chart.draw(data, options);
+        }
+
+        $(window).resize(function() {
+          chartsload();
+        });
+
+
+     $(document).ready(function(){
+      $("#rango").change(function(){
+        var rango = ($("#rango").val());
+           $.ajax({
+             url: 'query/graficolluvia2.php',
+             method: 'post',
+             data: 'rango=' +rango,
+             dataType:"JSON",
+         }).done(function(data){
+           console.log(data);
+           drawBasic(data);
+         })
+       })
+     })
+
+     function chartsload(){
+        var rango = ($("#rango").val());
+          $.ajax({
+            url: 'query/graficolluvia2.php',
+            method: 'post',
+            data: 'rango=' +rango,
+            dataType:"JSON",
+        }).done(function(data){
+          console.log(data);
+          drawBasic(data);
+        })
+      }
+
+   </script>
+
+
+
    </head>
    <body>
      <style type="text/css">
@@ -94,70 +170,27 @@ session_start();
      </nav>
 
      <h3></h3>
-     <br><br><br>
+     <br>
+
+  <div class="container" style="max-width: 90rem;">
+    <div class="card border-light mb-3" style="max-width: 100rem;">
+      <div class="card-header form-inline">
+          <h5> Selecione el rango de data </h5>
+           <form class="form-inline ml-auto">
+              <select id="rango" class="custom-select">
+              <option value="1" selected>Dia</option>
+              <option value="2">Semana</option>
+              <option value="3">Mes</option>
+              <option value="4">Año</option>
+            </select>
+          </form>
+      </div>
+    <div class="card-body">
      <div class="container">
-       <div id="chart_div"></div>
-       <script type="text/javascript">
-          google.charts.load('current', {packages: ['corechart', 'bar']});
-          google.charts.setOnLoadCallback(drawBasic);
-
-          // var jsondata;
-          // $.ajax({
-          //   'async': false,
-          //   'type': "GET",
-          //   'dataType': 'json',
-          //   'url': "db.php",
-          //
-          //   'success': function(data){
-          //              jsondata = data;
-          //   }
-          // });
-
-          function drawBasic() {
-
-                var data = new google.visualization.DataTable();
-                data.addColumn('timeofday', 'Time of Day');
-                data.addColumn('number', 'Motivation Level');
-
-                data.addRows([
-                  [{v: [8, 0, 0], f: '8 am'}, 1],
-                  [{v: [9, 0, 0], f: '9 am'}, 2],
-                  [{v: [10, 0, 0], f:'10 am'}, 3],
-                  [{v: [11, 0, 0], f: '11 am'}, 4],
-                  [{v: [12, 0, 0], f: '12 pm'}, 5],
-                  [{v: [13, 0, 0], f: '1 pm'}, 6],
-                  [{v: [14, 0, 0], f: '2 pm'}, 7],
-                  [{v: [15, 0, 0], f: '3 pm'}, 8],
-                  [{v: [16, 0, 0], f: '4 pm'}, 9],
-                  [{v: [17, 0, 0], f: '5 pm'}, 10],
-                  [{v: [17, 0, 0], f: '6 pm'}, 11],
-                ]);
-
-                var options = {
-                  title: 'Motivation Level Throughout the Day',
-                  hAxis: {
-                    title: 'Time of Day',
-                    format: 'h:mm a',
-                    viewWindow: {
-                      min: [7, 30, 0],
-                      max: [20, 30, 0]
-                    }
-                  },
-                  vAxis: {
-                    title: 'Rating (scale of 1-10)'
-                  }
-                };
-
-                var chart = new google.visualization.ColumnChart(
-                  document.getElementById('chart_div'));
-
-                chart.draw(data, options);
-              }
-
-              $(window).resize(function() {
-                drawBasic();
-              });
-            </script>
+       <div id="chart_lluvia"></div>
+       </div>
      </div>
+    </div>
+   </div>
    </body>
   </html>
