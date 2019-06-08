@@ -4,6 +4,6 @@ $query2 = ("SELECT COALESCE(SUM(movimiento::jsonb::int),0) FROM datos_pluviometr
 $Pluviometro = pg_query($con,$query2);
 $fila2= pg_fetch_row($Pluviometro);
 $str=' mm ';
-echo($fila2[0])*3.3630.$str;
+echo($fila2[0])*0.30303.$str;
 pg_close($con);
 ?>
