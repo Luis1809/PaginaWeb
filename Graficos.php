@@ -40,8 +40,12 @@ session_start();
         var options = {
           title: 'Cantidad de lluvia',
           hAxis: {
-            title: 'Horas del dia'
-            // format: 'h:mm a',
+            title: 'Horas del dia',
+            //format: 'h:mm a',
+            //viewWindow: {
+            //min: [7, 30, 0],
+            //max: [12, 30, 0]
+            //}
           },
           vAxis: {
             title: 'Cantidad de lluvia en mm'
@@ -54,7 +58,7 @@ session_start();
         }
 
         $(window).resize(function() {
-          drawBasic();
+          chartsload();
         });
 
 
