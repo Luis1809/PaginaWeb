@@ -199,11 +199,11 @@ session_start();
 
     <h3></h3>
     <br><br><br>
-    <form class="col-12" role="form" method="post" action="">
-    <div class="container">
-      <div>
-
-        <select name="provi" id="provi" class=" dropdown text-center btn btn-info  dropdown-toggle" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <form role="form" method="post" action="">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-4">
+        <select  name="provi" id="provi" class="form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <option selected="" disabled="">Provincia</option>
            <?php
            require 'FuncionesProv.php';
@@ -214,15 +214,20 @@ session_start();
              }
            ?>
         </select>
+        </div>
 
-        <select name="Ciudades" id="Ciudades" class=" dropdown text-center btn btn-info dropdown-toggle ml-5" type="button" style="width:30%;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div class="col-sm-4">
+        <select name="Ciudades" id="Ciudades" class="form-control" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <option selected="" disabled="">Seleccione una provincia</option>
 
         </select>
+        </div>
 
-        <select name="Sectores" id="Sectores" class=" dropdown text-center btn btn-info dropdown-toggle ml-5" style="width:30%;" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<div class="col-sm-4">
+        <select name="Sectores" id="Sectores" class="form-control" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <option selected="" disabled="">Seleccione una ciudad</option>
           </select>
+          </div>
 
       </div>
 
