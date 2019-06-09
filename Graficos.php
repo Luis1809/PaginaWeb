@@ -23,29 +23,30 @@ session_start();
    google.charts.setOnLoadCallback(function() {
       $(function() {
         chartsload();
+        chartsload2();
       });
     });
 
-    function drawBasic(chart_data) {
-      var jsonData = chart_data;
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Hora');
-      data.addColumn('number', 'Cant de lluvia');
-      $.each(chart_data, function(i, jsonData){
-         var hora = jsonData.horadia;
-         var lluvia = parseFloat($.trim(jsonData.cantidad));
-         data.addRows([[hora,lluvia]]);
-      });
+        function drawBasic(chart_data) {
+          var jsonData = chart_data;
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', jsonData.horadia);
+          data.addColumn('number', 'Cant de lluvia');
+          $.each(chart_data, function(i, jsonData){
+             var hora = jsonData.horadia;
+             var lluvia = parseFloat($.trim(jsonData.cantidad));
+             data.addRows([[hora,lluvia]]);
+          });
 
         var options = {
           title: 'Cantidad de lluvia',
           hAxis: {
-            title: 'Horas del dia',
-            //format: 'h:mm a',
-            //viewWindow: {
-            //min: [7, 30, 0],
-            //max: [12, 30, 0]
-            //}
+            title: 'Hora',
+            //ticks: ['12:00 AM','3:00 AM','6:00 AM','9:00 AM','12:00 PM','3:00 PM','6:00 PM','9:00 PM'],
+            slantedText: true,
+            textStyle: {
+              fontSize: 8
+            },
           },
           vAxis: {
             title: 'Cantidad de lluvia en mm'
@@ -56,6 +57,84 @@ session_start();
           document.getElementById('chart_lluvia'));
           chart.draw(data, options);
         }
+
+        function drawBasic2(chart_data) {
+          var jsonData = chart_data;
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Dias');
+          data.addColumn('number', 'Cant de lluvia');
+          $.each(chart_data, function(i, jsonData){
+             var hora = jsonData.dia;
+             var lluvia = parseFloat($.trim(jsonData.cantidad));
+             data.addRows([[hora,lluvia]]);
+          });
+
+            var options = {
+              title: 'Cantidad de lluvia',
+              hAxis: {
+                title: 'Dias',
+              },
+              vAxis: {
+                title: 'Cantidad de lluvia en mm'
+              }
+            };
+
+            var chart = new google.visualization.ColumnChart(
+              document.getElementById('chart_lluvia'));
+              chart.draw(data, options);
+            }
+
+        function drawBasic3(chart_data) {
+          var jsonData = chart_data;
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Dia');
+          data.addColumn('number', 'Cant de lluvia');
+          $.each(chart_data, function(i, jsonData){
+             var hora = jsonData.mes;
+             var lluvia = parseFloat($.trim(jsonData.cantidad));
+             data.addRows([[hora,lluvia]]);
+          });
+
+            var options = {
+              title: 'Cantidad de lluvia',
+              hAxis: {
+                title: 'Mes',
+              },
+              vAxis: {
+                title: 'Cantidad de lluvia en mm'
+              }
+            };
+
+            var chart = new google.visualization.ColumnChart(
+              document.getElementById('chart_lluvia'));
+              chart.draw(data, options);
+            }
+
+        function drawBasic4(chart_data) {
+          var jsonData = chart_data;
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Dia');
+          data.addColumn('number', 'Cant de lluvia');
+          $.each(chart_data, function(i, jsonData){
+             var hora = jsonData.ano;
+             var lluvia = parseFloat($.trim(jsonData.cantidad));
+             data.addRows([[hora,lluvia]]);
+          });
+
+            var options = {
+              title: 'Cantidad de lluvia',
+              hAxis: {
+                title: 'Año',
+              },
+              vAxis: {
+                title: 'Cantidad de lluvia en mm'
+              }
+            };
+
+            var chart = new google.visualization.ColumnChart(
+              document.getElementById('chart_lluvia'));
+              chart.draw(data, options);
+            }
 
         $(window).resize(function() {
           chartsload();
@@ -72,7 +151,18 @@ session_start();
              dataType:"JSON",
          }).done(function(data){
            console.log(data);
-           drawBasic(data);
+           if(rango==1){
+             drawBasic(data);
+           }
+           if(rango==2){
+             drawBasic2(data);
+           }
+           if(rango==3){
+             drawBasic3(data);
+           }
+           if(rango==4){
+             drawBasic4(data);
+           }
          })
        })
      })
@@ -86,14 +176,196 @@ session_start();
             dataType:"JSON",
         }).done(function(data){
           console.log(data);
-          drawBasic(data);
+          if(rango==1){
+            drawBasic(data);
+          }
+          if(rango==2){
+            drawBasic2(data);
+          }
+          if(rango==3){
+            drawBasic3(data);
+          }
+          if(rango==4){
+            drawBasic4(data);
+          }
+        })
+      }
+
+
+   <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+   google.charts.load('current', {packages: ['corechart', 'line']});
+    function drawBackgroundColor(chart_data) {
+          var jsonData = chart_data;
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'X');
+          data.addColumn('number', 'Altura');
+          data.addColumn('number', 'Peligro');
+          data.addColumn('number', 'Menor al nivel normal');
+          $.each(chart_data, function(i, jsonData){
+             var hora = jsonData.horadia;
+             var lluvia = parseFloat($.trim(jsonData.cantidad));
+             data.addRows([[hora,lluvia,600,350]]);
+          });
+
+          var options = {
+            title: 'Cercania del rio al nivel de la tierra',
+            hAxis: {
+              title: 'Hora'
+            },
+            vAxis: {
+              title: 'Altura del rio en cm'
+            },
+            //backgroundColor: '#f1f8e9'
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+          chart.draw(data, options);
+        }
+
+        function drawBackgroundColor2(chart_data) {
+              var jsonData = chart_data;
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'X');
+              data.addColumn('number', 'Altura');
+              data.addColumn('number', 'Peligro');
+              data.addColumn('number', 'Menor al nivel normal');
+              $.each(chart_data, function(i, jsonData){
+                 var hora = jsonData.dia;
+                 var lluvia = parseFloat($.trim(jsonData.cantidad));
+                 data.addRows([[hora,lluvia,600,350]]);
+              });
+
+              var options = {
+                title: 'Cercania del rio al nivel de la tierra',
+                hAxis: {
+                  title: 'Dias'
+                },
+                vAxis: {
+                  title: 'Altura del rio en cm'
+                },
+                //backgroundColor: '#f1f8e9'
+              };
+
+              var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+              chart.draw(data, options);
+            }
+
+            function drawBackgroundColor3(chart_data) {
+                  var jsonData = chart_data;
+                  var data = new google.visualization.DataTable();
+                  data.addColumn('string', 'X');
+                  data.addColumn('number', 'Altura');
+                  data.addColumn('number', 'Peligro');
+                  data.addColumn('number', 'Menor al nivel normal');
+                  $.each(chart_data, function(i, jsonData){
+                     var hora = jsonData.mes;
+                     var lluvia = parseFloat($.trim(jsonData.cantidad));
+                     data.addRows([[hora,lluvia,600,350]]);
+                  });
+
+                  var options = {
+                    title: 'Cercania del rio al nivel de la tierra',
+                    hAxis: {
+                      title: 'Mes'
+                    },
+                    vAxis: {
+                      title: 'Altura del rio en cm'
+                    },
+                    //backgroundColor: '#f1f8e9'
+                  };
+
+                  var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+                  chart.draw(data, options);
+                }
+
+                function drawBackgroundColor4(chart_data) {
+                      var jsonData = chart_data;
+                      var data = new google.visualization.DataTable();
+                      data.addColumn('string', 'X');
+                      data.addColumn('number', 'Altura');
+                      data.addColumn('number', 'Peligro');
+                      data.addColumn('number', 'Menor al nivel normal');
+                      $.each(chart_data, function(i, jsonData){
+                         var hora = jsonData.ano;
+                         var lluvia = parseFloat($.trim(jsonData.cantidad));
+                         data.addRows([[hora,lluvia,600,350]]);
+                      });
+
+                      var options = {
+                        title: 'Cercania del rio al nivel de la tierra',
+                        hAxis: {
+                          title: 'Año'
+                        },
+                        vAxis: {
+                          title: 'Altura del rio en cm'
+                        },
+                        //backgroundColor: '#f1f8e9'
+                      };
+
+                      var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+                      chart.draw(data, options);
+                    }
+
+                    $(window).resize(function() {
+                      chartsload2();
+                    });
+
+     $(document).ready(function(){
+      $("#rango").change(function(){
+        var rango = ($("#rango").val());
+           $.ajax({
+             url: 'query/graficoultra.php',
+             method: 'post',
+             data: 'rango=' +rango,
+             dataType:"JSON",
+         }).done(function(data){
+           console.log(data);
+           if(rango==1){
+             drawBackgroundColor(data);
+           }
+           if(rango==2){
+             drawBackgroundColor2(data);
+           }
+           if(rango==3){
+             drawBackgroundColor3(data);
+           }
+           if(rango==4){
+             drawBackgroundColor4(data);
+           }
+         })
+       })
+     })
+
+     function chartsload2(){
+        var rango = ($("#rango").val());
+          $.ajax({
+            url: 'query/graficoultra.php',
+            method: 'post',
+            data: 'rango=' +rango,
+            dataType:"JSON",
+        }).done(function(data){
+          console.log(data);
+          if(rango==1){
+            drawBackgroundColor(data);
+          }
+          if(rango==2){
+            drawBackgroundColor2(data);
+          }
+          if(rango==3){
+            drawBackgroundColor3(data);
+          }
+          if(rango==4){
+            drawBackgroundColor4(data);
+          }
         })
       }
 
    </script>
 
 
-
+   <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
    </head>
    <body>
      <style type="text/css">
@@ -188,6 +460,8 @@ session_start();
     <div class="card-body">
      <div class="container">
        <div id="chart_lluvia"></div>
+       <br><hr><br>
+       <div id="chart_ultra"></div>
        </div>
      </div>
     </div>

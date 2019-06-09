@@ -12,15 +12,17 @@
         $a=array();
         foreach($lluvia as &$k){
             foreach ($k as $i => &$value){
-              if ($k[$i] > 12) {
+              if ($k[$i] >= 12) {
                 array_push($a,$k[$i]);
-                $k[$i] = ($k[$i]-12).':00 PM';
+                if ($k[$i]==12) $k[$i] = ($k[$i]).':00 PM';
+                else $k[$i] = ($k[$i]-12).':00 PM';
                 $k["cantidad"] = $k["cantidad"]*0.30303;
                 break;
               }
               else {
                 array_push($a,$k[$i]);
-                $k[$i] = $k[$i].':00 AM';
+                if ($k[$i]==0) $k[$i] = ($k[$i]+12).':00 AM';
+                else $k[$i] = ($k[$i]).':00 AM';
                 $k["cantidad"] = $k["cantidad"]*0.30303;
                 break;
               }
@@ -42,9 +44,22 @@
           }
           $i++;
         }
-        $x=0;
+        $x=12;
         $lluviaTemp = array();
         while ($x<13){
+          foreach($lluvia as &$k){
+            foreach ($k as $i => &$value){
+              if ($k[$i] == $x.":00 AM") {
+                $lluviaTemp[] = $k;
+                break;
+              }
+              break;
+            }
+          }
+            $x++;
+        }
+        $x=0;
+        while ($x<12){
           foreach($lluvia as &$k){
             foreach ($k as $i => &$value){
               if ($k[$i] == $x.":00 AM") {
@@ -86,4 +101,61 @@
      }
      pg_close($con);
   }
+  if($rango==2)
+  {
+    $query5 = ("SELECT TO_CHAR(fecha, 'Dy') AS Dia , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '7 day'::INTERVAL GROUP BY (Dia);");
+    $lluviamm = pg_query($con,$query5);
+    $lluvia= pg_fetch_all($lluviamm);
+    if ($lluvia == false) echo "[]";
+    else {
+       $a=array();
+       foreach($lluvia as &$k){
+           foreach ($k as $i => &$value){
+               array_push($a,$k[$i]);
+               $k["cantidad"] = $k["cantidad"]*0.30303;
+               break;
+           }
+       }
+      echo json_encode($lluvia);
+    }
+    pg_close($con);
+ }
+ if($rango==3)
+ {
+   $query5 = ("SELECT TO_CHAR(fecha, 'Mon') AS Mes , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '12 month'::INTERVAL GROUP BY (Mes);");
+   $lluviamm = pg_query($con,$query5);
+   $lluvia= pg_fetch_all($lluviamm);
+   if ($lluvia == false) echo "[]";
+   else {
+      $a=array();
+      foreach($lluvia as &$k){
+          foreach ($k as $i => &$value){
+              array_push($a,$k[$i]);
+              $k["cantidad"] = $k["cantidad"]*0.30303;
+              break;
+          }
+      }
+     echo json_encode($lluvia);
+   }
+   pg_close($con);
+}
+if($rango==4)
+{
+  $query5 = ("SELECT TO_CHAR(fecha, 'YYYY') AS Ano , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '10 year'::INTERVAL GROUP BY (Ano);");
+  $lluviamm = pg_query($con,$query5);
+  $lluvia= pg_fetch_all($lluviamm);
+  if ($lluvia == false) echo "[]";
+  else {
+     $a=array();
+     foreach($lluvia as &$k){
+         foreach ($k as $i => &$value){
+             array_push($a,$k[$i]);
+             $k["cantidad"] = $k["cantidad"]*0.30303;
+             break;
+         }
+     }
+    echo json_encode($lluvia);
+  }
+  pg_close($con);
+}
  ?>
