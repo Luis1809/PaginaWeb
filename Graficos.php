@@ -205,8 +205,8 @@ session_start();
           data.addColumn('number', 'Menor al nivel normal');
           $.each(chart_data, function(i, jsonData){
              var hora = jsonData.horadia;
-             var lluvia = parseFloat($.trim(jsonData.cantidad));
-             data.addRows([[hora,lluvia,600,350]]);
+             var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+             data.addRows([[hora,lluvia,-350,-600]]);
           });
 
           var options = {
@@ -229,12 +229,12 @@ session_start();
               var data = new google.visualization.DataTable();
               data.addColumn('string', 'X');
               data.addColumn('number', 'Altura');
-              data.addColumn('number', 'Peligro');
+              data.addColumn('number', 'Nivel de la tierra');
               data.addColumn('number', 'Menor al nivel normal');
               $.each(chart_data, function(i, jsonData){
                  var hora = jsonData.dia;
-                 var lluvia = parseFloat($.trim(jsonData.cantidad));
-                 data.addRows([[hora,lluvia,600,350]]);
+                 var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+                 data.addRows([[hora,lluvia,-350,-600]]);
               });
 
               var options = {
@@ -243,7 +243,7 @@ session_start();
                   title: 'Dias'
                 },
                 vAxis: {
-                  title: 'Altura del rio en cm'
+                  title: 'Altura del rio en cm',
                 },
                 //backgroundColor: '#f1f8e9'
               };
@@ -261,8 +261,8 @@ session_start();
                   data.addColumn('number', 'Menor al nivel normal');
                   $.each(chart_data, function(i, jsonData){
                      var hora = jsonData.mes;
-                     var lluvia = parseFloat($.trim(jsonData.cantidad));
-                     data.addRows([[hora,lluvia,600,350]]);
+                     var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+                     data.addRows([[hora,lluvia,-350,-600]]);
                   });
 
                   var options = {
@@ -289,8 +289,8 @@ session_start();
                       data.addColumn('number', 'Menor al nivel normal');
                       $.each(chart_data, function(i, jsonData){
                          var hora = jsonData.ano;
-                         var lluvia = parseFloat($.trim(jsonData.cantidad));
-                         data.addRows([[hora,lluvia,600,350]]);
+                         var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+                         data.addRows([[hora,lluvia,-350,-600]]);
                       });
 
                       var options = {
