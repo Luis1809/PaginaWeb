@@ -78,6 +78,12 @@
               <p>Cambios al Sistemas</p>
             </a>
           </li>
+          <li>
+            <a href="aimagenes.html">
+              <i class="nc-icon nc-camera-compact"></i>
+              <p>Monitereo Tiempo Real</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -155,11 +161,15 @@
                         Nombre Dispositivo
                       </th>
                       <th class="text-sm-center text-info">
+                        Sector
+                      </th>
+                      <th class="text-sm-center text-info">
                         Temperatura CPU
                       </th>
                       <th class="text-sm-center text-info">
                         Carga CPU
                       </th>
+
                       <th class="text-sm-center text-info">
                         Rango Inferior
                       </th>
@@ -180,7 +190,13 @@
                             $micro2 = pg_query($con,$query2);
                             $fila= pg_fetch_row($micro2);
 
+                            $sector=$dt['localidad'];
+                            $query25 = ("select sector.nombre FROM sector where sector_id = '$sector';");
+                            $nombre = pg_query($con,$query25);
+                            $fila25= pg_fetch_row($nombre);
+
                             echo '<tr></td><td id="nombredp" class="text-sm-center">'.$dt['nombre'].
+                              '</td><td id="Sector" class="text-sm-center">'.$fila25[0].
                               '</td><td id="temp_cpu" class="text-sm-center">'.$fila[0].' °C '.
                               '</td><td id="load_cpu2" class="text-sm-center">'.$fila[1].' % '.
                               '</td><td id="rango_i2" class="text-sm-center">'.$dt['rango_i'].' cm '.
@@ -201,7 +217,7 @@
                         LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
                         TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
                         settings =
-                        'height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
+                        'height='+495+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
                         popupWindow = window.open(url,winName,settings)
                       }
                       </script>
@@ -209,10 +225,10 @@
                       <!-- <a href="#" onClick="MyWindow=window.open('http://www.google.com','MyWindow',width=600,height=300); return false;">Click Here</a> -->
                       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                       <script type="text/javascript">
-                        var elemento = ['nombredp','temp_cpu','load_cpu2','rango_i2','rango_s'];
+                        var elemento = ['nombredp','Sector','temp_cpu','load_cpu2','rango_i2','rango_s'];
                         $(document).ready(function(){
                           setInterval(function(){
-                            for (i = 0; i < 5; i++){
+                            for (i = 0; i < 6; i++){
                             $('#'+elemento[i]).load('query/'+elemento[i]+'.php')}
                           }, 500);
                         });

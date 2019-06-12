@@ -14,6 +14,7 @@
       $micronombre=$rs[2];
       $microrango_i=$rs[3];
       $microrango_s=$rs[4];
+      $localidad=$rs[5];
     }
 
     if(isset($_POST['submit'])){
@@ -21,6 +22,7 @@
       $nombre = $_POST['nombre'];
       $rango_i = $_POST['rango_i'];
       $rango_s = $_POST['rango_s'];
+      $localidad2 = $_POST['localidad'];
 
       if(!is_numeric($rango_i)|| !is_numeric($rango_s)){
         echo '<script type="text/javascript">
@@ -35,7 +37,7 @@
       }
 
       else{
-      $query3=pg_query("update micro set nombre='$nombre', rango_i='$rango_i' , rango_s='$rango_s'");
+      $query3=pg_query("update micro set nombre='$nombre', rango_i='$rango_i' , rango_s='$rango_s', localidad='$localidad2'");
       echo "<script>window.close();</script>";
       }
     }
@@ -66,6 +68,12 @@
                             <label for="id_email" class="control-label col-md-4  requiredField"> Nombre de Sistema<span class="asteriskField">*</span> </label>
                             <div class="controls col-md-8 ">
                                 <input class="input-md emailinput form-control" name="nombre"  placeholder="Nombre sistema" value="<?php echo$micronombre;?>"  style="margin-bottom: 10px" required/>
+                            </div>
+                        </div>
+                        <div id="div_id_email" class="form-group required">
+                            <label for="id_email" class="control-label col-md-4  requiredField"> Sector<span class="asteriskField">*</span> </label>
+                            <div class="controls col-md-8 ">
+                                <input class="input-md textinput textInput form-control" name="localidad"  placeholder="Sector" value="<?php echo$localidad;?>"  style="margin-bottom: 10px" required/>
                             </div>
                         </div>
                         <div id="div_id_password1" class="form-group required">
