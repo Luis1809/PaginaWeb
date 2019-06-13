@@ -5,5 +5,5 @@
   $picture = ($files[0]);                   // get las picture file name
   $path = "C:\Apache24\htdocs\Fotos";
 
-  echo ' <img width="540" height="280" class="alignnone size-large" src="../Fotos/'.$picture.'"> '
+  echo ' <img width="560" height="280" class="alignnone size-large" src="../Fotos/'.$picture.'"> '
 ?>
