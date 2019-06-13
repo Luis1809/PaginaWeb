@@ -136,7 +136,7 @@
     <style type="text/css">
        body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
     </style>
-    <nav class="fixed-top navbar navbar-expand-lg navbar-inverse bg-white">
+    <nav class="fixed-top navbar navbar-expand-lg  navbar-light bg-white">
   <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -224,19 +224,19 @@
           <p class="card-title">Rango Seguro</p>
           <!-- <h6 id="altsegura"> <?php include("ConnBaseDatos.php"); echo$fila12[0]; ?> - <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </h6> -->
           <div style="overflow: hidden;">
-            <p style="float: left;" id="rango_i" ><?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>&nbsp;</p>
+            <h6 style="float: left;" id="rango_i" ><?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>&nbsp;</h6>
 
-            <p style="float: center;" id="rango_s">- <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </p>
+            <h6 style="float: center;" id="rango_s">- <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </h6>
 
           </div>
           <hr>
           <p class="card-title">Cant Lluvia</p>
-          <p class="text-muted"> (Dia actual) </p><p id="pluviometro"> <?php include("ConnBaseDatos.php"); echo$fila2[0]*0.30303; ?> mm </p>
+          <p class="text-muted"> (Dia actual) </p><h6 id="pluviometro"> <?php include("ConnBaseDatos.php"); echo$fila2[0]*0.30303; ?> mm </h6>
           <hr>
           <p class="card-title">Temperatura y Carga CPU </p>
           <div style="overflow: hidden;">
-            <p style="float: left;" id="temp_cpu"> <?php include("ConnBaseDatos.php"); echo$fila4[0]; ?> °C &nbsp;</p>
-            <p style="float: center;" id="load_cpu">/&nbsp; <?php include("ConnBaseDatos.php"); echo$fila3[0]; ?> % </p>
+            <h6 style="float: left;" id="temp_cpu"> <?php include("ConnBaseDatos.php"); echo$fila4[0]; ?> °C &nbsp;</h6>
+            <h6 style="float: center;" id="load_cpu">/&nbsp; <?php include("ConnBaseDatos.php"); echo$fila3[0]; ?> % </h6>
           </div>
         </div>
       </div>
@@ -245,7 +245,7 @@
     <div class="col-sm-6">
 
 
-      
+
 
       <div id="video" class="embed-responsive embed-responsive-16by9">
       <script  type="text/javascript">
@@ -281,9 +281,9 @@
         <hr>
           <p class="card-title">Hora y Fecha</p>
           <div style="overflow: hidden;">
-            <p style="float: left;" id="hora" ><?php include('ConnBaseDatos.php'); echo$fila5[0]; ?>&nbsp;</p>
+            <h6 style="float: left;" id="hora" ><?php include('ConnBaseDatos.php'); echo$fila5[0]; ?>&nbsp;</h6>
 
-            <p style="float: right;" id="fecha">- <?php include("ConnBaseDatos.php"); echo$fila6[0]; ?></p>
+            <h6 style="float: right;" id="fecha">- <?php include("ConnBaseDatos.php"); echo$fila6[0]; ?></h6>
 
           </div>
           <hr>
