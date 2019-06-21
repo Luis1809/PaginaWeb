@@ -23,11 +23,111 @@
         <!-- Nuestro css-->
         <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{static/css/index.css}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <?php
+
+      if(isset($_POST['loginsc'])){
+        $nombre_micro= $_POST['micro'];
+        echo "<script>console.log( 'Debug Objects: " . $nombre_micro . "' );</script>";
+        $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+        $query1 = pg_query($con,("SELECT id FROM micro where nombre = '$nombre_micro';"));
+        $fila1= pg_fetch_row($query1);
+
+        echo "<script>console.log( 'Debug Objects: " .$fila1[0]. "' );</script>";
+        pg_close($con);
+          // header("Location: Inicio.html?id=$fila1[0]");
+          $_SESSION['microses']=$fila1[0];
+          header("Location: Inicio.html");
+        }
+
+      if(isset($_POST['login'])){
+        $nombre_micro= $_POST['micro'];
+        echo "<script>console.log( 'Debug Objects: " . $nombre_micro . "' );</script>";
+        $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+        $query1 = pg_query($con,("SELECT id FROM micro where nombre = '$nombre_micro';"));
+        $fila1= pg_fetch_row($query1);
+
+        echo "<script>console.log( 'Debug Objects: " .$fila1[0]. "' );</script>";
+        pg_close($con);
+        
+          $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+          $useri = strtolower($_POST['user']);
+          $passi = $_POST['pass'];
+
+          $sql = pg_query($con,("SELECT * FROM usuario WHERE lower(nombre_usu) LIKE lower('$useri');"));
+          if(pg_num_rows($sql)){
+              $rs=pg_fetch_array($sql);
+              $username= strtolower($rs['nombre_usu']);
+              $password= $rs['clave'];
+              $privilegio= $rs['privilegio'];
+
+              if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']== true){
+                $_SESSION['microses']=$fila1[0];
+                header("Location: Inicio.html");
+              }
+
+              if(isset($useri) && isset($passi)){
+                if ($useri == $username && $passi == $password){
+                  $_SESSION['loggedin']=true;
+                  if($privilegio==1){
+                    $_SESSION['usuario']=$username;
+                    $_SESSION['microses']=$fila1[0];
+                    header("location: Inicio.html");}
+                  if($privilegio==2){
+                    $_SESSION['user']=$username;
+                    $_SESSION['privilegio']=$privilegio;
+                    header("location: administrador.html");}
+                }
+                else
+                {
+                  $_SESSION['loggedin']=false;
+                  echo '<script type="text/javascript">alert("Credenciales invalidas")</script>';
+                }
+            }
+          }
+          else
+          {
+            echo '<script type="text/javascript">alert("Credenciales invalidas")</script>';
+          }
+        }
+     ?>
+
+    <script type="text/javascript">
+      function loadmicro(){
+            $.ajax({
+              url: 'query/micro.php',
+              method: 'post',
+            }).done(function(data){
+            console.log(data);
+            data = JSON.parse(data);
+            data.forEach(function(micro){
+              $('#micro').append('<option>' + micro.nombre + '</option>')
+              document.getElementById("login").disabled = true;
+              document.getElementById("loginsc").disabled = true;
+
+            })
+          })
+        }
+    </script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+     $("#micro").change(function(){
+       document.getElementById("login").disabled = false;
+       document.getElementById("loginsc").disabled = false;
+      })
+    })
+
+    </script>
+
+    <script type="text/javascript">
+      loadmicro();
+    </script>
   </head>
   <body>
     <div class="modal-dialog text-center">
       <div class="col-sm-8main">
-          <div class="modal-content">
+          <div class="modal-content" style="height: 550px;">
             <div class="col-12cfms">
                       <h3><b>Cities Flood Monitoring System</b></h3>
             </div>
@@ -47,55 +147,18 @@
 
                 <div class="col-12reg">
                                 <p class="text-left"> Aun no tienes una cuenta?<a  href="registro.html"  role="botton">  Registrate Ya</a><br>
-                                <p style="text-align:center"><button  name="login" type="submit" class="btn btn btn-secundary"><i class="fas fa-sign-in-alt"> </i>  Ingresar  </button><br>
-                                <a  href="inicio.html"  role="botton">  Acceder sin Credenciales</a><br></p>
-
-                                <a  href="forget.html"  role="botton"> Olvidaste tu contraseña?</a>
+                                  <form class="form-inline ml-auto">
+                                     <select name="micro" id="micro" class="custom-select">
+                                     <option value="1" selected disabled="">Seleccione la localidad que desea acceder</option>
+                                   </select>
+                                 </form>
+                              <button name="login" id="login" type="submit" class="btn btn btn-secundary" ><i class="fas fa-sign-in-alt"> </i>  Ingresar  </button><br><p></p>
+                              <button name="loginsc" id="loginsc"  type="submit" class="btn btn btn-secundary" style="width:230px;"><i class="fas fa-sign-in-alt"> </i>  Acceder sin Credenciales  </button>
+                              <br>
+                              <a  href="forget.html"  role="botton"> Olvidaste tu contraseña?</a>
                 </div>
               </div>
             </form>
-
-            <?php
-              if(isset($_POST['login'])){
-                  $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-                  $useri = strtolower($_POST['user']);
-                  $passi = $_POST['pass'];
-
-                  $sql = pg_query($con,("SELECT * FROM usuario WHERE lower(nombre_usu) LIKE lower('$useri');"));
-                  if(pg_num_rows($sql)){
-                      $rs=pg_fetch_array($sql);
-                      $username= strtolower($rs['nombre_usu']);
-                      $password= $rs['clave'];
-                      $privilegio= $rs['privilegio'];
-
-                      if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']== true){
-                        header("Location: Inicio.html");
-                      }
-
-                      if(isset($useri) && isset($passi)){
-                        if ($useri == $username && $passi == $password){
-                          $_SESSION['loggedin']=true;
-                          if($privilegio==1){
-                            $_SESSION['usuario']=$username;
-                            header("location: Inicio.html");}
-                          if($privilegio==2){
-                            $_SESSION['user']=$username;
-                            $_SESSION['privilegio']=$privilegio;
-                            header("location: administrador.html");}
-                        }
-                        else
-                        {
-                          $_SESSION['loggedin']=false;
-                          echo '<script type="text/javascript">alert("Credenciales invalidas")</script>';
-                        }
-                    }
-                  }
-                  else
-                  {
-                    echo '<script type="text/javascript">alert("Credenciales invalidas")</script>';
-                  }
-                }
-             ?>
             </div>
         </div>
         </div>

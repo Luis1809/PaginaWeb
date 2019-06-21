@@ -107,6 +107,7 @@
   <thead class="bg-white text-info" >
     <tr>
       <th scope="col ">#</th>
+      <th class="text-sm-center text-info" scope="col">ID_Micro</th>
       <th class="text-sm-center text-info" scope="col">Hora y Fecha</th>
       <th class="text-sm-center text-info " scope="col">Ultrasonico</th>
       <th class="text-sm-center text-info" scope="col">Cant Lluvia</th>
@@ -126,15 +127,9 @@
         $page = (int) (!isset($_GET["page"]) ? 1 : $_GET["page"]);
         $limit = 8;
         $startpoint= ($page * $limit) - $limit;
-
+        $microval = $_SESSION['microses'];
         $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-        $query1 = ("CREATE TEMPORARY VIEW datos AS SELECT datos_ultrasonicos.profundida_act,
-          datos_pluviometro.movimiento, datos_micro.cpu_usage, datos_micro.cpu_temp, datos_micro.hora,
-          datos_micro.fecha, datos_bateria.porcentaje FROM datos_ultrasonicos, datos_pluviometro,
-          datos_micro, datos_bateria WHERE datos_ultrasonicos.fecha = datos_pluviometro.fecha AND
-          datos_pluviometro.fecha = datos_micro.fecha AND datos_micro.fecha = datos_bateria.fecha
-          AND datos_ultrasonicos.hora = datos_pluviometro.hora AND datos_pluviometro.hora =
-          datos_micro.hora AND datos_micro.hora = datos_bateria.hora;");
+        $query1 = ("CREATE TEMPORARY VIEW datos AS SELECT datos_ultrasonicos.profundida_act,datos_pluviometro.movimiento, datos_micro.cpu_usage, datos_micro.cpu_temp, datos_micro.hora,datos_micro.fecha, datos_bateria.porcentaje FROM datos_ultrasonicos, datos_pluviometro,datos_micro, datos_bateria WHERE datos_ultrasonicos.fecha = datos_pluviometro.fecha AND datos_pluviometro.fecha = datos_micro.fecha AND datos_micro.fecha = datos_bateria.fecha AND datos_ultrasonicos.hora = datos_pluviometro.hora AND datos_pluviometro.hora = datos_micro.hora AND datos_micro.hora = datos_bateria.hora AND datos_pluviometro.micro=$microval;");
 
         $cview = pg_query($con,$query1);
         $statement = ("datos");
@@ -145,7 +140,8 @@
           $numero=0;
           foreach ($rs as $dt){
             echo '<tr><th scope="row" class="bg-white">'.++$numero.
-              '</th><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
+              '</th><td class="text-sm-center">'.$microval.
+              '</td><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
               '</td><td class="text-sm-center">'.$dt['profundida_act']. ' cm ' .
               '</td><td class="text-sm-center">'.($dt['movimiento'])*0.30303. ' mm ' .
               '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .

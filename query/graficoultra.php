@@ -1,10 +1,11 @@
 <?php
    include("graficolluvia.php");
-   if(isset($_POST["rango"]))
+   if(isset($_POST["rango"]) && isset($_POST['microval']))
    $rango =$_POST["rango"];
+   $disp=$_POST['microval'];
    if($rango==1)
    {
-     $query5 = ("SELECT hora as HoraDia , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '1 day'::INTERVAL ;");
+     $query5 = ("SELECT hora as HoraDia , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '1 day'::INTERVAL AND micro = $disp;");
      $lluviamm = pg_query($con,$query5);
      $lluvia= pg_fetch_all($lluviamm);
      if ($lluvia == false) echo "[]";
@@ -15,7 +16,7 @@
   }
   if($rango==2)
   {
-    $query5 = ("SELECT fecha AS Dia , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '7 day'::INTERVAL;");
+    $query5 = ("SELECT fecha AS Dia , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '7 day'::INTERVAL AND micro = $disp;");
     $lluviamm = pg_query($con,$query5);
     $lluvia= pg_fetch_all($lluviamm);
     if ($lluvia == false) echo "[]";
@@ -26,7 +27,7 @@
  }
  if($rango==3)
  {
-   $query5 = ("SELECT fecha AS Mes , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '12 month'::INTERVAL;");
+   $query5 = ("SELECT fecha AS Mes , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '12 month'::INTERVAL AND micro = $disp;");
    $lluviamm = pg_query($con,$query5);
    $lluvia= pg_fetch_all($lluviamm);
    if ($lluvia == false) echo "[]";
@@ -44,7 +45,7 @@
 }
 if($rango==4)
 {
-  $query5 = ("SELECT fecha AS Ano , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '10 year'::INTERVAL;");
+  $query5 = ("SELECT fecha AS Ano , (profundida_act::jsonb::int) as cantidad FROM datos_ultrasonicos WHERE datos_ultrasonicos.fecha>= NOW() - '10 year'::INTERVAL AND micro = $disp;");
   $lluviamm = pg_query($con,$query5);
   $lluvia= pg_fetch_all($lluviamm);
   if ($lluvia == false) echo "[]";

@@ -1,10 +1,11 @@
 <?php
    include("graficolluvia.php");
-   if(isset($_POST["rango"]))
+   if(isset($_POST["rango"]) && isset($_POST['microval']))
    $rango =$_POST["rango"];
+   $disp=$_POST['microval'];
    if($rango==1)
    {
-     $query5 = ("SELECT extract(hour from hora) as HoraDia , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '1 day'::INTERVAL GROUP BY extract(hour from hora) ORDER BY HoraDia ASC;");
+     $query5 = ("SELECT extract(hour from hora) as HoraDia , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '1 day'::INTERVAL AND micro = $disp GROUP BY extract(hour from hora) ORDER BY HoraDia ASC;");
      $lluviamm = pg_query($con,$query5);
      $lluvia= pg_fetch_all($lluviamm);
      if ($lluvia == false) echo "[]";
@@ -103,7 +104,7 @@
   }
   if($rango==2)
   {
-    $query5 = ("SELECT TO_CHAR(fecha, 'Dy') AS Dia , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '7 day'::INTERVAL GROUP BY (Dia) ORDER BY Dia ASC;");
+    $query5 = ("SELECT TO_CHAR(fecha, 'Dy') AS Dia , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '7 day'::INTERVAL AND micro = $disp GROUP BY (Dia) ORDER BY Dia ASC;");
     $lluviamm = pg_query($con,$query5);
     $lluvia= pg_fetch_all($lluviamm);
     if ($lluvia == false) echo "[]";
@@ -122,7 +123,7 @@
  }
  if($rango==3)
  {
-   $query5 = ("SELECT TO_CHAR(fecha, 'Mon') AS Mes , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '12 month'::INTERVAL GROUP BY (Mes) ORDER BY Mes DESC;");
+   $query5 = ("SELECT TO_CHAR(fecha, 'Mon') AS Mes , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '12 month'::INTERVAL AND micro = $disp GROUP BY (Mes) ORDER BY Mes DESC;");
    $lluviamm = pg_query($con,$query5);
    $lluvia= pg_fetch_all($lluviamm);
    if ($lluvia == false) echo "[]";
@@ -141,7 +142,7 @@
 }
 if($rango==4)
 {
-  $query5 = ("SELECT TO_CHAR(fecha, 'YYYY') AS Ano , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '10 year'::INTERVAL GROUP BY (Ano) ORDER BY Ano ASC;");
+  $query5 = ("SELECT TO_CHAR(fecha, 'YYYY') AS Ano , COALESCE(SUM(movimiento::jsonb::int),0) as cantidad FROM datos_pluviometro WHERE datos_pluviometro.fecha>= NOW() - '10 year'::INTERVAL AND micro = $disp GROUP BY (Ano) ORDER BY Ano ASC;");
   $lluviamm = pg_query($con,$query5);
   $lluvia= pg_fetch_all($lluviamm);
   if ($lluvia == false) echo "[]";

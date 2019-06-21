@@ -4,6 +4,7 @@
 /*  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
     header("Location: index.php");
   }*/
+echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
 ?>
 <html lang="en" dir="ltr">
   <head>
@@ -16,31 +17,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&callback=initMap"></script>
-
-    <script type="text/javascript">
-    function initMap() {
-        var sistema = new google.maps.LatLng((<?php include("ConnBaseDatos.php");echo$fila7[0];?>)-0.0002,<?php include("ConnBaseDatos.php");echo$fila9[0];?>);
-        window.map = new google.maps.Map(
-          document.getElementById('googleMap'), {zoom: 15, center: sistema});
-        var marker = new google.maps.Marker({position: sistema, map: window.map});
-        var infoWindow= new google.maps.InfoWindow({content:"Sistema principal"});
-        marker.addListener('click',function(){
-        infoWindow.open(window.map,marker);
-      });
-    }
-    </script>
-
-    <script type="text/javascript">
-      var elemento = ['ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','load_cpu','hora','fecha','rango_i','rango_s','foto'];
-      $(document).ready(function(){
-        setInterval(function(){
-          for (i = 0; i < 12; i++){
-          $('#'+elemento[i]).load('query/'+elemento[i]+'.php')}
-        }, 10000);
-      });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
@@ -54,7 +38,7 @@
           $.ajax({
             url: 'query/video.php',
           }).done(function() {
-             alert('Este proceso puede tardar varios minutos');;
+             alert('Este proceso puede tardar varios minutos');
             });
 
       } else {
@@ -68,6 +52,249 @@
     });
     });
     </script>
+
+    <script type="text/javascript">
+
+      function actualizar(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/load_cpu.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('load_cpu').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar2(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/ultrasonico.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('ultrasonico').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar2, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar3(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/pluviometro.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('pluviometro').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar3, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar4(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/bateria.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('bateria').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar4, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar5(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/latitud.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('latitud').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar5, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar6(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/longitud.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('longitud').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar6, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar7(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/temp_cpu.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('temp_cpu').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar7, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar8(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/hora.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('hora').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar8, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar9(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/fecha.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('fecha').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar9, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar10(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/rango_i.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('rango_i').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar10, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+
+      function actualizar11(){
+          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
+          var microval = '<?php echo $_SESSION['microses']; ?>';
+            $.ajax({
+              url: 'query/rango_s.php',
+              type: 'post',
+              data: 'data=' +microval,
+            }).done(function(response){
+              console.log(response);
+              $(window.var).empty();
+              document.getElementById('rango_s').innerHTML = response;
+            });
+      }
+
+      $(document).ready(function(){
+        setInterval(actualizar11, 10000);
+      });
+    </script>
+
+    <script type="text/javascript">
+      var elemento = ['foto'];
+      $(document).ready(function(){
+        setInterval(function(){
+          for (i = 0; i < 12; i++){
+          $('#'+elemento[i]).load('query/'+elemento[i]+'.php')}
+        }, 10000);
+      });
+    </script>
+
+
 
     <script type="text/javascript">
      $(document).ready(function(){
@@ -90,6 +317,7 @@
          });
        });
      </script>
+
 
     <style>
   .switch {

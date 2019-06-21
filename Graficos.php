@@ -144,10 +144,11 @@ session_start();
      $(document).ready(function(){
       $("#rango").change(function(){
         var rango = ($("#rango").val());
+        var microval = '<?php echo $_SESSION['microses']; ?>';
            $.ajax({
              url: 'query/graficolluvia2.php',
              method: 'post',
-             data: 'rango=' +rango,
+             data:  {"rango": rango, "microval": microval},
              dataType:"JSON",
          }).done(function(data){
            console.log(data);
@@ -169,10 +170,11 @@ session_start();
 
      function chartsload(){
         var rango = ($("#rango").val());
+        var microval = '<?php echo $_SESSION['microses']; ?>';
           $.ajax({
             url: 'query/graficolluvia2.php',
             method: 'post',
-            data: 'rango=' +rango,
+            data:  {"rango": rango, "microval": microval},
             dataType:"JSON",
         }).done(function(data){
           console.log(data);
@@ -315,10 +317,11 @@ session_start();
      $(document).ready(function(){
       $("#rango").change(function(){
         var rango = ($("#rango").val());
+        var microval = '<?php echo $_SESSION['microses']; ?>';
            $.ajax({
              url: 'query/graficoultra.php',
              method: 'post',
-             data: 'rango=' +rango,
+             data:  {"rango": rango, "microval": microval},
              dataType:"JSON",
          }).done(function(data){
            console.log(data);
@@ -340,10 +343,11 @@ session_start();
 
      function chartsload2(){
         var rango = ($("#rango").val());
+        var microval = '<?php echo $_SESSION['microses']; ?>';
           $.ajax({
             url: 'query/graficoultra.php',
             method: 'post',
-            data: 'rango=' +rango,
+            data: {"rango": rango, "microval": microval},
             dataType:"JSON",
         }).done(function(data){
           console.log(data);

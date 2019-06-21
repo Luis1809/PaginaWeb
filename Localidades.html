@@ -1,247 +1,235 @@
- <?php
+<?php
 session_start();
-  /*if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-    header("Location: index.php");}*/
+ /*if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+   header("Location: index.php");}*/
 
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Localidades</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <head>
+   <meta charset="utf-8">
+   <title>Localidades</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-    <script type="text/javascript">
+   <script type="text/javascript">
+     //var service;
+     //var infowindow;
+     function initMap() {
+       var place = new google.maps.LatLng(18.8969, -70.3714);
+       var contenido = 'CFMS '
+       var conterido2 = '\n Sistema Principal'
+       window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8});
 
-      var service;
-      var infowindow;
-
-      function initMap() {
-        var place = new google.maps.LatLng(18.8969, -70.3714);
-        var contenido = 'CFMS '
-        var conterido2 = '\n Sistema Principal'
-        window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8});
-        //for (var i = 0; i < results.length; i++) {
-          var sistema = new google.maps.LatLng((<?php include("ConnBaseDatos.php");echo$fila7[0];?>)-0.0002,<?php include("ConnBaseDatos.php");echo$fila9[0];?>);
-          var marker = new google.maps.Marker({position: sistema, map: window.map});
-          var infoWindow= new google.maps.InfoWindow(
-            {content:
-              contenido.bold()+''+conterido2});
-          marker.addListener('click',function(){
-            infoWindow.open(window.map,marker);
-          });
-      }
-
-      function reloadMap(place){
-        var request = {
-          query: place.join(),
-          fields: ['name', 'geometry'],
-        };
-        service = new google.maps.places.PlacesService(map);
-        service.findPlaceFromQuery(request, function(results, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            window.map.setCenter(results[0].geometry.location);
-            window.map.setZoom(10);
-          }
-        });
-      }
-
-      function reloadMapC(place){
-        var request = {
-          query: place.join(),
-          fields: ['name', 'geometry'],
-        };
-        service = new google.maps.places.PlacesService(map);
-        service.findPlaceFromQuery(request, function(results, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            window.map.setCenter(results[0].geometry.location);
-            if(place.length==2){
-              window.map.setZoom(13);}
-            else {
-              window.map.setZoom(16);}
-          }
-        });
-      }
-
-    $(document).ready(function(){
-      $("#provi").change(function(){
-        var provincia = ($("#provi").val()).substr(0, 3);
-        var provincian = [($("#provi").val()).substr(3, 40),"Republica Dominicana"];
-        window.provincian = ($("#provi").val()).substr(3, 40);
-        reloadMap(provincian);
-          $.ajax({
-            url: 'FuncionesProv.php',
-            method: 'post',
-            data: 'provincia=' +provincia,
-          }).done(function(Ciudades){
-          console.log(Ciudades);
-          Ciudades = JSON.parse(Ciudades);
-          $('#Ciudades').empty();
-          $('#Sectores').empty();
-          $('#Sectores').append('<option selected="" disabled="">Seleccione una ciudad</option>')
-          $('#Ciudades').append('<option selected="" disabled="">Ciudad</option>')
-          Ciudades.forEach(function(Ciudad){
-            $('#Ciudades').append('<option>' + Ciudad.nombre + '</option>')
-          })
+      $.ajax({
+         url: 'query/localidad.php',
+         method: 'post',
+     }).done(function(data){
+        //console.log(data);
+        data = JSON.parse(data);
+        $.each(data, function(i, jsonData){
+           //var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(jsonData.latitud,jsonData.longitud);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: window.map
+         });
         })
       })
-    $("#Ciudades").change(function(){
-        var Ciudades = $("#Ciudades").val();
-        window.Ciudades = $("#Ciudades").val();
-        var place = [Ciudades,window.provincian];
-        reloadMapC(place);
-          $.ajax({
-            url: 'FuncionesProv.php',
-            method: 'post',
-            data: 'Ciudades=' +Ciudades
-          }).done(function(Sectores){
-          console.log(Sectores);
-          Sectores = JSON.parse(Sectores);
-          $('#Sectores').empty();
-          $('#Sectores').append('<option selected="" disabled="">Sector</option>')
-          Sectores.forEach(function(Sector){
-            $('#Sectores').append('<option>' + Sector.nombre + '</option>')
-          })
-        })
-      })
-    $("#Sectores").change(function(){
-        var Sectores = $("#Sectores").val();
-        var place = [Sectores,window.Ciudades,window.provincian];
-        reloadMapC(place);
-      })
-    })
-    </script>
+     }
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-    <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&libraries=places&callback=initMap">
+     function reloadMap(place){
+       var request = {
+         query: place.join(),
+         fields: ['name', 'geometry'],
+       };
+       service = new google.maps.places.PlacesService(map);
+       service.findPlaceFromQuery(request, function(results, status) {
+         if (status === google.maps.places.PlacesServiceStatus.OK) {
+           window.map.setCenter(results[0].geometry.location);
+           window.map.setZoom(10);
+         }
+       });
+     }
+     function reloadMapC(place){
+       var request = {
+         query: place.join(),
+         fields: ['name', 'geometry'],
+       };
+       service = new google.maps.places.PlacesService(map);
+       service.findPlaceFromQuery(request, function(results, status) {
+         if (status === google.maps.places.PlacesServiceStatus.OK) {
+           window.map.setCenter(results[0].geometry.location);
+           if(place.length==2){
+             window.map.setZoom(13);}
+           else {
+             window.map.setZoom(16);}
+         }
+       });
+     }
+   $(document).ready(function(){
+     $("#provi").change(function(){
+       var provincia = ($("#provi").val()).substr(0, 3);
+       var provincian = [($("#provi").val()).substr(3, 40),"Republica Dominicana"];
+       window.provincian = ($("#provi").val()).substr(3, 40);
+       reloadMap(provincian);
+         $.ajax({
+           url: 'FuncionesProv.php',
+           method: 'post',
+           data: 'provincia=' +provincia,
+         }).done(function(Ciudades){
+         console.log(Ciudades);
+         Ciudades = JSON.parse(Ciudades);
+         $('#Ciudades').empty();
+         $('#Sectores').empty();
+         $('#Sectores').append('<option selected="" disabled="">Seleccione una ciudad</option>')
+         $('#Ciudades').append('<option selected="" disabled="">Ciudad</option>')
+         Ciudades.forEach(function(Ciudad){
+           $('#Ciudades').append('<option>' + Ciudad.nombre + '</option>')
+         })
+       })
+     })
+   $("#Ciudades").change(function(){
+       var Ciudades = $("#Ciudades").val();
+       window.Ciudades = $("#Ciudades").val();
+       var place = [Ciudades,window.provincian];
+       reloadMapC(place);
+         $.ajax({
+           url: 'FuncionesProv.php',
+           method: 'post',
+           data: 'Ciudades=' +Ciudades
+         }).done(function(Sectores){
+         console.log(Sectores);
+         Sectores = JSON.parse(Sectores);
+         $('#Sectores').empty();
+         $('#Sectores').append('<option selected="" disabled="">Sector</option>')
+         Sectores.forEach(function(Sector){
+           $('#Sectores').append('<option>' + Sector.nombre + '</option>')
+         })
+       })
+     })
+   $("#Sectores").change(function(){
+       var Sectores = $("#Sectores").val();
+       var place = [Sectores,window.Ciudades,window.provincian];
+       reloadMapC(place);
+     })
+   })
+   </script>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+   <script async defer
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&libraries=places&callback=initMap">
 </script>
-
-  </head>
-  <body>
-    <style type="text/css">
-       body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
-    </style>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-      <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link text-dark" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="Localidades.html"> Localidades </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="Graficos.php"> Graficos </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="valoresh.html"> Valores Historicos (BD) </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="nosotros.html">Nosotros </a>
-        </li>
-      </ul>
-      <div class="collapse navbar-collapse justify-content-end" id="navigation">
-      <p>&nbsp;&nbsp;</p>
-      <form method="post">
-        <button id="cerrarc" name="csesion" type="submit" class="btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
-      </form>
-        <?php
-          if(isset($_POST['csesion'])){
-            $_SESSION['loggedin']=false;
-            echo '<script type="text/javascript">
-            window.location="index.php";
-            </script>';
-          }
-          if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-          echo  '<script type="text/javascript">
-          $("#cerrarc").hide()
-          </script>';
-        }
-
-        ?>
-
-        <form method="post">
-        <button  id="iniciar" name="iniciar" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Iniciar sesion</button>
-      </form>
-      <?php
-        if(isset($_POST['iniciar'])){
-          $_SESSION['loggedin']=false;
-          echo '<script type="text/javascript">
-          window.location="index.php";
-          </script>';
-        }
-
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-  echo  '<script type="text/javascript">
-  $("#iniciar").show()
-  </script>';
-  }
-  else
-  {
-    echo  '<script type="text/javascript">
-    $("#iniciar").hide()
-    </script>';
-  }
-  ?>
-      </div>
-      </div>
-      <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
-      ALL-RIGHTS RESERVED 2019</p>
-    </nav>
-
-    <h3></h3>
-    <br><br><br>
-    <form role="form" method="post" action="">
-    <div class="container-fluid">
-      <div class="row">
-          <div class="col-sm-4 col-lg-3 mx-auto">
-        <select  name="provi" id="provi" class="form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <option selected="" disabled="">Provincia</option>
-           <?php
-           require 'FuncionesProv.php';
-           $sql = Prov();
-           foreach ($sql as $rs){
-                  echo'<option id="'.$rs['prov_id'].'" value="'.$rs['prov_id'], $rs['nombre'].'">'.$rs['nombre'].'</option>';
-
-             }
-           ?>
-        </select>
-        </div>
-
-  <div class="col-sm-4 col-lg-3 mx-auto">
-        <select name="Ciudades" id="Ciudades" class="form-control" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <option selected="" disabled="">Seleccione una provincia</option>
-
-        </select>
-        </div>
-
+ </head>
+ <body>
+   <style type="text/css">
+      body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+   </style>
+   <nav class="navbar navbar-expand-lg navbar-light bg-white">
+     <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse" id="navbarColor03">
+     <ul class="navbar-nav mr-auto">
+       <li class="nav-item active">
+         <a class="nav-link text-dark" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link text-dark" href="Localidades.html"> Localidades </a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link text-dark" href="Graficos.php"> Graficos </a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link text-dark" href="valoresh.html"> Valores Historicos (BD) </a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link text-dark" href="nosotros.html">Nosotros </a>
+       </li>
+     </ul>
+     <div class="collapse navbar-collapse justify-content-end" id="navigation">
+     <p>&nbsp;&nbsp;</p>
+     <form method="post">
+       <button id="cerrarc" name="csesion" type="submit" class="btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>
+     </form>
+       <?php
+         if(isset($_POST['csesion'])){
+           $_SESSION['loggedin']=false;
+           echo '<script type="text/javascript">
+           window.location="index.php";
+           </script>';
+         }
+         if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+         echo  '<script type="text/javascript">
+         $("#cerrarc").hide()
+         </script>';
+       }
+       ?>
+       <form method="post">
+       <button  id="iniciar" name="iniciar" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Iniciar sesion</button>
+     </form>
+     <?php
+       if(isset($_POST['iniciar'])){
+         $_SESSION['loggedin']=false;
+         echo '<script type="text/javascript">
+         window.location="index.php";
+         </script>';
+       }
+ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+ echo  '<script type="text/javascript">
+ $("#iniciar").show()
+ </script>';
+ }
+ else
+ {
+   echo  '<script type="text/javascript">
+   $("#iniciar").hide()
+   </script>';
+ }
+ ?>
+     </div>
+     </div>
+     <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
+     ALL-RIGHTS RESERVED 2019</p>
+   </nav>
+   <h3></h3>
+   <br><br><br>
+   <form role="form" method="post" action="">
+   <div class="container-fluid">
+     <div class="row">
+         <div class="col-sm-4 col-lg-3 mx-auto">
+       <select  name="provi" id="provi" class="form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <option selected="" disabled="">Provincia</option>
+          <?php
+          require 'FuncionesProv.php';
+          $sql = Prov();
+          foreach ($sql as $rs){
+                 echo'<option id="'.$rs['prov_id'].'" value="'.$rs['prov_id'], $rs['nombre'].'">'.$rs['nombre'].'</option>';
+            }
+          ?>
+       </select>
+       </div>
+ <div class="col-sm-4 col-lg-3 mx-auto">
+       <select name="Ciudades" id="Ciudades" class="form-control" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <option selected="" disabled="">Seleccione una provincia</option>
+       </select>
+       </div>
 <div class="col-sm-4 col-lg-3 mx-auto">
-        <select name="Sectores" id="Sectores" class="form-control" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <option selected="" disabled="">Seleccione una ciudad</option>
-          </select>
-          </div>
-
-      </div>
-
-      </div>
-      </form>
-    <div>
-      <div class="mt-5 container" id="googleMap" style="width:80%;height:400px;"></div>
-      <script>
-
-      </script>
-
-    </div>
-  </body>
+       <select name="Sectores" id="Sectores" class="form-control" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <option selected="" disabled="">Seleccione una ciudad</option>
+         </select>
+         </div>
+     </div>
+     </div>
+     </form>
+   <div>
+     <div class="mt-5 container" id="googleMap" style="width:80%;height:400px;"></div>
+     <script>
+     </script>
+   </div>
+ </body>
 </html>
