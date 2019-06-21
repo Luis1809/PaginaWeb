@@ -4,55 +4,27 @@
 /*  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
     header("Location: index.php");
   }*/
-echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
+//echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
 ?>
 <html lang="en" dir="ltr">
   <head>
     <!-- <meta http-equiv="refresh" content="10"> -->
     <meta charset="utf-8">
     <title>Cities Flood Monitoring System</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 
-    <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function () {
-    var checkbox = document.querySelector('input[type="checkbox"]');
 
-    checkbox.addEventListener('change', function () {
-      if (checkbox.checked) {
-          $("#video").show();
-          $("#foto").hide();
-          console.log('Checked');
-          $.ajax({
-            url: 'query/video.php',
-          }).done(function() {
-             alert('Este proceso puede tardar varios minutos');
-            });
 
-      } else {
-          $("#foto").show();
-          $("#video").hide();
-          console.log('Not checked');
-          $.ajax({
-            url: 'query/fotos.php',
-          })
-      }
-    });
-    });
-    </script>
-
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script type="text/javascript">
 
       function actualizar(){
@@ -63,7 +35,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('load_cpu').innerHTML = response;
             });
@@ -84,7 +56,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('ultrasonico').innerHTML = response;
             });
@@ -105,7 +77,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('pluviometro').innerHTML = response;
             });
@@ -126,7 +98,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('bateria').innerHTML = response;
             });
@@ -147,7 +119,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('latitud').innerHTML = response;
             });
@@ -168,7 +140,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('longitud').innerHTML = response;
             });
@@ -189,7 +161,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('temp_cpu').innerHTML = response;
             });
@@ -210,7 +182,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('hora').innerHTML = response;
             });
@@ -231,7 +203,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('fecha').innerHTML = response;
             });
@@ -252,7 +224,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('rango_i').innerHTML = response;
             });
@@ -273,7 +245,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              console.log(response);
+              //console.log(response);
               $(window.var).empty();
               document.getElementById('rango_s').innerHTML = response;
             });
@@ -307,10 +279,10 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
            var count = 1;
            data.forEach(function(item){
              if(item.promultra==null){
-               $('#alerta').append('<h6 class="card-text" >'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
              }
              else {
-               $('#alerta').append('<h6 class="card-text" >'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
              }
              count+=1;
            });
@@ -386,6 +358,7 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
     <style type="text/css">
        body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
     </style>
+
     <nav class="fixed-top navbar navbar-expand-lg  navbar-light bg-white">
   <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -409,6 +382,25 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
       <li class="nav-item">
         <a class="nav-link text-dark" href="nosotros.html"> Nosotros </a>
       </li>
+      <!-- <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+      <li class="nav-item btn-rotate dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          &nbsp;&nbsp;<i class="far fa-bell"></i>
+          <p>
+            <span class="d-lg-none d-md-block"></span>
+          </p>
+        </a>
+        <div id="alerta" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+        </div>
+      </li>
+
+    </div> -->
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+    <div id="alerta" class="dropdown-menu dropdown-menu-right">
+    </div>
+  </li>
     </ul>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
@@ -498,8 +490,8 @@ echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
     <div class="col-sm-6">
 
       <div class=" card border-light mb-3" style="max-width: 35rem;">
-        <div class="card-header text-center" ><h4>Centro de alertas</h4></div>
-          <div class="card-body" id="alerta">
+        <div class="card-header text-center" ><h4>Estado de las alertas</h4></div>
+          <div class="card-body" id="estadoalerta">
 
           </div>
       </div>
