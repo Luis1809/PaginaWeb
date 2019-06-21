@@ -37,7 +37,7 @@
       }
 
       else{
-      $query3=pg_query("update micro set nombre='$nombre', rango_i='$rango_i' , rango_s='$rango_s', localidad='$localidad2'");
+      $query3=pg_query("update micro set nombre='$nombre', rango_i='$rango_i' , rango_s='$rango_s', localidad='$localidad2' where id = '$id'");
       echo "<script>window.close();</script>";
       }
     }

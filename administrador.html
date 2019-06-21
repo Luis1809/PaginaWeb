@@ -142,13 +142,44 @@
            });
 
 
+
         $(document).ready(function(){
          $("#rango").change(function(){
            var rango = ($("#rango").val());
+           var microval = ($("#micro").val());
+           console.log(microval);
               $.ajax({
                 url: 'query/graficolluvia2.php',
                 method: 'post',
-                data: 'rango=' +rango,
+                data: {"rango": rango, "microval": microval},
+                dataType:"JSON",
+            }).done(function(data){
+              console.log(data);
+              if(rango==1){
+                drawBasic(data);
+              }
+              if(rango==2){
+                drawBasic2(data);
+              }
+              if(rango==3){
+                drawBasic3(data);
+              }
+              if(rango==4){
+                drawBasic4(data);
+              }
+            })
+          })
+        })
+
+        $(document).ready(function(){
+         $("#micro").change(function(){
+           var rango = ($("#rango").val());
+           var microval = ($("#micro").val());
+           console.log(microval);
+              $.ajax({
+                url: 'query/graficolluvia2.php',
+                method: 'post',
+                data: {"rango": rango, "microval": microval},
                 dataType:"JSON",
             }).done(function(data){
               console.log(data);
@@ -170,10 +201,11 @@
 
         function chartsload(){
            var rango = ($("#rango").val());
+           var microval = ($("#micro").val());
              $.ajax({
                url: 'query/graficolluvia2.php',
                method: 'post',
-               data: 'rango=' +rango,
+               data: {"rango": rango, "microval": microval},
                dataType:"JSON",
            }).done(function(data){
              console.log(data);
@@ -316,10 +348,38 @@
         $(document).ready(function(){
          $("#rango").change(function(){
            var rango = ($("#rango").val());
+           var microval = ($("#micro").val());
               $.ajax({
                 url: 'query/graficoultra.php',
                 method: 'post',
-                data: 'rango=' +rango,
+                data: {"rango": rango, "microval": microval},
+                dataType:"JSON",
+            }).done(function(data){
+              console.log(data);
+              if(rango==1){
+                drawBackgroundColor(data);
+              }
+              if(rango==2){
+                drawBackgroundColor2(data);
+              }
+              if(rango==3){
+                drawBackgroundColor3(data);
+              }
+              if(rango==4){
+                drawBackgroundColor4(data);
+              }
+            })
+          })
+        })
+
+        $(document).ready(function(){
+         $("#micro").change(function(){
+           var rango = ($("#rango").val());
+           var microval = ($("#micro").val());
+              $.ajax({
+                url: 'query/graficoultra.php',
+                method: 'post',
+                data: {"rango": rango, "microval": microval},
                 dataType:"JSON",
             }).done(function(data){
               console.log(data);
@@ -341,10 +401,11 @@
 
         function chartsload2(){
            var rango = ($("#rango").val());
+           var microval = ($("#micro").val());
              $.ajax({
                url: 'query/graficoultra.php',
                method: 'post',
-               data: 'rango=' +rango,
+               data: {"rango": rango, "microval": microval},
                dataType:"JSON",
            }).done(function(data){
              console.log(data);
@@ -362,6 +423,16 @@
              }
            })
          }
+
+         $(document).ready(function(){
+           $("#micro").change(function(){
+               $('#rango').empty();
+               $('#rango').append('<option value="1" selected>' + "Dia" + '</option>');
+               $('#rango').append('<option value="2">' + "Semana" + '</option>');
+               $('#rango').append('<option value="3">' + "Mes" + '</option>');
+               $('#rango').append('<option value="4">' + "Año" + '</option>');
+             })
+           })
 
          <!-- /////////////////////////////////////////////// ALERTAS  /////////////////////////////////////////////////// -->
         </script>
@@ -606,7 +677,10 @@
             <div class="card-header form-inline">
                 <h5> Graficos (Selecione el rango de data) </h5>
                  <form class="form-inline ml-auto">
-                    <select id="rango" class="custom-select">
+                  <select id="micro" class="custom-select">
+                     <option value="1" selected disabled="">Seleccion un dispositivo</option>
+                  </select>&nbsp;&nbsp;
+                  <select id="rango" class="custom-select">
                     <option value="1" selected>Dia</option>
                     <option value="2">Semana</option>
                     <option value="3">Mes</option>
@@ -614,6 +688,40 @@
                   </select>
                 </form>
             </div>
+
+            <script type="text/javascript">
+              function loadmicro(){
+                    $.ajax({
+                      url: 'query/micro.php',
+                      method: 'post',
+                    }).done(function(data){
+                    console.log(data);
+                    data = JSON.parse(data);
+                    data.forEach(function(micro){
+                      $('#micro').append('<option value="'+micro.id+'">' + micro.nombre + '</option>');
+                      document.getElementById("rango").disabled = true;
+                    })
+                  })
+                }
+
+            </script>
+
+
+
+            <script type="text/javascript">
+            $(document).ready(function(){
+             $("#micro").change(function(){
+               document.getElementById("rango").disabled = false;
+              })
+            })
+
+            </script>
+
+            <script type="text/javascript">
+              loadmicro();
+            </script>
+
+
           <div class="card-body">
            <div class="container">
              <div id="chart_lluvia"></div>

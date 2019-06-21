@@ -1,5 +1,4 @@
 <?php
-//echo("<script>console.log('hello');</script>");
 if(isset($_POST['data'])){
   $disp=$_POST['data'];
   $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");

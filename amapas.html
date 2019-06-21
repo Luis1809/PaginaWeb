@@ -211,16 +211,23 @@
         var contenido = 'CFMS '
         var conterido2 = '\n Sistema Principal'
         window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8.4});
-        //for (var i = 0; i < results.length; i++) {
-          var sistema = new google.maps.LatLng((<?php include("ConnBaseDatos.php");echo$fila7[0];?>)-0.0002,<?php include("ConnBaseDatos.php");echo$fila9[0];?>);
-          var marker = new google.maps.Marker({position: sistema, map: window.map});
-          var infoWindow= new google.maps.InfoWindow(
-            {content:
-              contenido.bold()+''+conterido2});
-          marker.addListener('click',function(){
-            infoWindow.open(window.map,marker);
-          });
-      }
+    
+      $.ajax({
+         url: 'query/localidad.php',
+         method: 'post',
+     }).done(function(data){
+        //console.log(data);
+        data = JSON.parse(data);
+        $.each(data, function(i, jsonData){
+           //var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(jsonData.latitud,jsonData.longitud);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: window.map
+         });
+        })
+      })
+     }
     </script>
   </body>
 </html>

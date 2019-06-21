@@ -28,12 +28,12 @@
 
       if(isset($_POST['loginsc'])){
         $nombre_micro= $_POST['micro'];
-        echo "<script>console.log( 'Debug Objects: " . $nombre_micro . "' );</script>";
+        //echo "<script>console.log( 'Debug Objects: " . $nombre_micro . "' );</script>";
         $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
         $query1 = pg_query($con,("SELECT id FROM micro where nombre = '$nombre_micro';"));
         $fila1= pg_fetch_row($query1);
 
-        echo "<script>console.log( 'Debug Objects: " .$fila1[0]. "' );</script>";
+        //echo "<script>console.log( 'Debug Objects: " .$fila1[0]. "' );</script>";
         pg_close($con);
           // header("Location: Inicio.html?id=$fila1[0]");
           $_SESSION['microses']=$fila1[0];
@@ -49,7 +49,7 @@
 
         echo "<script>console.log( 'Debug Objects: " .$fila1[0]. "' );</script>";
         pg_close($con);
-        
+
           $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
           $useri = strtolower($_POST['user']);
           $passi = $_POST['pass'];
