@@ -24,7 +24,7 @@
     <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
     <link href="../assets/demo/demo.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  
+
         <script type="text/javascript">
         function initMap() {
             var sistema = new google.maps.LatLng((<?php include("ConnBaseDatos.php");echo$fila7[0];?>)-0.0002,<?php include("ConnBaseDatos.php");echo$fila9[0];?>);
@@ -145,14 +145,14 @@
                method: 'post',
                dataType:"JSON",
            }).done(function(data){
-             console.log(data);
+             //console.log(data);
              var count = 1;
              data.forEach(function(item){
                if(item.promultra==null){
-                 $('#alerta').append('<h6 class="dropdown-item">'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6>');
+                 $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
                }
                else {
-                 $('#alerta').append('<h6 class="dropdown-item">'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6>');
+                 $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
                }
                count+=1;
              });

@@ -37,10 +37,10 @@
          var count = 1;
          data.forEach(function(item){
            if(item.promultra==null){
-             $('#alerta').append('<h6 class="dropdown-item">'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6>');
+             $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
            }
            else {
-             $('#alerta').append('<h6 class="dropdown-item">'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6>');
+             $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
            }
            count+=1;
          });
@@ -211,7 +211,7 @@
         var contenido = 'CFMS '
         var conterido2 = '\n Sistema Principal'
         window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8.4});
-    
+
       $.ajax({
          url: 'query/localidad.php',
          method: 'post',

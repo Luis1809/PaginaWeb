@@ -270,19 +270,22 @@
 
     <script type="text/javascript">
      $(document).ready(function(){
+       var microval = '<?php echo $_SESSION['microses']; ?>';
            $.ajax({
-             url: 'query/RepAlerta.php',
+             url: 'query/RepAlertaU.php',
              method: 'post',
+             data: 'data=' +microval,
              dataType:"JSON",
          }).done(function(data){
-           console.log(data);
+           //console.log(data);
            var count = 1;
            data.forEach(function(item){
              if(item.promultra==null){
-               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+               console.log(item.nombre);
+               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+parseFloat(item.sumpluvi).toFixed(2)+" MM"+'</h6><hr>');
              }
              else {
-               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
              }
              count+=1;
            });
@@ -382,27 +385,15 @@
       <li class="nav-item">
         <a class="nav-link text-dark" href="nosotros.html"> Nosotros </a>
       </li>
-      <!-- <div class="collapse navbar-collapse justify-content-end" id="navigation">
 
-      <li class="nav-item btn-rotate dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          &nbsp;&nbsp;<i class="far fa-bell"></i>
-          <p>
-            <span class="d-lg-none d-md-block"></span>
-          </p>
-        </a>
-        <div id="alerta" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+        <div id="alerta" class="dropdown-menu dropdown-menu-right">
         </div>
       </li>
-
-    </div> -->
-    <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
-    <div id="alerta" class="dropdown-menu dropdown-menu-right">
-    </div>
-  </li>
     </ul>
-    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarColor03">
 
     <p>&nbsp;&nbsp;</p>
 
@@ -490,10 +481,62 @@
     <div class="col-sm-6">
 
       <div class=" card border-light mb-3" style="max-width: 35rem;">
-        <div class="card-header text-center" ><h4>Estado de las alertas</h4></div>
-          <div class="card-body" id="estadoalerta">
+        <div class="card-header text-center" ><h4>Estado de las alerta en: </h4><font color="blue"><h5 id="Local"></h5></font></div>
+        <script type="text/javascript">
+          var microval = '<?php
+          $local = $_SESSION['microses'];
+          $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+          $query25 = ("SELECT sector.nombre FROM sector where sector_id = (Select localidad from micro where id = $local);");
+          $nombre = pg_query($con,$query25);
+          $fila25= pg_fetch_row($nombre);
+          echo$fila25[0];
+          ?>';
 
+          document.getElementById("Local").innerHTML = microval;
+        </script>
+          <div class="card-body text-center" id="estadoalerta">
+            <h4 id="TipoAlerta"></h4>
           </div>
+
+          <script type="text/javascript">
+          function actualizarestado(){
+              var microval = '<?php echo $_SESSION['microses']; ?>';
+                $.ajax({
+                  url: 'query/RepEstado.php',
+                  type: 'post',
+                  data: 'data=' +microval,
+                }).done(function(response){
+                  console.log(response);
+                  var json = JSON.parse(response);
+                  if (response == "[]"){
+                    document.getElementById('TipoAlerta').innerHTML = "No hay alertas";
+                    document.getElementById("estadoalerta").className = "card-body text-center";
+                  };
+                  json.forEach(function(item){
+                    //console.log(item.tipo);
+                    if (item.tipo== 1){
+                      document.getElementById('TipoAlerta').innerHTML = "Alerta Verde";
+                      document.getElementById("estadoalerta").className = "card-body text-center text-white bg-success";
+                    };
+                    if (item.tipo== 2){
+                      document.getElementById('TipoAlerta').innerHTML = "Alerta Amarilla";
+                      document.getElementById("estadoalerta").className = "card-body text-center text-white bg-warning";
+                    };
+                    if (item.tipo== 3){
+                      document.getElementById('TipoAlerta').innerHTML = "Alerta Roja";
+                      document.getElementById("estadoalerta").className = "card-body text-center text-white bg-danger";
+                    };
+                  });
+                });
+          }
+
+          $(document).ready(function(){
+            setInterval(actualizarestado, 10000);
+          });
+        </script>
+        <script type="text/javascript">
+        actualizarestado()
+        </script>
       </div>
 
       <br>

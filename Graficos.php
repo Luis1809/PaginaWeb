@@ -19,6 +19,31 @@ session_start();
    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
    <script type="text/javascript">
+    $(document).ready(function(){
+      var microval = '<?php echo $_SESSION['microses']; ?>';
+          $.ajax({
+            url: 'query/RepAlertaU.php',
+            method: 'post',
+            data: 'data=' +microval,
+            dataType:"JSON",
+        }).done(function(data){
+          //console.log(data);
+          var count = 1;
+          data.forEach(function(item){
+            if(item.promultra==null){
+              console.log(item.nombre);
+              $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+parseFloat(item.sumpluvi).toFixed(2)+" MM"+'</h6><hr>');
+            }
+            else {
+              $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+            }
+            count+=1;
+          });
+        });
+      });
+    </script>
+
+   <script type="text/javascript">
    google.charts.load('current', {packages: ['corechart', 'bar']});
    google.charts.setOnLoadCallback(function() {
       $(function() {
@@ -398,8 +423,13 @@ session_start();
          <li class="nav-item">
            <a class="nav-link text-dark" href="nosotros.html">Nosotros </a>
          </li>
+         <li class="nav-item dropdown">
+           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+           <div id="alerta" class="dropdown-menu dropdown-menu-right">
+           </div>
+         </li>
        </ul>
-       <div class="collapse navbar-collapse justify-content-end" id="navigation">
+       <div class="collapse navbar-collapse justify-content-end" id="navbarColor03">
        <p>&nbsp;&nbsp;</p>
        <form method="post">
          <button id="cerrarc" name="csesion" type="submit" class="btn btn-dark"><i class="far fa-user"></i> Cerrar sesion</button>

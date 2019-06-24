@@ -18,7 +18,33 @@
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <link href="pagination/css/pagination.css" rel="stylesheet" type="text/css" />
     <link href="pagination/css/A_green.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+     $(document).ready(function(){
+       var microval = '<?php echo $_SESSION['microses']; ?>';
+           $.ajax({
+             url: 'query/RepAlertaU.php',
+             method: 'post',
+             data: 'data=' +microval,
+             dataType:"JSON",
+         }).done(function(data){
+           //console.log(data);
+           var count = 1;
+           data.forEach(function(item){
+             if(item.promultra==null){
+               console.log(item.nombre);
+               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+parseFloat(item.sumpluvi).toFixed(2)+" MM"+'</h6><hr>');
+             }
+             else {
+               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+             }
+             count+=1;
+           });
+         });
+       });
+     </script>
   </head>
+
   <body>
     <style type="text/css">
        body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
@@ -46,9 +72,14 @@
         <li class="nav-item">
           <a class="nav-link text-dark" href="Nosotros.html"> Nosotros </a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+          <div id="alerta" class="dropdown-menu dropdown-menu-right">
+          </div>
+        </li>
         </ul>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarColor03">
 
       <p>&nbsp;&nbsp;</p>
       <form method="post">
