@@ -137,12 +137,12 @@
             </div>
               <form action="index.php"  method="POST" class="col-12">
                 <div class="form-group" id= "user-group">
-                  <input type="text" name="user" class="form-control" placeholder="Nombre de Usuario" required>
+                  <input type="text" name="user" class="form-control" placeholder="Nombre de Usuario">
                 </div>
 
                 <div>
                 <div class="form-group" id="contrasena-group">
-                  <input type="password" name="pass" class="form-control" placeholder="Contraseña" required>
+                  <input type="password" name="pass" class="form-control" placeholder="Contraseña">
                 </div>
 
                 <div class="col-12reg">
