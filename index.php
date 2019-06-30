@@ -124,7 +124,14 @@
       loadmicro();
     </script>
   </head>
+  <style>
+body  {
+  background-image: url("static/image/back2.jpg");
+  background-color: #cccccc;
+}
+</style>
   <body>
+
     <div class="modal-dialog text-center">
       <div class="col-sm-8main">
           <div class="modal-content" style="height: 550px;">
