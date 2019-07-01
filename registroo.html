@@ -1,0 +1,323 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<?php
+  session_start();
+  #$usuario = "";
+  #$clave = "";
+  #$cclave = "";
+  #$nombre = "";
+  #$apellido = "";
+  #$correo = "";
+  #$celular = "";
+  #$telefono = "";
+  #$direccion = "";
+  #$sector = "";
+  #$sexo = "";
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Site Properties -->
+    <title>Registro</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $("#provi").change(function(){
+        var provincia = $("#provi").val();
+          $.ajax({
+            url: 'FuncionesProv.php',
+            method: 'post',
+            data: 'provincia=' +provincia,
+          }).done(function(Ciudades){
+          console.log(Ciudades);
+          Ciudades = JSON.parse(Ciudades);
+          $('#Ciudades').empty();
+          $('#Sectores').empty();
+          $('#Sectores').append('<option selected="" disabled="">Seleccione una ciudad</option>')
+          $('#Ciudades').append('<option selected="" disabled="">Ciudad</option>')
+          Ciudades.forEach(function(Ciudad){
+            $('#Ciudades').append('<option>' + Ciudad.nombre + '</option>')
+          })
+        })
+      })
+    $("#Ciudades").change(function(){
+        var Ciudades = $("#Ciudades").val();
+          $.ajax({
+            url: 'FuncionesProv.php',
+            method: 'post',
+            data: 'Ciudades=' +Ciudades
+          }).done(function(Sectores){
+          console.log(Sectores);
+          Sectores = JSON.parse(Sectores);
+          $('#Sectores').empty();
+          $('#Sectores').append('<option selected="" disabled="">Sector</option>')
+          Sectores.forEach(function(Sector){
+            $('#Sectores').append('<option>' + Sector.nombre + '</option>')
+          })
+        })
+      })
+    })
+    </script>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+<body>
+<div class="container">
+    <form class="form-horizontal" role="form" method="POST" action="/register">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6  text-center">
+                <h2>Crear Cuenta Nueva</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                      <div class="input-group-addon" style="width: 2.6rem"></div>
+                      <input type="text" class="form-control" id="username"
+                             placeholder="Nombre usuario" required autofocus>
+                  </div>
+              </div>
+          </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input  type="password" name="clave" class="form-control" placeholder="Contrasena" required autofocus>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input type="password" name="cclave" class="form-control" placeholder="Confirme Contrasena" required autofocus>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input type="text" name="nombre" class="form-control" placeholder="Nombres" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input type="text" name="apellido" class="form-control" placeholder="Apellidos" required>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+
+                        </div>
+                        <input type="text" name="correo" class="form-control" placeholder="Correo electronico"required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+
+                        </div>
+                        <input required type="text" name="celular" class="form-control" placeholder="Telefono Celular"required>
+                    </div>
+                </div>
+              </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem">
+
+                            </div>
+                            <input required type="text" name="telefono" class="form-control" placeholder="Telefono residencial"required>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+
+                        </div>
+                        <input  type="text"  name="direccion" class="form-control" placeholder="Direccion" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.4rem">
+
+                        </div>
+                        <div class="dropdownprov" >
+                        <select type="button" name="provi" id="provi" class="dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:530%;" >
+                             <option selected="" disabled="">Provincia</option>
+                              <?php
+                              require 'FuncionesProv.php';
+                              $sql = Prov();
+                              foreach ($sql as $rs){
+                                     echo'<option id="'.$rs['prov_id'].'" value="'.$rs['prov_id'].'">'.$rs['nombre'].'</option>';
+                                }
+                              ?>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+  </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.4rem">
+
+                            </div>
+                            <div class="dropdownci">
+                            <select type="button" name="Ciudades" id="Ciudades" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:245%;">
+                                  <option selected="" disabled="">Seleccione una provincia</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <div class="input-group-addon" style="width: 2.4rem">
+
+                </div>
+                <div class="dropdownse">
+                <select type="button" name="Sectores" id="Sectores" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"style="width:267%;">
+                      <option selected="" disabled="">Seleccione una ciudad</option>
+                </select>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.4rem">
+
+                    </div>
+                    <div class="dropdownsex">
+                    <select type="button" name="sexo" id="sexo" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:490%;">
+                         <option selected="" disabled="">Sexo</option>
+                         <option>Masculino</option>
+                         <option>Femenino</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+</div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary" style="margin-left:200;width:200;">><i class="fa fa-user-plus"></i> Register</button>
+            </div>
+        </div>
+
+        <?php
+         #error_reporting(0);
+         if(isset($_POST['registro'])){
+               $usuario = $_POST['username'];
+               $clave = $_POST['clave'];
+               $cclave = $_POST['cclave'];
+               $nombre = $_POST['nombre'];
+               $apellido = $_POST['apellido'];
+               $correo = $_POST['correo'];
+               $celular = $_POST['celular'];
+               $telefono = $_POST['telefono'];
+               $direccion = $_POST['direccion'];
+               $sector = $_POST['Sectores'];
+               $sexo = $_POST['sexo'];
+               $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+               if($clave!=$cclave){
+                 echo '<script type="text/javascript">alert("Las contraseñas no son iguales")</script>';
+                 exit();
+               }
+               $sql=pg_query($con,("select nombre_usu from usuario where lower(nombre_usu) LIKE lower('$usuario');"));
+               if(pg_num_rows($sql)){
+                 echo '<script type="text/javascript">alert("El usuario ya existe")</script>';
+                 exit();
+               }
+               $sql=pg_query($con,("select correo from usuario where lower(correo) LIKE lower('$correo');"));
+               if(pg_num_rows($sql)){
+                 echo '<script type="text/javascript">alert("Existe un usuario registrado con este correo")</script>';
+                 exit();
+               }
+               $sql2=pg_query($con,("SELECT sector_id from sector where nombre = '$sector';"));
+               if(!pg_num_rows($sql2)){
+                 echo '<script type="text/javascript">alert("Seleccione un sector")</script>';
+                 $_POST['Sectores']="";
+                 exit();
+               }
+               if(!($sexo=='Masculino'||$sexo=='Femenino')){
+                 echo '<script type="text/javascript">alert("Seleccione un sexo")</script>';
+                 exit();
+               }
+               else {
+                 $query1 = "INSERT INTO usuario (nombre, apellido, correo, celular, telefono, direccion, sector, id, privilegio, nombre_usu, clave, sexo)
+                 VALUES ('$nombre', '$apellido', '$correo', '$celular', '$telefono', '$direccion', (SELECT sector_id from sector where nombre = '$sector'),
+                 (SELECT MAX(id) FROM usuario)+1, 1, lower('$usuario'), '$clave', '$sexo')";
+                 $sql = pg_query($con,$query1);
+                 pg_close($con);
+                 echo '<script type="text/javascript">
+                 alert("Usuario registrado")
+                 window.location="index.php";
+               </script>';
+               }
+           }
+           ?>
+    </form>
+</div>
+</body>

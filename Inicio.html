@@ -537,11 +537,19 @@
         <script type="text/javascript">
         actualizarestado()
         </script>
+
+
       </div>
 
       <br>
+      <script type="text/javascript">
 
-      <div id="foto">
+      $(window).resize(function() {
+
+      });
+        </script>
+        <div class="container" id= "foto">
+
         <p>
         <?php
           global $path;    // path to directory has to be global, using it later in html
@@ -550,10 +558,13 @@
           $picture = ($files[0]);                   // get las picture file name
           $path = "C:\Apache24\htdocs\Fotos";
 
-          echo ' <img width="560" height="280" class="alignnone size-large" src="../Fotos/'.$picture.'"> '
+          echo ' <img class="img-fluid" max-width= "100%" height="auto" src="../Fotos/'.$picture.'"> '
         ?>
         <p>
-      </div> <!-- Foto -->
+
+        </div>
+
+
 
     </div>
 
