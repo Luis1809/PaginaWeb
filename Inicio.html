@@ -19,23 +19,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <script type="text/javascript">
 
       function actualizar(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/load_cpu.php',
               type: 'post',
               data: 'data=' +microval,
             }).done(function(response){
-              //console.log(response);
+              //console.log(microval);
+              cargafoto(microval);
               $(window.var).empty();
               document.getElementById('load_cpu').innerHTML = response;
             });
@@ -44,12 +46,17 @@
       $(document).ready(function(){
         setInterval(actualizar, 10000);
       });
+
+      function cargafoto(id){
+      var elemento = ['foto'];
+        $('#'+elemento[0]).load('query/'+elemento[0]+'.php?part='+id)
+      }
+
     </script>
 
     <script type="text/javascript">
 
       function actualizar2(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/ultrasonico.php',
@@ -70,7 +77,6 @@
     <script type="text/javascript">
 
       function actualizar3(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/pluviometro.php',
@@ -91,7 +97,6 @@
     <script type="text/javascript">
 
       function actualizar4(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/bateria.php',
@@ -112,7 +117,6 @@
     <script type="text/javascript">
 
       function actualizar5(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/latitud.php',
@@ -133,7 +137,6 @@
     <script type="text/javascript">
 
       function actualizar6(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/longitud.php',
@@ -154,7 +157,6 @@
     <script type="text/javascript">
 
       function actualizar7(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/temp_cpu.php',
@@ -175,7 +177,6 @@
     <script type="text/javascript">
 
       function actualizar8(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/hora.php',
@@ -196,7 +197,6 @@
     <script type="text/javascript">
 
       function actualizar9(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/fecha.php',
@@ -217,7 +217,6 @@
     <script type="text/javascript">
 
       function actualizar10(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/rango_i.php',
@@ -238,7 +237,6 @@
     <script type="text/javascript">
 
       function actualizar11(){
-          //var elemento = ['load_cpu','ultrasonico','pluviometro','bateria','latitud','longitud','temp_cpu','hora','fecha','rango_i','rango_s','foto'];
           var microval = '<?php echo $_SESSION['microses']; ?>';
             $.ajax({
               url: 'query/rango_s.php',
@@ -255,18 +253,6 @@
         setInterval(actualizar11, 10000);
       });
     </script>
-
-    <script type="text/javascript">
-      var elemento = ['foto'];
-      $(document).ready(function(){
-        setInterval(function(){
-          for (i = 0; i < 12; i++){
-          $('#'+elemento[i]).load('query/'+elemento[i]+'.php')}
-        }, 10000);
-      });
-    </script>
-
-
 
     <script type="text/javascript">
      $(document).ready(function(){
@@ -446,7 +432,7 @@
 </nav>
 </div>
   <br><br><br>
-<div class="container-fluid "  >
+<div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-xs-12">
       <div class="card  bg-white text-dark float-left" style="max-width: 18srem; height:500px;">
@@ -494,6 +480,7 @@
 
           document.getElementById("Local").innerHTML = microval;
         </script>
+
           <div class="card-body text-center" id="estadoalerta">
             <h4 id="TipoAlerta"></h4>
           </div>
@@ -537,34 +524,24 @@
         <script type="text/javascript">
         actualizarestado()
         </script>
-
-
       </div>
 
       <br>
-      <script type="text/javascript">
 
-      $(window).resize(function() {
-
-      });
-        </script>
-        <div class="container" id= "foto">
-
+      <div id="foto">
         <p>
         <?php
+          $local = $_SESSION['microses'];
           global $path;    // path to directory has to be global, using it later in html
-          $dir = "C:\Apache24\htdocs\Fotos";
+          $dir = "C:\Apache24\htdocs\Fotos\Micro$local";
           $files = scandir($dir, 1);                // read directory backkwards
           $picture = ($files[0]);                   // get las picture file name
-          $path = "C:\Apache24\htdocs\Fotos";
+          $path = "C:\Apache24\htdocs\Fotos\Micro$local";
 
-          echo ' <img class="img-fluid" max-width= "100%" height="auto" src="../Fotos/'.$picture.'"> '
+          echo ' <img width="560" height="280" class="alignnone size-large" src="../Fotos/Micro'.$local.'/'.$picture.'"> '
         ?>
         <p>
-
-        </div>
-
-
+      </div> <!-- Foto -->
 
     </div>
 
