@@ -1,0 +1,42 @@
+.dropdown{
+  width: 485px;
+
+}
+
+
+.dropdownprov{
+
+  margin-left: 35PX;
+
+
+}
+
+.dropdownci{
+
+    margin-left: 35PX;
+}
+
+.dropdownse{
+
+margin-left: 35px;
+}
+
+.dropdownsex{
+
+margin-left: 35px;
+
+}
+
+.modal-content{
+
+opacity: .85;
+padding: 0.20px;
+height: 550px;
+width: 1200px;
+margin-left: -350px;
+
+}
+body{
+background: url("static/image/fondoregistro.jpg");
+
+}
