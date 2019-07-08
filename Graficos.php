@@ -6,6 +6,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <head>
    <meta charset="utf-8">
    <title>Localidades</title>
@@ -477,12 +478,12 @@ session_start();
        <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
        ALL-RIGHTS RESERVED 2019</p>
      </nav>
-
+     <div class="container">
      <h3></h3>
      <br>
 
-  <div class="container" style="max-width: 90rem;">
-    <div class="card border-light mb-3" style="max-width: 100rem;">
+  <div class="container" >
+    <div class="card border-light mb-3">
       <div class="card-header form-inline">
           <h5> Selecione el rango de data </h5>
            <form class="form-inline ml-auto">
@@ -503,5 +504,8 @@ session_start();
      </div>
     </div>
    </div>
+
+ <br><br>
+</div>
    </body>
   </html>
