@@ -7,6 +7,6 @@ if(isset($_GET['part'])){
   $picture = ($files[0]);                   // get las picture file name
   $path = "C:\xampp\htdocs\Fotos\Micro$disp";
 
-  echo ' <img width="560" height="280" class="alignnone size-large" src="../Fotos/Micro'.$disp.'/'.$picture.'"> ';
+  echo ' <img width="535" height="280" class="alignnone size-large" src="../Fotos/Micro'.$disp.'/'.$picture.'"> ';
 }
 ?>

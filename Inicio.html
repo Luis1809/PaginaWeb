@@ -7,6 +7,7 @@
 //echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
 ?>
 <html lang="en" dir="ltr">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <head>
     <!-- <meta http-equiv="refresh" content="10"> -->
     <meta charset="utf-8">
@@ -281,6 +282,12 @@
 
 
     <style>
+  img {
+    max-width: 100%;
+    height: auto;
+
+  }
+
   .switch {
     position: relative;
     display: inline-block;
@@ -345,6 +352,7 @@
 
   </head>
   <body>
+    <br>
     <style type="text/css">
        body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
     </style>
@@ -431,12 +439,13 @@
   <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
     ALL-RIGHTS RESERVED 2019</p>
 </nav>
+<div class="container">
 </div>
   <br><br><br>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-xs-12">
-      <div class="card  bg-white text-dark float-left" style="max-width: 18srem; height:500px;">
+    <div class="col-sm-3 my-2">
+      <div class="card  bg-white text-dark" >
 
         <div class="card-body">
             <p class="card-title bg-white"> Monitoreo <i class="fas fa-info-circle"></i></p>
@@ -457,7 +466,7 @@
           <p class="text-muted"> (Dia actual) </p><h6 id="pluviometro"> <?php include("ConnBaseDatos.php"); echo$fila2[0]*0.30303; ?> mm </h6>
           <hr>
           <p class="card-title">Temperatura y Carga CPU </p>
-          <div style="overflow: hidden;">
+          <div class="pb-2" style="overflow: hidden;">
             <h6 style="float: left;" id="temp_cpu"> <?php include("ConnBaseDatos.php"); echo$fila4[0]; ?> °C &nbsp;</h6>
             <h6 style="float: center;" id="load_cpu">/&nbsp; <?php include("ConnBaseDatos.php"); echo$fila3[0]; ?> % </h6>
           </div>
@@ -465,9 +474,9 @@
       </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-6 my-2">
 
-      <div class=" card border-light mb-3" style="max-width: 60rem; margin-left:30px;">
+      <div class=" card border-light mb-3">
         <div class="card-header text-center" ><h4>Estado de las alerta en: </h4><font color="blue"><h5 id="Local"></h5></font></div>
         <script type="text/javascript">
           var microval = '<?php
@@ -527,9 +536,7 @@
         </script>
       </div>
 
-      <br>
-
-      <div id="foto">
+      <div style="text-align: center" id="foto">
         <p>
         <?php
           $local = $_SESSION['microses'];
@@ -539,24 +546,23 @@
           $picture = ($files[0]);                   // get las picture file name
           $path = 'C:\xampp\htdocs\Fotos\Micro$local';
 
-          echo ' <img width="560" height="280" class="alignnone size-large" src="../Fotos/Micro'.$local.'/'.$picture.'"> '
+          echo ' <img width="535" height="280" class="alignnone size-large" src="../Fotos/Micro'.$local.'/'.$picture.'"> '
         ?>
         <p>
       </div> <!-- Foto -->
 
     </div>
 
-    <div class="col-sm-3">
-      <div class="card text-dark float-right bg-white" style="max-width: 18rem; height:500px;">
+    <div class="col-sm-3 my-2">
+      <div class="card text-dark bg-white" >
 
         <div class="card-body">
         <p class="card-title bg-white">Datos GPS <i class="fas fa-location-arrow"></i></p>
         <hr>
           <p class="card-title">Hora y Fecha</p>
           <div style="overflow: hidden;">
-            <h6 style="float: left;" id="hora" ><?php include('ConnBaseDatos.php'); echo$fila5[0]; ?>&nbsp;</h6>
-
-            <h6 style="float: right;" id="fecha">- <?php include("ConnBaseDatos.php"); echo$fila6[0]; ?></h6>
+            <h6 style="float: left;" id="hora"><?php include('ConnBaseDatos.php'); echo$fila5[0];?></h6>
+            <h6 style="float: right;" id="fecha">- <?php include("ConnBaseDatos.php"); echo$fila6[0];?></h6>
 
           </div>
           <hr>
@@ -566,9 +572,9 @@
 
           <p class="card-title">Longitud</p>
           <h6 id="longitud"><?php include("ConnBaseDatos.php"); echo(substr($fila9[0], 0, 8));?></h6>
-<hr>
+          <hr>
           <div class="card-title bg-white"> Estado Bateria <i class="fas fa-battery-three-quarters"></i></div>
-          <h6 id="bateria"> <?php include("ConnBaseDatos.php"); echo$fila11[0]; ?> % </h6>
+          <h6 id="bateria" class="pb-5"> <?php include("ConnBaseDatos.php"); echo$fila11[0]; ?> % </h6>
 
 
         </div>
@@ -584,5 +590,7 @@
   <h4 class="alert-heading">Aviso!</h4>
   <p class="mb-0"> Inundaciones en Jarabacoa, La Vega. <a href="#" class="alert-link"> Ver mas detalles</a>.</p>
   </div>
+</div>
+<br><br><br><br><br><br>
   </body>
 </html>
