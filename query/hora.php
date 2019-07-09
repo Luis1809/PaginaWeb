@@ -6,7 +6,7 @@ if(isset($_POST['data'])){
   $hora = pg_query($con,$query5);
   $fila5= pg_fetch_row($hora);
   $str= '&nbsp;';
-  echo$fila5[0].$str;
+  echo$fila5[0];
   pg_close($con);
 }
 ?>
