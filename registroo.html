@@ -122,7 +122,18 @@
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input type="text" name="nombre" class="form-control" placeholder="Nombres" required>
+                        <input type="text" id="nombres" name="nombre" class="form-control" placeholder="Nombres" data-role="tagsinput" required>
+
+<script type="text/javascript">
+  setTimeout(function()
+  {
+    $('#nombres').bind('keyup blur',function(){
+                          var node = $(this);
+                          node.val(node.val().replace(/[^a-z ]/g,'') ); }
+                      );
+  },500);
+
+</script>
                     </div>
                 </div>
             </div>
@@ -131,7 +142,7 @@
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input type="text" name="apellido" class="form-control" placeholder="Apellidos" required>
+                        <input type="text" id="apellidos" name="apellido" class="form-control" placeholder="Apellidos" required>
                     </div>
                 </div>
             </div>
@@ -146,6 +157,16 @@
 
                         </div>
                         <input type="email" name="correo" class="form-control" placeholder="Correo electronico"required>
+                        <script type="text/javascript">
+                          setTimeout(function()
+                          {
+                            $('#apellidos').bind('keyup blur',function(){
+                                                  var node = $(this);
+                                                  node.val(node.val().replace(/[^a-z ]/g,'') ); }
+                                              );
+                          },500);
+
+                        </script>
                     </div>
                 </div>
             </div>
@@ -159,7 +180,16 @@
                         <div class="input-group-addon" style="width: 2.6rem">
 
                         </div>
-                        <input required type="number" name="celular" class="form-control" placeholder="Telefono Celular"required>
+                        <input required type="number" id="celular" name="celular" class="form-control" placeholder="Telefono Celular"required>
+<script type="text/javascript">
+  var input=  document.getElementById('celular');
+  input.addEventListener('input',function(){
+    if (this.value.length > 11)
+       this.value = this.value.slice(0,11);
+  })
+</script>
+
+
                     </div>
                 </div>
               </div>
@@ -170,7 +200,16 @@
                             <div class="input-group-addon" style="width: 2.6rem">
 
                             </div>
-                            <input required type="number" name="telefono" class="form-control" placeholder="Telefono residencial"required>
+                            <input required type="number"id="telefono" name="telefono" class="form-control" placeholder="Telefono residencial"required>
+
+                            <script type="text/javascript">
+                              var input=  document.getElementById('telefono');
+                              input.addEventListener('input',function(){
+                                if (this.value.length > 11)
+                                   this.value = this.value.slice(0,11);
+                              })
+                            </script>
+
                         </div>
                     </div>
             </div>
@@ -322,6 +361,7 @@
                  window.location="index.php";
                </script>';
                }
+
            }
            ?>
     </form>
