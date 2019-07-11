@@ -279,6 +279,31 @@
          });
        });
      </script>
+     <script type="text/javascript">
+    function recargaralerta (){
+        $('#alerta').empty();
+            $.ajax({
+              url: 'query/RepAlerta.php',
+              method: 'post',
+              dataType:"JSON",
+          }).done(function(data){
+            //console.log(data);
+            var count = 1;
+            data.forEach(function(item){
+              if(item.promultra==null){
+                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+              }
+              else {
+                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+              }
+              count+=1;
+            });
+          });
+        }
+        $(document).ready(function(){
+          setInterval(recargaralerta, 10000);
+        });
+      </script>
 
 
     <style>
@@ -541,10 +566,10 @@
         <?php
           $local = $_SESSION['microses'];
           global $path;    // path to directory has to be global, using it later in html
-          $dir = "C:\Apache24\htdocs\Fotos\Micro$local";
+          $dir = "C:/xampp/htdocs/Fotos/Micro$local";
           $files = scandir($dir, 1);                // read directory backkwards
           $picture = ($files[0]);                   // get las picture file name
-          $path = "C:\Apache24\htdocs\Fotos\Micro$local";
+          $path = "C:/xampp/htdocs/Fotos/Micro$local";
 
           echo ' <img width="535" height="280" class="alignnone size-large" src="../Fotos/Micro'.$local.'/'.$picture.'"> '
         ?>
