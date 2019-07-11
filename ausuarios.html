@@ -7,7 +7,12 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
+<style>
+  .dropdown-menu{
+    max-height: 400px;
+    overflow-y: auto;
+}
+</style>
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -48,6 +53,31 @@
      });
    });
  </script>
+ <script type="text/javascript">
+function recargaralerta (){
+    $('#alerta').empty();
+        $.ajax({
+          url: 'query/RepAlerta.php',
+          method: 'post',
+          dataType:"JSON",
+      }).done(function(data){
+        //console.log(data);
+        var count = 1;
+        data.forEach(function(item){
+          if(item.promultra==null){
+            $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+          }
+          else {
+            $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+          }
+          count+=1;
+        });
+      });
+    }
+    $(document).ready(function(){
+      setInterval(recargaralerta, 30000);
+    });
+  </script>
 
 </head>
 

@@ -67,7 +67,7 @@
               }
 
               if(isset($useri) && isset($passi)){
-                if ($useri == $username && $passi == $password){
+                if ($useri == $username && password_verify($passi,$password)){
                   $_SESSION['loggedin']=true;
                   if($privilegio==1){
                     $_SESSION['usuario']=$username;

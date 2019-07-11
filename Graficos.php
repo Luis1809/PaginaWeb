@@ -461,9 +461,40 @@ session_start();
        setInterval(Refreshdata2, 10000);
      });
    </script>
+   <script type="text/javascript">
+  function recargaralerta (){
+      $('#alerta').empty();
+          $.ajax({
+            url: 'query/RepAlerta.php',
+            method: 'post',
+            dataType:"JSON",
+        }).done(function(data){
+          //console.log(data);
+          var count = 1;
+          data.forEach(function(item){
+            if(item.promultra==null){
+              $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+            }
+            else {
+              $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+            }
+            count+=1;
+          });
+        });
+      }
+      $(document).ready(function(){
+        setInterval(recargaralerta, 30000);
+      });
+    </script>
 
 
    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+   <style>
+     .dropdown-menu{
+       max-height: 400px;
+       overflow-y: auto;
+   }
+   </style>
    </head>
    <body>
      <style type="text/css">
@@ -495,6 +526,8 @@ session_start();
          <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
            <div id="alerta" class="dropdown-menu dropdown-menu-right">
+             <div class="table-responsive">
+             </div>
            </div>
          </li>
        </ul>
