@@ -29,10 +29,10 @@ mail($recipient_email, $subject, $body, $headers);
 pg_close($con);
 
 // if( mail($recipient_email, $subject, $body, $headers) ){
- //    echo "Message has been successfully sent.";
- // }else{
- //     echo "Sending failed.";
- //  }
+//    echo "Message has been successfully sent.";
+// }else{
+//     echo "Sending failed.";
+//  }
 # mail(
 #      'wichy.97@hotmail.com',
 #      'Works!',

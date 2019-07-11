@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <?php
-  session_start();
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
-    header("Location: index.php");
-  }
+session_start();
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
+  header("Location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <style>
-  .dropdown-menu{
-    max-height: 400px;
-    overflow-y: auto;
+.dropdown-menu{
+  max-height: 400px;
+  overflow-y: auto;
 }
 </style>
 <head>
@@ -34,51 +34,51 @@
 
 </script>
 <script type="text/javascript">
- $(document).ready(function(){
-       $.ajax({
-         url: 'query/RepAlerta.php',
-         method: 'post',
-         dataType:"JSON",
-     }).done(function(data){
-       //console.log(data);
-       var count = 1;
-       data.forEach(function(item){
-         if(item.promultra==null){
-           $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-         }
-         else {
-           $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-         }
-         count+=1;
-       });
-     });
-   });
- </script>
- <script type="text/javascript">
-function recargaralerta (){
-    $('#alerta').empty();
-        $.ajax({
-          url: 'query/RepAlerta.php',
-          method: 'post',
-          dataType:"JSON",
-      }).done(function(data){
-        //console.log(data);
-        var count = 1;
-        data.forEach(function(item){
-          if(item.promultra==null){
-            $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-          }
-          else {
-            $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-          }
-          count+=1;
-        });
-      });
-    }
-    $(document).ready(function(){
-      setInterval(recargaralerta, 30000);
+$(document).ready(function(){
+  $.ajax({
+    url: 'query/RepAlerta.php',
+    method: 'post',
+    dataType:"JSON",
+  }).done(function(data){
+    //console.log(data);
+    var count = 1;
+    data.forEach(function(item){
+      if(item.promultra==null){
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+      }
+      else {
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+      }
+      count+=1;
     });
-  </script>
+  });
+});
+</script>
+<script type="text/javascript">
+function recargaralerta (){
+  $('#alerta').empty();
+  $.ajax({
+    url: 'query/RepAlerta.php',
+    method: 'post',
+    dataType:"JSON",
+  }).done(function(data){
+    //console.log(data);
+    var count = 1;
+    data.forEach(function(item){
+      if(item.promultra==null){
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+      }
+      else {
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+      }
+      count+=1;
+    });
+  });
+}
+$(document).ready(function(){
+  setInterval(recargaralerta, 30000);
+});
+</script>
 
 </head>
 
@@ -182,15 +182,15 @@ function recargaralerta (){
               </li>
               <li class="nav-item">
                 <form method="post">
-                <button name="csesion" type="submit" class="btn btn btn-secundary"><i class="nc-icon nc-single-02"></i> Cerrar sesion</button>
-              </form>
+                  <button name="csesion" type="submit" class="btn btn btn-secundary"><i class="nc-icon nc-single-02"></i> Cerrar sesion</button>
+                </form>
                 <?php
-                  if(isset($_POST['csesion'])){
-                    $_SESSION['loggedin']=false;
-                    echo '<script type="text/javascript">
-                    window.location="index.php";
-                    </script>';
-                  }
+                if(isset($_POST['csesion'])){
+                  $_SESSION['loggedin']=false;
+                  echo '<script type="text/javascript">
+                  window.location="index.php";
+                  </script>';
+                }
                 ?>
               </li>
             </ul>
@@ -230,136 +230,136 @@ function recargaralerta (){
                     </thead>
                     <tbody>
                       <?php
-                        $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-                        $query1 = ("select * FROM micro;");
-                        $view = pg_query($con,$query1);
-                        if(pg_num_rows($view)){
-                          $rs = pg_fetch_all($view);
-                          $cont = 600;
-                          foreach ($rs as $dt){
-                            $micro= $cont;
-                            $cont = $cont+1;
-                            //echo "<script>console.log( 'Debug Objects: " . $micro . "' );</script>";
-                            $query2 = ("select cpu_temp,cpu_usage FROM datos_micro where id = (SELECT MAX(id) FROM datos_micro where id_micro='$micro')");
-                            //$query2 = ("select tt.cpu_temp, tt.cpu_usage from datos_micro tt inner join (select id_micro, max(id) as max from datos_micro group by id_micro) groupedtt ON tt.id_micro= groupedtt.id_micro and tt.id = max;");
-                            $micro2 = pg_query($con,$query2);
-                            $fila= pg_fetch_row($micro2);
+                      $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                      $query1 = ("select * FROM micro;");
+                      $view = pg_query($con,$query1);
+                      if(pg_num_rows($view)){
+                        $rs = pg_fetch_all($view);
+                        $cont = 600;
+                        foreach ($rs as $dt){
+                          $micro= $cont;
+                          $cont = $cont+1;
+                          //echo "<script>console.log( 'Debug Objects: " . $micro . "' );</script>";
+                          $query2 = ("select cpu_temp,cpu_usage FROM datos_micro where id = (SELECT MAX(id) FROM datos_micro where id_micro='$micro')");
+                          //$query2 = ("select tt.cpu_temp, tt.cpu_usage from datos_micro tt inner join (select id_micro, max(id) as max from datos_micro group by id_micro) groupedtt ON tt.id_micro= groupedtt.id_micro and tt.id = max;");
+                          $micro2 = pg_query($con,$query2);
+                          $fila= pg_fetch_row($micro2);
 
-                            $sector=$dt['localidad'];
-                            $query25 = ("select sector.nombre FROM sector where sector_id = '$sector';");
-                            $nombre = pg_query($con,$query25);
-                            $fila25= pg_fetch_row($nombre);
+                          $sector=$dt['localidad'];
+                          $query25 = ("select sector.nombre FROM sector where sector_id = '$sector';");
+                          $nombre = pg_query($con,$query25);
+                          $fila25= pg_fetch_row($nombre);
 
-                            echo '<tr id="joda"></td><td id="nombredp" class="text-sm-center">'.$dt['nombre'].
-                              '</td><td id="Sector" class="text-sm-center">'.$fila25[0].
+                          echo '<tr id="joda"></td><td id="nombredp" class="text-sm-center">'.$dt['nombre'].
+                            '</td><td id="Sector" class="text-sm-center">'.$fila25[0].
                               '</td><td id="temp_cpu2" class="text-sm-center">'.$fila[0].' °C '.
-                              '</td><td id="load_cpu2" class="text-sm-center">'.$fila[1].' % '.
-                              '</td><td id="rango_i2" class="text-sm-center">'.$dt['rango_i'].' cm '.
-                              '</td><td id="rango_s2" class="text-sm-center">'.$dt['rango_s'].' cm '.
-                              '</td><td>'.'<p><a href="modificarsistema.php?id='.$dt["id"].'" onclick="centeredPopup(this.href,\'myWindow\',\'500\',\'425\',\'yes\');return false"><i class="far fa-edit" style="color:#ff963e ;"></i></a></p>'.
-                              '</td></tr>';
-                          }
-                        }
-                        else{
-                          echo '<script type="text/javascript">alert("No se encontraron datos en el sistema, intente mas tarde")
-                          window.location="administrador.html";</script>';
-                        }
-                      ?>
+                                '</td><td id="load_cpu2" class="text-sm-center">'.$fila[1].' % '.
+                                  '</td><td id="rango_i2" class="text-sm-center">'.$dt['rango_i'].' cm '.
+                                    '</td><td id="rango_s2" class="text-sm-center">'.$dt['rango_s'].' cm '.
+                                      '</td><td>'.'<p><a href="modificarsistema.php?id='.$dt["id"].'" onclick="centeredPopup(this.href,\'myWindow\',\'500\',\'425\',\'yes\');return false"><i class="far fa-edit" style="color:#ff963e ;"></i></a></p>'.
+                                        '</td></tr>';
+                                      }
+                                    }
+                                    else{
+                                      echo '<script type="text/javascript">alert("No se encontraron datos en el sistema, intente mas tarde")
+                                      window.location="administrador.html";</script>';
+                                    }
+                                    ?>
 
-                      <script language="javascript">
-                        var popupWindow = null;
-                        function centeredPopup(url,winName,w,h,scroll){
-                        LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
-                        TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
-                        settings =
-                        'height='+495+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
-                        popupWindow = window.open(url,winName,settings)
-                      }
-                      </script>
-                    </tbody>
-                  </table>
+                                    <script language="javascript">
+                                    var popupWindow = null;
+                                    function centeredPopup(url,winName,w,h,scroll){
+                                      LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
+                                      TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
+                                      settings =
+                                      'height='+495+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars='+scroll+',resizable'
+                                      popupWindow = window.open(url,winName,settings)
+                                    }
+                                    </script>
+                                  </tbody>
+                                </table>
 
-                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-                      <script type="text/javascript">
-                        var cant_micro = <?php $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-                          $cantidad = ("select count(id) as cantidad from micro;");
-                          $cant = pg_query($con,$cantidad);
-                          $canti= pg_fetch_row($cant);
-                          $count = $canti[0];
-                          echo $count;
-                          ?>;
-                        //var elemento = ['nombredp','Sector','temp_cpu2','load_cpu2','rango_i2','rango_s2'];
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                                <script type="text/javascript">
+                                var cant_micro = <?php $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                                $cantidad = ("select count(id) as cantidad from micro;");
+                                $cant = pg_query($con,$cantidad);
+                                $canti= pg_fetch_row($cant);
+                                $count = $canti[0];
+                                echo $count;
+                                ?>;
+                                //var elemento = ['nombredp','Sector','temp_cpu2','load_cpu2','rango_i2','rango_s2'];
 
-                        function actualizar(){
-                          window.cont = 0;
-                          for (i = 0; i < (cant_micro); i++){
-                            // console.log(i);
-                            $.ajax({
-                              url: 'query/asistemas.php',
-                              type: 'post',
-                              async: false,
-                              data: 'data=' +(600+i),
-                              success: function(response) {
-                                var a = response;
-                                var json = JSON.parse(a);
-                                //console.log(json[2].nombre);
-                                llenartb(json);
-                              }
-                            });
-                          }
-                          //console.log("-------------");
-                        }
+                                function actualizar(){
+                                  window.cont = 0;
+                                  for (i = 0; i < (cant_micro); i++){
+                                    // console.log(i);
+                                    $.ajax({
+                                      url: 'query/asistemas.php',
+                                      type: 'post',
+                                      async: false,
+                                      data: 'data=' +(600+i),
+                                      success: function(response) {
+                                        var a = response;
+                                        var json = JSON.parse(a);
+                                        //console.log(json[2].nombre);
+                                        llenartb(json);
+                                      }
+                                    });
+                                  }
+                                  //console.log("-------------");
+                                }
 
-                        window.cont = 0;
-                        function llenartb(json){
-                          window.cont = window.cont+1;
-                          // console.log("activo");
-                          var tabli = document.getElementById("tabla");
-                          tabli.rows[window.cont].cells[0].innerHTML = json[2].nombre;
-                          tabli.rows[window.cont].cells[1].innerHTML = json[1].nombre;
-                          tabli.rows[window.cont].cells[2].innerHTML = json[0].cpu_temp+' °C ';
-                          tabli.rows[window.cont].cells[3].innerHTML = json[0].cpu_usage+' % ';
-                          tabli.rows[window.cont].cells[4].innerHTML = json[2].rango_i+' cm ';
-                          tabli.rows[window.cont].cells[5].innerHTML = json[2].rango_s+' cm ';
-                          //var pru = tabli.rows[window.cont].cells[6].innerHTML;
-                          //pru.href='http://www.asp.net';
-                        }
+                                window.cont = 0;
+                                function llenartb(json){
+                                  window.cont = window.cont+1;
+                                  // console.log("activo");
+                                  var tabli = document.getElementById("tabla");
+                                  tabli.rows[window.cont].cells[0].innerHTML = json[2].nombre;
+                                  tabli.rows[window.cont].cells[1].innerHTML = json[1].nombre;
+                                  tabli.rows[window.cont].cells[2].innerHTML = json[0].cpu_temp+' °C ';
+                                  tabli.rows[window.cont].cells[3].innerHTML = json[0].cpu_usage+' % ';
+                                  tabli.rows[window.cont].cells[4].innerHTML = json[2].rango_i+' cm ';
+                                  tabli.rows[window.cont].cells[5].innerHTML = json[2].rango_s+' cm ';
+                                  //var pru = tabli.rows[window.cont].cells[6].innerHTML;
+                                  //pru.href='http://www.asp.net';
+                                }
 
-                        $(document).ready(function(){
-                          setInterval(actualizar, 500);
-                        });
-                      </script>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="credits ml-auto">
-              <span class="copyright">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script> Cities Flood Monitoring System <i class="fas fa-city"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
+                                $(document).ready(function(){
+                                  setInterval(actualizar, 500);
+                                });
+                                </script>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                </div>
+                                <footer class="footer footer-black  footer-white ">
+                                <div class="container-fluid">
+                                <div class="row">
+                                <div class="credits ml-auto">
+                                <span class="copyright">
+                                ©
+                                <script>
+                                document.write(new Date().getFullYear())
+                                </script> Cities Flood Monitoring System <i class="fas fa-city"></i>
+                                </span>
+                                </div>
+                                </div>
+                                </div>
+                                </footer>
+                                </div>
+                                </div>
 
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <script src="../assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-  <script src="../assets/demo/demo.js"></script>
-</body>
+                                <script src="../assets/js/core/jquery.min.js"></script>
+                                <script src="../assets/js/core/popper.min.js"></script>
+                                <script src="../assets/js/core/bootstrap.min.js"></script>
+                                <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+                                <script src="../assets/js/plugins/chartjs.min.js"></script>
+                                <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+                                <script src="../assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+                                <script src="../assets/demo/demo.js"></script>
+                                </body>
 
-</html>
+                                </html>

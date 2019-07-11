@@ -1,869 +1,869 @@
 <!DOCTYPE html>
 <?php
-  session_start();
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
-    header("Location: index.php");
-  }
+session_start();
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
+  header("Location: index.php");
+}
 ?>
 <html lang="en" dir="ltr">
 <style>
-  .dropdown-menu{
-    max-height: 400px;
-    overflow-y: auto;
+.dropdown-menu{
+  max-height: 400px;
+  overflow-y: auto;
 }
 </style>
-  <head>
-    <meta charset="utf-8">
-    <title>Admin CFMS</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-   <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-   <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript">
-      google.charts.load('current', {packages: ['corechart', 'bar']});
-      google.charts.setOnLoadCallback(function() {
-         $(function() {
-           chartsload();
-           chartsload2();
-         });
-       });
+<head>
+  <meta charset="utf-8">
+  <title>Admin CFMS</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript">
+  google.charts.load('current', {packages: ['corechart', 'bar']});
+  google.charts.setOnLoadCallback(function() {
+    $(function() {
+      chartsload();
+      chartsload2();
+    });
+  });
 
-           function drawBasic(chart_data) {
-             var jsonData = chart_data;
-             var data = new google.visualization.DataTable();
-             data.addColumn('string', jsonData.horadia);
-             data.addColumn('number', 'Cant de lluvia');
-             $.each(chart_data, function(i, jsonData){
-                var hora = jsonData.horadia;
-                var lluvia = parseFloat($.trim(jsonData.cantidad));
-                data.addRows([[hora,lluvia]]);
-             });
+  function drawBasic(chart_data) {
+    var jsonData = chart_data;
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', jsonData.horadia);
+    data.addColumn('number', 'Cant de lluvia');
+    $.each(chart_data, function(i, jsonData){
+      var hora = jsonData.horadia;
+      var lluvia = parseFloat($.trim(jsonData.cantidad));
+      data.addRows([[hora,lluvia]]);
+    });
 
-           var options = {
-             title: 'Cantidad de lluvia',
-             hAxis: {
-               title: 'Hora',
-               //ticks: ['12:00 AM','3:00 AM','6:00 AM','9:00 AM','12:00 PM','3:00 PM','6:00 PM','9:00 PM'],
-               slantedText: true,
-               textStyle: {
-                 fontSize: 8
-               },
-             },
-             vAxis: {
-               title: 'Cantidad de lluvia en mm'
-             }
-           };
+    var options = {
+      title: 'Cantidad de lluvia',
+      hAxis: {
+        title: 'Hora',
+        //ticks: ['12:00 AM','3:00 AM','6:00 AM','9:00 AM','12:00 PM','3:00 PM','6:00 PM','9:00 PM'],
+        slantedText: true,
+        textStyle: {
+          fontSize: 8
+        },
+      },
+      vAxis: {
+        title: 'Cantidad de lluvia en mm'
+      }
+    };
 
-           var chart = new google.visualization.ColumnChart(
-             document.getElementById('chart_lluvia'));
-             chart.draw(data, options);
-           }
+    var chart = new google.visualization.ColumnChart(
+      document.getElementById('chart_lluvia'));
+      chart.draw(data, options);
+    }
 
-           function drawBasic2(chart_data) {
-             var jsonData = chart_data;
-             var data = new google.visualization.DataTable();
-             data.addColumn('string', 'Dias');
-             data.addColumn('number', 'Cant de lluvia');
-             $.each(chart_data, function(i, jsonData){
-                var hora = jsonData.dia;
-                var lluvia = parseFloat($.trim(jsonData.cantidad));
-                data.addRows([[hora,lluvia]]);
-             });
+    function drawBasic2(chart_data) {
+      var jsonData = chart_data;
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Dias');
+      data.addColumn('number', 'Cant de lluvia');
+      $.each(chart_data, function(i, jsonData){
+        var hora = jsonData.dia;
+        var lluvia = parseFloat($.trim(jsonData.cantidad));
+        data.addRows([[hora,lluvia]]);
+      });
 
-               var options = {
-                 title: 'Cantidad de lluvia',
-                 hAxis: {
-                   title: 'Dias',
-                 },
-                 vAxis: {
-                   title: 'Cantidad de lluvia en mm'
-                 }
-               };
+      var options = {
+        title: 'Cantidad de lluvia',
+        hAxis: {
+          title: 'Dias',
+        },
+        vAxis: {
+          title: 'Cantidad de lluvia en mm'
+        }
+      };
 
-               var chart = new google.visualization.ColumnChart(
-                 document.getElementById('chart_lluvia'));
-                 chart.draw(data, options);
-               }
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_lluvia'));
+        chart.draw(data, options);
+      }
 
-           function drawBasic3(chart_data) {
-             var jsonData = chart_data;
-             var data = new google.visualization.DataTable();
-             data.addColumn('string', 'Dia');
-             data.addColumn('number', 'Cant de lluvia');
-             $.each(chart_data, function(i, jsonData){
-                var hora = jsonData.mes;
-                var lluvia = parseFloat($.trim(jsonData.cantidad));
-                data.addRows([[hora,lluvia]]);
-             });
+      function drawBasic3(chart_data) {
+        var jsonData = chart_data;
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Dia');
+        data.addColumn('number', 'Cant de lluvia');
+        $.each(chart_data, function(i, jsonData){
+          var hora = jsonData.mes;
+          var lluvia = parseFloat($.trim(jsonData.cantidad));
+          data.addRows([[hora,lluvia]]);
+        });
 
-               var options = {
-                 title: 'Cantidad de lluvia',
-                 hAxis: {
-                   title: 'Mes',
-                 },
-                 vAxis: {
-                   title: 'Cantidad de lluvia en mm'
-                 }
-               };
-
-               var chart = new google.visualization.ColumnChart(
-                 document.getElementById('chart_lluvia'));
-                 chart.draw(data, options);
-               }
-
-           function drawBasic4(chart_data) {
-             var jsonData = chart_data;
-             var data = new google.visualization.DataTable();
-             data.addColumn('string', 'Dia');
-             data.addColumn('number', 'Cant de lluvia');
-             $.each(chart_data, function(i, jsonData){
-                var hora = jsonData.ano;
-                var lluvia = parseFloat($.trim(jsonData.cantidad));
-                data.addRows([[hora,lluvia]]);
-             });
-
-               var options = {
-                 title: 'Cantidad de lluvia',
-                 hAxis: {
-                   title: 'Año',
-                 },
-                 vAxis: {
-                   title: 'Cantidad de lluvia en mm'
-                 }
-               };
-
-               var chart = new google.visualization.ColumnChart(
-                 document.getElementById('chart_lluvia'));
-                 chart.draw(data, options);
-               }
-
-           $(window).resize(function() {
-             chartsload();
-           });
-
-
-
-        $(document).ready(function(){
-         $("#rango").change(function(){
-           var rango = ($("#rango").val());
-           var microval = ($("#micro").val());
-           console.log(microval);
-              $.ajax({
-                url: 'query/graficolluvia2.php',
-                method: 'post',
-                data: {"rango": rango, "microval": microval},
-                dataType:"JSON",
-            }).done(function(data){
-              console.log(data);
-              if(rango==1){
-                drawBasic(data);
-              }
-              if(rango==2){
-                drawBasic2(data);
-              }
-              if(rango==3){
-                drawBasic3(data);
-              }
-              if(rango==4){
-                drawBasic4(data);
-              }
-            })
-          })
-        })
-
-        $(document).ready(function(){
-         $("#micro").change(function(){
-           var rango = ($("#rango").val());
-           var microval = ($("#micro").val());
-           console.log(microval);
-              $.ajax({
-                url: 'query/graficolluvia2.php',
-                method: 'post',
-                data: {"rango": rango, "microval": microval},
-                dataType:"JSON",
-            }).done(function(data){
-              console.log(data);
-              if(rango==1){
-                drawBasic(data);
-              }
-              if(rango==2){
-                drawBasic2(data);
-              }
-              if(rango==3){
-                drawBasic3(data);
-              }
-              if(rango==4){
-                drawBasic4(data);
-              }
-            })
-          })
-        })
-
-        function chartsload(){
-           var rango = ($("#rango").val());
-           var microval = ($("#micro").val());
-             $.ajax({
-               url: 'query/graficolluvia2.php',
-               method: 'post',
-               data: {"rango": rango, "microval": microval},
-               dataType:"JSON",
-           }).done(function(data){
-             console.log(data);
-             if(rango==1){
-               drawBasic(data);
-             }
-             if(rango==2){
-               drawBasic2(data);
-             }
-             if(rango==3){
-               drawBasic3(data);
-             }
-             if(rango==4){
-               drawBasic4(data);
-             }
-           })
-         }
-
-
-      <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-
-      google.charts.load('current', {packages: ['corechart', 'line']});
-       function drawBackgroundColor(chart_data) {
-             var jsonData = chart_data;
-             var data = new google.visualization.DataTable();
-             data.addColumn('string', 'X');
-             data.addColumn('number', 'Altura');
-             data.addColumn('number', 'Peligro');
-             data.addColumn('number', 'Menor al nivel normal');
-             $.each(chart_data, function(i, jsonData){
-                var hora = jsonData.horadia;
-                var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-                data.addRows([[hora,lluvia,-350,-600]]);
-             });
-
-             var options = {
-               title: 'Cercania del rio al nivel de la tierra',
-               hAxis: {
-                 title: 'Hora'
-               },
-               vAxis: {
-                 title: 'Altura del rio en cm'
-               },
-               //backgroundColor: '#f1f8e9'
-             };
-
-             var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
-             chart.draw(data, options);
-           }
-
-           function drawBackgroundColor2(chart_data) {
-                 var jsonData = chart_data;
-                 var data = new google.visualization.DataTable();
-                 data.addColumn('string', 'X');
-                 data.addColumn('number', 'Altura');
-                 data.addColumn('number', 'Nivel de la tierra');
-                 data.addColumn('number', 'Menor al nivel normal');
-                 $.each(chart_data, function(i, jsonData){
-                    var hora = jsonData.dia;
-                    var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-                    data.addRows([[hora,lluvia,-350,-600]]);
-                 });
-
-                 var options = {
-                   title: 'Cercania del rio al nivel de la tierra',
-                   hAxis: {
-                     title: 'Dias'
-                   },
-                   vAxis: {
-                     title: 'Altura del rio en cm',
-                   },
-                   //backgroundColor: '#f1f8e9'
-                 };
-
-                 var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
-                 chart.draw(data, options);
-               }
-
-               function drawBackgroundColor3(chart_data) {
-                     var jsonData = chart_data;
-                     var data = new google.visualization.DataTable();
-                     data.addColumn('string', 'X');
-                     data.addColumn('number', 'Altura');
-                     data.addColumn('number', 'Peligro');
-                     data.addColumn('number', 'Menor al nivel normal');
-                     $.each(chart_data, function(i, jsonData){
-                        var hora = jsonData.mes;
-                        var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-                        data.addRows([[hora,lluvia,-350,-600]]);
-                     });
-
-                     var options = {
-                       title: 'Cercania del rio al nivel de la tierra',
-                       hAxis: {
-                         title: 'Mes'
-                       },
-                       vAxis: {
-                         title: 'Altura del rio en cm'
-                       },
-                       //backgroundColor: '#f1f8e9'
-                     };
-
-                     var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
-                     chart.draw(data, options);
-                   }
-
-                   function drawBackgroundColor4(chart_data) {
-                         var jsonData = chart_data;
-                         var data = new google.visualization.DataTable();
-                         data.addColumn('string', 'X');
-                         data.addColumn('number', 'Altura');
-                         data.addColumn('number', 'Peligro');
-                         data.addColumn('number', 'Menor al nivel normal');
-                         $.each(chart_data, function(i, jsonData){
-                            var hora = jsonData.ano;
-                            var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-                            data.addRows([[hora,lluvia,-350,-600]]);
-                         });
-
-                         var options = {
-                           title: 'Cercania del rio al nivel de la tierra',
-                           hAxis: {
-                             title: 'Año'
-                           },
-                           vAxis: {
-                             title: 'Altura del rio en cm'
-                           },
-                           //backgroundColor: '#f1f8e9'
-                         };
-
-                         var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
-                         chart.draw(data, options);
-                       }
-
-                       $(window).resize(function() {
-                         chartsload2();
-                       });
-
-        $(document).ready(function(){
-         $("#rango").change(function(){
-           var rango = ($("#rango").val());
-           var microval = ($("#micro").val());
-              $.ajax({
-                url: 'query/graficoultra.php',
-                method: 'post',
-                data: {"rango": rango, "microval": microval},
-                dataType:"JSON",
-            }).done(function(data){
-              console.log(data);
-              if(rango==1){
-                drawBackgroundColor(data);
-              }
-              if(rango==2){
-                drawBackgroundColor2(data);
-              }
-              if(rango==3){
-                drawBackgroundColor3(data);
-              }
-              if(rango==4){
-                drawBackgroundColor4(data);
-              }
-            })
-          })
-        })
-
-        $(document).ready(function(){
-         $("#micro").change(function(){
-           var rango = ($("#rango").val());
-           var microval = ($("#micro").val());
-              $.ajax({
-                url: 'query/graficoultra.php',
-                method: 'post',
-                data: {"rango": rango, "microval": microval},
-                dataType:"JSON",
-            }).done(function(data){
-              console.log(data);
-              if(rango==1){
-                drawBackgroundColor(data);
-              }
-              if(rango==2){
-                drawBackgroundColor2(data);
-              }
-              if(rango==3){
-                drawBackgroundColor3(data);
-              }
-              if(rango==4){
-                drawBackgroundColor4(data);
-              }
-            })
-          })
-        })
-
-        function chartsload2(){
-           var rango = ($("#rango").val());
-           var microval = ($("#micro").val());
-             $.ajax({
-               url: 'query/graficoultra.php',
-               method: 'post',
-               data: {"rango": rango, "microval": microval},
-               dataType:"JSON",
-           }).done(function(data){
-             console.log(data);
-             if(rango==1){
-               drawBackgroundColor(data);
-             }
-             if(rango==2){
-               drawBackgroundColor2(data);
-             }
-             if(rango==3){
-               drawBackgroundColor3(data);
-             }
-             if(rango==4){
-               drawBackgroundColor4(data);
-             }
-           })
-         }
-
-         $(document).ready(function(){
-           $("#micro").change(function(){
-               $('#rango').empty();
-               $('#rango').append('<option value="1" selected>' + "Dia" + '</option>');
-               $('#rango').append('<option value="2">' + "Semana" + '</option>');
-               $('#rango').append('<option value="3">' + "Mes" + '</option>');
-               $('#rango').append('<option value="4">' + "Año" + '</option>');
-               chartsload2();
-               chartsload();
-             })
-           })
-           </script>
-           <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-           <script type="text/javascript">
-
-           function Refreshdata1(){
-             var rango = ($("#rango").val());
-             var microval = ($("#micro").val());
-               $.ajax({
-                 url: 'query/graficolluvia2.php',
-                 method: 'post',
-                 data: {"rango": rango, "microval": microval},
-                 dataType:"JSON",
-             }).done(function(data){
-               console.log(data);
-               if(rango==1){
-                 drawBasic(data);
-               }
-               if(rango==2){
-                 drawBasic2(data);
-               }
-               if(rango==3){
-                 drawBasic3(data);
-               }
-               if(rango==4){
-                 drawBasic4(data);
-               }
-             })
-           }
-
-             $(document).ready(function(){
-               setInterval(Refreshdata1, 10000);
-             });
-           </script>
-
-
-           <script type="text/javascript">
-
-           function Refreshdata2(){
-             var rango = ($("#rango").val());
-             var microval = ($("#micro").val());
-               $.ajax({
-                 url: 'query/graficoultra.php',
-                 method: 'post',
-                 data: {"rango": rango, "microval": microval},
-                 dataType:"JSON",
-             }).done(function(data){
-               console.log(data);
-               if(rango==1){
-                 drawBackgroundColor(data);
-               }
-               if(rango==2){
-                 drawBackgroundColor2(data);
-               }
-               if(rango==3){
-                 drawBackgroundColor3(data);
-               }
-               if(rango==4){
-                 drawBackgroundColor4(data);
-               }
-             })
-           }
-
-             $(document).ready(function(){
-               setInterval(Refreshdata2, 10000);
-             });
-           </script>
-
-
-           <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-         <!-- /////////////////////////////////////////////// ALERTAS  /////////////////////////////////////////////////// -->
-        </script>
-        <script type="text/javascript">
-         $(document).ready(function(){
-               $.ajax({
-                 url: 'query/RepAlerta.php',
-                 method: 'post',
-                 dataType:"JSON",
-             }).done(function(data){
-               //console.log(data);
-               var count = 1;
-               data.forEach(function(item){
-                 if(item.promultra==null){
-                   $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-                 }
-                 else {
-                   $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-                 }
-                 count+=1;
-               });
-             });
-           });
-         </script>
-         <script type="text/javascript">
-        function recargaralerta (){
-            $('#alerta').empty();
-                $.ajax({
-                  url: 'query/RepAlerta.php',
-                  method: 'post',
-                  dataType:"JSON",
-              }).done(function(data){
-                //console.log(data);
-                var count = 1;
-                data.forEach(function(item){
-                  if(item.promultra==null){
-                    $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-                  }
-                  else {
-                    $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-                  }
-                  count+=1;
-                });
-              });
-            }
-            $(document).ready(function(){
-              setInterval(recargaralerta, 30000);
-            });
-          </script>
-  </head>
-
-  <body>
-    <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="../assets/img/user.png">
-          </div>
-        </a>
-        <a class="simple-text logo-normal">
-          <?php
-          if(isset($_SESSION['loggedin'])){
-            $username=$_SESSION['user'];
-            $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-            $query1 = ("SELECT nombre,apellido FROM usuario where nombre_usu = '$username';");
-            $nombre = pg_query($con,$query1);
-            $fila1= pg_fetch_row($nombre);
-            echo$fila1[0].'&nbsp;';
-            echo$fila1[1];
-            pg_close($con);
+        var options = {
+          title: 'Cantidad de lluvia',
+          hAxis: {
+            title: 'Mes',
+          },
+          vAxis: {
+            title: 'Cantidad de lluvia en mm'
           }
-          ?>
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="active ">
-            <a href="./administrador.html">
-              <i class="nc-icon nc-bank"></i>
-              <p>Principal</p>
-            </a>
-          </li>
-          <li>
-            <a href="./amapas.html">
-              <i class="nc-icon nc-pin-3"></i>
-              <p>Mapas</p>
-            </a>
-          </li>
-          <li>
-            <a href="./ausuarios.html">
-              <i class="nc-icon nc-single-02"></i>
-              <p>Usuarios</p>
-            </a>
-          </li>
-          <li>
-            <a href="./asistemas.html">
-              <i class="nc-icon nc-tile-56"></i>
-              <p>Cambios al Sistemas</p>
-            </a>
-          </li>
-          <li>
-            <a href="aimagenes.html">
-              <i class="nc-icon nc-camera-compact"></i>
-              <p>Monitereo Tiempo Real</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
-            <a class="navbar-brand">Datos Generales</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-              <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="nc-icon nc-bell-55"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block"></span>
-                  </p>
-                </a>
-                <div id="alerta" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn-rotate" href="#">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <form method="post">
-                <button name="csesion" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Cerrar sesion</button>
-              </form>
-                <?php
-                  if(isset($_POST['csesion'])){
-                    $_SESSION['loggedin']=false;
-                    echo '<script type="text/javascript">
-                    window.location="index.php";
-                    </script>';
-                  }
-                ?>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div class="content">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-3">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="fas fa-users"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-9">
-                    <div class="numbers">
-                      <p class="card-category">Usuarios Registrados</p>
-                      <?php
-                      $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-                      $query1 = ("select COUNT(*) FROM usuario;");
-                      $view = pg_query($con,$query1);
-                      $fila= pg_fetch_row($view);
-                      echo'<p class="card-title"> '.$fila[0].' <p>';
-                      ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
+        };
 
-                </div>
-              </div>
-            </div>
-          </div>
+        var chart = new google.visualization.ColumnChart(
+          document.getElementById('chart_lluvia'));
+          chart.draw(data, options);
+        }
 
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-globe text-warning"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Dispositivos existentes</p>
-                      <?php
-                      $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-                      $query1 = ("select COUNT(*) FROM micro;");
-                      $view = pg_query($con,$query1);
-                      $fila= pg_fetch_row($view);
-                      echo'<p class="card-title"> '.$fila[0].' <p>';
-                      ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <!-- <i class="fa fa-refresh"></i> TEXTO -->
-                </div>
-              </div>
-            </div>
-          </div>
+        function drawBasic4(chart_data) {
+          var jsonData = chart_data;
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Dia');
+          data.addColumn('number', 'Cant de lluvia');
+          $.each(chart_data, function(i, jsonData){
+            var hora = jsonData.ano;
+            var lluvia = parseFloat($.trim(jsonData.cantidad));
+            data.addRows([[hora,lluvia]]);
+          });
 
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-vector text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Alertas</p>
-                      <?php
-                      $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-                      $query1 = ("select COUNT(*) FROM alerta WHERE alerta.fecha>= NOW() - '1 day'::INTERVAL;");
-                      $view = pg_query($con,$query1);
-                      $fila= pg_fetch_row($view);
-                      echo'<p class="card-title"> '.$fila[0].' <p>';
-                      ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="far fa-clock"></i> Ultimas 24 horas
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="max-width: 90rem;">
-          <div class="card border-light mb-3" style="max-width: 100rem;">
-            <div class="card-header form-inline">
-                <h5> Graficos (Selecione el rango de data) </h5>
-                 <form class="form-inline ml-auto">
-                  <select id="micro" class="custom-select">
-                     <option value="1" selected disabled="">Seleccione un dispositivo</option>
-                  </select>&nbsp;&nbsp;
-                  <select id="rango" class="custom-select">
-                    <option value="1" selected>Dia</option>
-                    <option value="2">Semana</option>
-                    <option value="3">Mes</option>
-                    <option value="4">Año</option>
-                  </select>
-                </form>
-            </div>
+          var options = {
+            title: 'Cantidad de lluvia',
+            hAxis: {
+              title: 'Año',
+            },
+            vAxis: {
+              title: 'Cantidad de lluvia en mm'
+            }
+          };
 
-            <script type="text/javascript">
-              function loadmicro(){
-                    $.ajax({
-                      url: 'query/micro.php',
-                      method: 'post',
-                    }).done(function(data){
-                    console.log(data);
-                    data = JSON.parse(data);
-                    data.forEach(function(micro){
-                      $('#micro').append('<option value="'+micro.id+'">' + micro.nombre + '</option>');
-                      document.getElementById("rango").disabled = true;
-                    })
-                  })
+          var chart = new google.visualization.ColumnChart(
+            document.getElementById('chart_lluvia'));
+            chart.draw(data, options);
+          }
+
+          $(window).resize(function() {
+            chartsload();
+          });
+
+
+
+          $(document).ready(function(){
+            $("#rango").change(function(){
+              var rango = ($("#rango").val());
+              var microval = ($("#micro").val());
+              console.log(microval);
+              $.ajax({
+                url: 'query/graficolluvia2.php',
+                method: 'post',
+                data: {"rango": rango, "microval": microval},
+                dataType:"JSON",
+              }).done(function(data){
+                console.log(data);
+                if(rango==1){
+                  drawBasic(data);
                 }
-
-            </script>
-
-
-
-            <script type="text/javascript">
-            $(document).ready(function(){
-             $("#micro").change(function(){
-               document.getElementById("rango").disabled = false;
+                if(rango==2){
+                  drawBasic2(data);
+                }
+                if(rango==3){
+                  drawBasic3(data);
+                }
+                if(rango==4){
+                  drawBasic4(data);
+                }
               })
             })
+          })
 
-            </script>
+          $(document).ready(function(){
+            $("#micro").change(function(){
+              var rango = ($("#rango").val());
+              var microval = ($("#micro").val());
+              console.log(microval);
+              $.ajax({
+                url: 'query/graficolluvia2.php',
+                method: 'post',
+                data: {"rango": rango, "microval": microval},
+                dataType:"JSON",
+              }).done(function(data){
+                console.log(data);
+                if(rango==1){
+                  drawBasic(data);
+                }
+                if(rango==2){
+                  drawBasic2(data);
+                }
+                if(rango==3){
+                  drawBasic3(data);
+                }
+                if(rango==4){
+                  drawBasic4(data);
+                }
+              })
+            })
+          })
 
-            <script type="text/javascript">
-              loadmicro();
-            </script>
+          function chartsload(){
+            var rango = ($("#rango").val());
+            var microval = ($("#micro").val());
+            $.ajax({
+              url: 'query/graficolluvia2.php',
+              method: 'post',
+              data: {"rango": rango, "microval": microval},
+              dataType:"JSON",
+            }).done(function(data){
+              console.log(data);
+              if(rango==1){
+                drawBasic(data);
+              }
+              if(rango==2){
+                drawBasic2(data);
+              }
+              if(rango==3){
+                drawBasic3(data);
+              }
+              if(rango==4){
+                drawBasic4(data);
+              }
+            })
+          }
 
 
-          <div class="card-body">
-           <div class="container">
-             <div id="chart_lluvia"></div>
-             <br><hr><br>
-             <div id="chart_ultra"></div>
-             </div>
-           </div>
-          </div>
-         </div>
-      </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="credits ml-auto">
-              <span class="copyright">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script> Cities Flood Monitoring System <i class="fas fa-city"></i>
-              </span>
+          <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+          google.charts.load('current', {packages: ['corechart', 'line']});
+          function drawBackgroundColor(chart_data) {
+            var jsonData = chart_data;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'X');
+            data.addColumn('number', 'Altura');
+            data.addColumn('number', 'Peligro');
+            data.addColumn('number', 'Menor al nivel normal');
+            $.each(chart_data, function(i, jsonData){
+              var hora = jsonData.horadia;
+              var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+              data.addRows([[hora,lluvia,-350,-600]]);
+            });
+
+            var options = {
+              title: 'Cercania del rio al nivel de la tierra',
+              hAxis: {
+                title: 'Hora'
+              },
+              vAxis: {
+                title: 'Altura del rio en cm'
+              },
+              //backgroundColor: '#f1f8e9'
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+            chart.draw(data, options);
+          }
+
+          function drawBackgroundColor2(chart_data) {
+            var jsonData = chart_data;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'X');
+            data.addColumn('number', 'Altura');
+            data.addColumn('number', 'Nivel de la tierra');
+            data.addColumn('number', 'Menor al nivel normal');
+            $.each(chart_data, function(i, jsonData){
+              var hora = jsonData.dia;
+              var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+              data.addRows([[hora,lluvia,-350,-600]]);
+            });
+
+            var options = {
+              title: 'Cercania del rio al nivel de la tierra',
+              hAxis: {
+                title: 'Dias'
+              },
+              vAxis: {
+                title: 'Altura del rio en cm',
+              },
+              //backgroundColor: '#f1f8e9'
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+            chart.draw(data, options);
+          }
+
+          function drawBackgroundColor3(chart_data) {
+            var jsonData = chart_data;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'X');
+            data.addColumn('number', 'Altura');
+            data.addColumn('number', 'Peligro');
+            data.addColumn('number', 'Menor al nivel normal');
+            $.each(chart_data, function(i, jsonData){
+              var hora = jsonData.mes;
+              var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+              data.addRows([[hora,lluvia,-350,-600]]);
+            });
+
+            var options = {
+              title: 'Cercania del rio al nivel de la tierra',
+              hAxis: {
+                title: 'Mes'
+              },
+              vAxis: {
+                title: 'Altura del rio en cm'
+              },
+              //backgroundColor: '#f1f8e9'
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+            chart.draw(data, options);
+          }
+
+          function drawBackgroundColor4(chart_data) {
+            var jsonData = chart_data;
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'X');
+            data.addColumn('number', 'Altura');
+            data.addColumn('number', 'Peligro');
+            data.addColumn('number', 'Menor al nivel normal');
+            $.each(chart_data, function(i, jsonData){
+              var hora = jsonData.ano;
+              var lluvia = -+parseFloat($.trim(jsonData.cantidad));
+              data.addRows([[hora,lluvia,-350,-600]]);
+            });
+
+            var options = {
+              title: 'Cercania del rio al nivel de la tierra',
+              hAxis: {
+                title: 'Año'
+              },
+              vAxis: {
+                title: 'Altura del rio en cm'
+              },
+              //backgroundColor: '#f1f8e9'
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_ultra'));
+            chart.draw(data, options);
+          }
+
+          $(window).resize(function() {
+            chartsload2();
+          });
+
+          $(document).ready(function(){
+            $("#rango").change(function(){
+              var rango = ($("#rango").val());
+              var microval = ($("#micro").val());
+              $.ajax({
+                url: 'query/graficoultra.php',
+                method: 'post',
+                data: {"rango": rango, "microval": microval},
+                dataType:"JSON",
+              }).done(function(data){
+                console.log(data);
+                if(rango==1){
+                  drawBackgroundColor(data);
+                }
+                if(rango==2){
+                  drawBackgroundColor2(data);
+                }
+                if(rango==3){
+                  drawBackgroundColor3(data);
+                }
+                if(rango==4){
+                  drawBackgroundColor4(data);
+                }
+              })
+            })
+          })
+
+          $(document).ready(function(){
+            $("#micro").change(function(){
+              var rango = ($("#rango").val());
+              var microval = ($("#micro").val());
+              $.ajax({
+                url: 'query/graficoultra.php',
+                method: 'post',
+                data: {"rango": rango, "microval": microval},
+                dataType:"JSON",
+              }).done(function(data){
+                console.log(data);
+                if(rango==1){
+                  drawBackgroundColor(data);
+                }
+                if(rango==2){
+                  drawBackgroundColor2(data);
+                }
+                if(rango==3){
+                  drawBackgroundColor3(data);
+                }
+                if(rango==4){
+                  drawBackgroundColor4(data);
+                }
+              })
+            })
+          })
+
+          function chartsload2(){
+            var rango = ($("#rango").val());
+            var microval = ($("#micro").val());
+            $.ajax({
+              url: 'query/graficoultra.php',
+              method: 'post',
+              data: {"rango": rango, "microval": microval},
+              dataType:"JSON",
+            }).done(function(data){
+              console.log(data);
+              if(rango==1){
+                drawBackgroundColor(data);
+              }
+              if(rango==2){
+                drawBackgroundColor2(data);
+              }
+              if(rango==3){
+                drawBackgroundColor3(data);
+              }
+              if(rango==4){
+                drawBackgroundColor4(data);
+              }
+            })
+          }
+
+          $(document).ready(function(){
+            $("#micro").change(function(){
+              $('#rango').empty();
+              $('#rango').append('<option value="1" selected>' + "Dia" + '</option>');
+              $('#rango').append('<option value="2">' + "Semana" + '</option>');
+              $('#rango').append('<option value="3">' + "Mes" + '</option>');
+              $('#rango').append('<option value="4">' + "Año" + '</option>');
+              chartsload2();
+              chartsload();
+            })
+          })
+          </script>
+          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+          <script type="text/javascript">
+
+          function Refreshdata1(){
+            var rango = ($("#rango").val());
+            var microval = ($("#micro").val());
+            $.ajax({
+              url: 'query/graficolluvia2.php',
+              method: 'post',
+              data: {"rango": rango, "microval": microval},
+              dataType:"JSON",
+            }).done(function(data){
+              console.log(data);
+              if(rango==1){
+                drawBasic(data);
+              }
+              if(rango==2){
+                drawBasic2(data);
+              }
+              if(rango==3){
+                drawBasic3(data);
+              }
+              if(rango==4){
+                drawBasic4(data);
+              }
+            })
+          }
+
+          $(document).ready(function(){
+            setInterval(Refreshdata1, 10000);
+          });
+          </script>
+
+
+          <script type="text/javascript">
+
+          function Refreshdata2(){
+            var rango = ($("#rango").val());
+            var microval = ($("#micro").val());
+            $.ajax({
+              url: 'query/graficoultra.php',
+              method: 'post',
+              data: {"rango": rango, "microval": microval},
+              dataType:"JSON",
+            }).done(function(data){
+              console.log(data);
+              if(rango==1){
+                drawBackgroundColor(data);
+              }
+              if(rango==2){
+                drawBackgroundColor2(data);
+              }
+              if(rango==3){
+                drawBackgroundColor3(data);
+              }
+              if(rango==4){
+                drawBackgroundColor4(data);
+              }
+            })
+          }
+
+          $(document).ready(function(){
+            setInterval(Refreshdata2, 10000);
+          });
+          </script>
+
+
+          <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+          <!-- /////////////////////////////////////////////// ALERTAS  /////////////////////////////////////////////////// -->
+        </script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+          $.ajax({
+            url: 'query/RepAlerta.php',
+            method: 'post',
+            dataType:"JSON",
+          }).done(function(data){
+            //console.log(data);
+            var count = 1;
+            data.forEach(function(item){
+              if(item.promultra==null){
+                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+              }
+              else {
+                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+              }
+              count+=1;
+            });
+          });
+        });
+        </script>
+        <script type="text/javascript">
+        function recargaralerta (){
+          $('#alerta').empty();
+          $.ajax({
+            url: 'query/RepAlerta.php',
+            method: 'post',
+            dataType:"JSON",
+          }).done(function(data){
+            //console.log(data);
+            var count = 1;
+            data.forEach(function(item){
+              if(item.promultra==null){
+                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+              }
+              else {
+                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+              }
+              count+=1;
+            });
+          });
+        }
+        $(document).ready(function(){
+          setInterval(recargaralerta, 30000);
+        });
+        </script>
+      </head>
+
+      <body>
+        <div class="wrapper ">
+          <div class="sidebar" data-color="white" data-active-color="danger">
+            <div class="logo">
+              <a class="simple-text logo-mini">
+                <div class="logo-image-small">
+                  <img src="../assets/img/user.png">
+                </div>
+              </a>
+              <a class="simple-text logo-normal">
+                <?php
+                if(isset($_SESSION['loggedin'])){
+                  $username=$_SESSION['user'];
+                  $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                  $query1 = ("SELECT nombre,apellido FROM usuario where nombre_usu = '$username';");
+                  $nombre = pg_query($con,$query1);
+                  $fila1= pg_fetch_row($nombre);
+                  echo$fila1[0].'&nbsp;';
+                  echo$fila1[1];
+                  pg_close($con);
+                }
+                ?>
+              </a>
+            </div>
+            <div class="sidebar-wrapper">
+              <ul class="nav">
+                <li class="active ">
+                  <a href="./administrador.html">
+                    <i class="nc-icon nc-bank"></i>
+                    <p>Principal</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="./amapas.html">
+                    <i class="nc-icon nc-pin-3"></i>
+                    <p>Mapas</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="./ausuarios.html">
+                    <i class="nc-icon nc-single-02"></i>
+                    <p>Usuarios</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="./asistemas.html">
+                    <i class="nc-icon nc-tile-56"></i>
+                    <p>Cambios al Sistemas</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="aimagenes.html">
+                    <i class="nc-icon nc-camera-compact"></i>
+                    <p>Monitereo Tiempo Real</p>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
-      </footer>
-    </div>
-  </div>
+          <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+              <div class="container-fluid">
+                <div class="navbar-wrapper">
+                  <div class="navbar-toggle">
+                    <button type="button" class="navbar-toggler">
+                      <span class="navbar-toggler-bar bar1"></span>
+                      <span class="navbar-toggler-bar bar2"></span>
+                      <span class="navbar-toggler-bar bar3"></span>
+                    </button>
+                  </div>
+                  <a class="navbar-brand">Datos Generales</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-bar navbar-kebab"></span>
+                  <span class="navbar-toggler-bar navbar-kebab"></span>
+                  <span class="navbar-toggler-bar navbar-kebab"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                  <ul class="navbar-nav">
+                    <li class="nav-item btn-rotate dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="nc-icon nc-bell-55"></i>
+                        <p>
+                          <span class="d-lg-none d-md-block"></span>
+                        </p>
+                      </a>
+                      <div id="alerta" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link btn-rotate" href="#">
+                        <i class="nc-icon nc-settings-gear-65"></i>
+                        <p>
+                          <span class="d-lg-none d-md-block">Account</span>
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <form method="post">
+                        <button name="csesion" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Cerrar sesion</button>
+                      </form>
+                      <?php
+                      if(isset($_POST['csesion'])){
+                        $_SESSION['loggedin']=false;
+                        echo '<script type="text/javascript">
+                        window.location="index.php";
+                        </script>';
+                      }
+                      ?>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <div class="content">
+              <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                  <div class="card card-stats">
+                    <div class="card-body ">
+                      <div class="row">
+                        <div class="col-5 col-md-3">
+                          <div class="icon-big text-center icon-warning">
+                            <i class="fas fa-users"></i>
+                          </div>
+                        </div>
+                        <div class="col-7 col-md-9">
+                          <div class="numbers">
+                            <p class="card-category">Usuarios Registrados</p>
+                            <?php
+                            $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                            $query1 = ("select COUNT(*) FROM usuario;");
+                            $view = pg_query($con,$query1);
+                            $fila= pg_fetch_row($view);
+                            echo'<p class="card-title"> '.$fila[0].' <p>';
+                              ?>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer ">
+                        <hr>
+                        <div class="stats">
 
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <script src="../assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-  <script src="../assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      demo.initChartsPages();
-    });
-  </script>
-  </body>
-</html>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                      <div class="card-body ">
+                        <div class="row">
+                          <div class="col-5 col-md-4">
+                            <div class="icon-big text-center icon-warning">
+                              <i class="nc-icon nc-globe text-warning"></i>
+                            </div>
+                          </div>
+                          <div class="col-7 col-md-8">
+                            <div class="numbers">
+                              <p class="card-category">Dispositivos existentes</p>
+                              <?php
+                              $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                              $query1 = ("select COUNT(*) FROM micro;");
+                              $view = pg_query($con,$query1);
+                              $fila= pg_fetch_row($view);
+                              echo'<p class="card-title"> '.$fila[0].' <p>';
+                                ?>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-footer ">
+                          <hr>
+                          <div class="stats">
+                            <!-- <i class="fa fa-refresh"></i> TEXTO -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                      <div class="card card-stats">
+                        <div class="card-body ">
+                          <div class="row">
+                            <div class="col-5 col-md-4">
+                              <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-vector text-danger"></i>
+                              </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                              <div class="numbers">
+                                <p class="card-category">Alertas</p>
+                                <?php
+                                $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                                $query1 = ("select COUNT(*) FROM alerta WHERE alerta.fecha>= NOW() - '1 day'::INTERVAL;");
+                                $view = pg_query($con,$query1);
+                                $fila= pg_fetch_row($view);
+                                echo'<p class="card-title"> '.$fila[0].' <p>';
+                                  ?>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-footer ">
+                            <hr>
+                            <div class="stats">
+                              <i class="far fa-clock"></i> Ultimas 24 horas
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="max-width: 90rem;">
+                      <div class="card border-light mb-3" style="max-width: 100rem;">
+                        <div class="card-header form-inline">
+                          <h5> Graficos (Selecione el rango de data) </h5>
+                          <form class="form-inline ml-auto">
+                            <select id="micro" class="custom-select">
+                              <option value="1" selected disabled="">Seleccione un dispositivo</option>
+                            </select>&nbsp;&nbsp;
+                            <select id="rango" class="custom-select">
+                              <option value="1" selected>Dia</option>
+                              <option value="2">Semana</option>
+                              <option value="3">Mes</option>
+                              <option value="4">Año</option>
+                            </select>
+                          </form>
+                        </div>
+
+                        <script type="text/javascript">
+                        function loadmicro(){
+                          $.ajax({
+                            url: 'query/micro.php',
+                            method: 'post',
+                          }).done(function(data){
+                            console.log(data);
+                            data = JSON.parse(data);
+                            data.forEach(function(micro){
+                              $('#micro').append('<option value="'+micro.id+'">' + micro.nombre + '</option>');
+                              document.getElementById("rango").disabled = true;
+                            })
+                          })
+                        }
+
+                        </script>
+
+
+
+                        <script type="text/javascript">
+                        $(document).ready(function(){
+                          $("#micro").change(function(){
+                            document.getElementById("rango").disabled = false;
+                          })
+                        })
+
+                        </script>
+
+                        <script type="text/javascript">
+                        loadmicro();
+                        </script>
+
+
+                        <div class="card-body">
+                          <div class="container">
+                            <div id="chart_lluvia"></div>
+                            <br><hr><br>
+                            <div id="chart_ultra"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <footer class="footer footer-black  footer-white ">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="credits ml-auto">
+                          <span class="copyright">
+                            ©
+                            <script>
+                            document.write(new Date().getFullYear())
+                            </script> Cities Flood Monitoring System <i class="fas fa-city"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+
+              <script src="../assets/js/core/jquery.min.js"></script>
+              <script src="../assets/js/core/popper.min.js"></script>
+              <script src="../assets/js/core/bootstrap.min.js"></script>
+              <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+              <script src="../assets/js/plugins/chartjs.min.js"></script>
+              <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+              <script src="../assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+              <script src="../assets/demo/demo.js"></script>
+              <script>
+              $(document).ready(function() {
+                demo.initChartsPages();
+              });
+              </script>
+            </body>
+            </html>

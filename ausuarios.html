@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <?php
-  session_start();
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
-    header("Location: index.php");
-  }
+session_start();
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['privilegio']!=2){
+  header("Location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <style>
-  .dropdown-menu{
-    max-height: 400px;
-    overflow-y: auto;
+.dropdown-menu{
+  max-height: 400px;
+  overflow-y: auto;
 }
 </style>
 <head>
@@ -33,51 +33,51 @@
 
 </script>
 <script type="text/javascript">
- $(document).ready(function(){
-       $.ajax({
-         url: 'query/RepAlerta.php',
-         method: 'post',
-         dataType:"JSON",
-     }).done(function(data){
-       //console.log(data);
-       var count = 1;
-       data.forEach(function(item){
-         if(item.promultra==null){
-           $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-         }
-         else {
-           $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-         }
-         count+=1;
-       });
-     });
-   });
- </script>
- <script type="text/javascript">
-function recargaralerta (){
-    $('#alerta').empty();
-        $.ajax({
-          url: 'query/RepAlerta.php',
-          method: 'post',
-          dataType:"JSON",
-      }).done(function(data){
-        //console.log(data);
-        var count = 1;
-        data.forEach(function(item){
-          if(item.promultra==null){
-            $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-          }
-          else {
-            $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-          }
-          count+=1;
-        });
-      });
-    }
-    $(document).ready(function(){
-      setInterval(recargaralerta, 30000);
+$(document).ready(function(){
+  $.ajax({
+    url: 'query/RepAlerta.php',
+    method: 'post',
+    dataType:"JSON",
+  }).done(function(data){
+    //console.log(data);
+    var count = 1;
+    data.forEach(function(item){
+      if(item.promultra==null){
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+      }
+      else {
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+      }
+      count+=1;
     });
-  </script>
+  });
+});
+</script>
+<script type="text/javascript">
+function recargaralerta (){
+  $('#alerta').empty();
+  $.ajax({
+    url: 'query/RepAlerta.php',
+    method: 'post',
+    dataType:"JSON",
+  }).done(function(data){
+    //console.log(data);
+    var count = 1;
+    data.forEach(function(item){
+      if(item.promultra==null){
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+      }
+      else {
+        $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+      }
+      count+=1;
+    });
+  });
+}
+$(document).ready(function(){
+  setInterval(recargaralerta, 30000);
+});
+</script>
 
 </head>
 
@@ -181,15 +181,15 @@ function recargaralerta (){
               </li>
               <li class="nav-item">
                 <form method="post">
-                <button name="csesion" type="submit" class="btn btn btn-secundary"><i class="nc-icon nc-single-02"></i> Cerrar sesion</button>
-              </form>
+                  <button name="csesion" type="submit" class="btn btn btn-secundary"><i class="nc-icon nc-single-02"></i> Cerrar sesion</button>
+                </form>
                 <?php
-                  if(isset($_POST['csesion'])){
-                    $_SESSION['loggedin']=false;
-                    echo '<script type="text/javascript">
-                    window.location="index.php";
-                    </script>';
-                  }
+                if(isset($_POST['csesion'])){
+                  $_SESSION['loggedin']=false;
+                  echo '<script type="text/javascript">
+                  window.location="index.php";
+                  </script>';
+                }
                 ?>
               </li>
             </ul>
@@ -232,66 +232,66 @@ function recargaralerta (){
                     </thead>
                     <tbody>
                       <?php
-                        $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-                        $query1 = ("select * FROM USUARIO;");
-                        $view = pg_query($con,$query1);
-                        if(pg_num_rows($view)){
-                          $rs = pg_fetch_all($view);
-                          foreach ($rs as $dt){
-                            $sector=$dt['sector'];
-                            $query2 = ("select sector.nombre FROM sector where sector_id = '$sector' ;");
-                            $nombre = pg_query($con,$query2);
-                            $fila1= pg_fetch_row($nombre);
+                      $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+                      $query1 = ("select * FROM USUARIO;");
+                      $view = pg_query($con,$query1);
+                      if(pg_num_rows($view)){
+                        $rs = pg_fetch_all($view);
+                        foreach ($rs as $dt){
+                          $sector=$dt['sector'];
+                          $query2 = ("select sector.nombre FROM sector where sector_id = '$sector' ;");
+                          $nombre = pg_query($con,$query2);
+                          $fila1= pg_fetch_row($nombre);
 
-                            echo '</th><td class="text-sm-center">'.$dt['nombre']. ' ' .$dt['apellido'].
-                              '</td><td class="text-sm-center">'.$dt['nombre_usu'].
+                          echo '</th><td class="text-sm-center">'.$dt['nombre']. ' ' .$dt['apellido'].
+                            '</td><td class="text-sm-center">'.$dt['nombre_usu'].
                               '</td><td class="text-sm-center">'.$dt['sexo'].
-                              '</td><td class="text-sm-center">'.'('.substr($dt['celular'],0,3).') '.substr($dt['celular'],3,3).'-'.substr($dt['celular'],6,10).
-                              '</td><td class="text-sm-center">'.$dt['correo'].
-                              '</td><td class="text-sm-center">'.$dt['privilegio'].
-                              '</td><td class="text-sm-center">'.$fila1[0].
-                              '</td><td>'.'<a href="borrarusuario.php?id='.$dt["id"].'"><i class="far fa-trash-alt" style="color:#E63462;"></i></a>'.
-                              '</td></tr>';
-                          }
-                        }
-                        else{
-                          echo '<script type="text/javascript">alert("No se encontraron datos en el sistema, intente mas tarde")
-                          window.location="administrador.html";</script>';
-                        }
-                      ?>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="credits ml-auto">
-              <span class="copyright">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script> Cities Flood Monitoring System <i class="fas fa-city"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
+                                '</td><td class="text-sm-center">'.'('.substr($dt['celular'],0,3).') '.substr($dt['celular'],3,3).'-'.substr($dt['celular'],6,10).
+                                  '</td><td class="text-sm-center">'.$dt['correo'].
+                                    '</td><td class="text-sm-center">'.$dt['privilegio'].
+                                      '</td><td class="text-sm-center">'.$fila1[0].
+                                        '</td><td>'.'<a href="borrarusuario.php?id='.$dt["id"].'"><i class="far fa-trash-alt" style="color:#E63462;"></i></a>'.
+                                          '</td></tr>';
+                                        }
+                                      }
+                                      else{
+                                        echo '<script type="text/javascript">alert("No se encontraron datos en el sistema, intente mas tarde")
+                                        window.location="administrador.html";</script>';
+                                      }
+                                      ?>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <footer class="footer footer-black  footer-white ">
+                        <div class="container-fluid">
+                          <div class="row">
+                            <div class="credits ml-auto">
+                              <span class="copyright">
+                                ©
+                                <script>
+                                document.write(new Date().getFullYear())
+                                </script> Cities Flood Monitoring System <i class="fas fa-city"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </footer>
+                    </div>
+                  </div>
 
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <script src="../assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-  <script src="../assets/demo/demo.js"></script>
-</body>
+                  <script src="../assets/js/core/jquery.min.js"></script>
+                  <script src="../assets/js/core/popper.min.js"></script>
+                  <script src="../assets/js/core/bootstrap.min.js"></script>
+                  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+                  <script src="../assets/js/plugins/chartjs.min.js"></script>
+                  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+                  <script src="../assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
+                  <script src="../assets/demo/demo.js"></script>
+                </body>
 
-</html>
+                </html>

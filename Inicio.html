@@ -1,309 +1,309 @@
 <!DOCTYPE html>
 <?php
- session_start();
+session_start();
 /*  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-    header("Location: index.php");
-  }*/
+  header("Location: index.php");
+}*/
 //echo("<script>console.log('PHP: ".$_SESSION['microses']."');</script>");
 ?>
 <html lang="en" dir="ltr">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <head>
-    <!-- <meta http-equiv="refresh" content="10"> -->
-    <meta charset="utf-8">
-    <title>Cities Flood Monitoring System</title>
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<head>
+  <!-- <meta http-equiv="refresh" content="10"> -->
+  <meta charset="utf-8">
+  <title>Cities Flood Monitoring System</title>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
- <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-    <script type="text/javascript">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <script type="text/javascript">
 
-      function actualizar(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/load_cpu.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(microval);
-              cargafoto(microval);
-              $(window.var).empty();
-              document.getElementById('load_cpu').innerHTML = response;
-            });
-      }
+  function actualizar(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/load_cpu.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(microval);
+      cargafoto(microval);
+      $(window.var).empty();
+      document.getElementById('load_cpu').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar, 10000);
-      });
+  $(document).ready(function(){
+    setInterval(actualizar, 10000);
+  });
 
-      function cargafoto(id){
-      var elemento = ['foto'];
-        $('#'+elemento[0]).load('query/'+elemento[0]+'.php?part='+id)
-      }
+  function cargafoto(id){
+    var elemento = ['foto'];
+    $('#'+elemento[0]).load('query/'+elemento[0]+'.php?part='+id)
+  }
 
-    </script>
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar2(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/ultrasonico.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('ultrasonico').innerHTML = response;
-            });
-      }
+  function actualizar2(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/ultrasonico.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('ultrasonico').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar2, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar2, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar3(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/pluviometro.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('pluviometro').innerHTML = response;
-            });
-      }
+  function actualizar3(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/pluviometro.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('pluviometro').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar3, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar3, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar4(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/bateria.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('bateria').innerHTML = response;
-            });
-      }
+  function actualizar4(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/bateria.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('bateria').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar4, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar4, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar5(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/latitud.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('latitud').innerHTML = response;
-            });
-      }
+  function actualizar5(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/latitud.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('latitud').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar5, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar5, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar6(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/longitud.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('longitud').innerHTML = response;
-            });
-      }
+  function actualizar6(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/longitud.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('longitud').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar6, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar6, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar7(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/temp_cpu.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('temp_cpu').innerHTML = response;
-            });
-      }
+  function actualizar7(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/temp_cpu.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('temp_cpu').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar7, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar7, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar8(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/hora.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('hora').innerHTML = response;
-            });
-      }
+  function actualizar8(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/hora.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('hora').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar8, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar8, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar9(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/fecha.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('fecha').innerHTML = response;
-            });
-      }
+  function actualizar9(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/fecha.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('fecha').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar9, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar9, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar10(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/rango_i.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('rango_i').innerHTML = response;
-            });
-      }
+  function actualizar10(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/rango_i.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('rango_i').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar10, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar10, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      function actualizar11(){
-          var microval = '<?php echo $_SESSION['microses']; ?>';
-            $.ajax({
-              url: 'query/rango_s.php',
-              type: 'post',
-              data: 'data=' +microval,
-            }).done(function(response){
-              //console.log(response);
-              $(window.var).empty();
-              document.getElementById('rango_s').innerHTML = response;
-            });
-      }
+  function actualizar11(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/rango_s.php',
+      type: 'post',
+      data: 'data=' +microval,
+    }).done(function(response){
+      //console.log(response);
+      $(window.var).empty();
+      document.getElementById('rango_s').innerHTML = response;
+    });
+  }
 
-      $(document).ready(function(){
-        setInterval(actualizar11, 10000);
-      });
-    </script>
+  $(document).ready(function(){
+    setInterval(actualizar11, 10000);
+  });
+  </script>
 
-    <script type="text/javascript">
-     $(document).ready(function(){
-       var microval = '<?php echo $_SESSION['microses']; ?>';
-           $.ajax({
-             url: 'query/RepAlertaU.php',
-             method: 'post',
-             data: 'data=' +microval,
-             dataType:"JSON",
-         }).done(function(data){
-           //console.log(data);
-           var count = 1;
-           data.forEach(function(item){
-             if(item.promultra==null){
-               console.log(item.nombre);
-               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+parseFloat(item.sumpluvi).toFixed(2)+" MM"+'</h6><hr>');
-             }
-             else {
-               $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-             }
-             count+=1;
-           });
-         });
-       });
-     </script>
-     <script type="text/javascript">
-    function recargaralerta (){
-        $('#alerta').empty();
-            $.ajax({
-              url: 'query/RepAlerta.php',
-              method: 'post',
-              dataType:"JSON",
-          }).done(function(data){
-            //console.log(data);
-            var count = 1;
-            data.forEach(function(item){
-              if(item.promultra==null){
-                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-              }
-              else {
-                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-              }
-              count+=1;
-            });
-          });
+  <script type="text/javascript">
+  $(document).ready(function(){
+    var microval = '<?php echo $_SESSION['microses']; ?>';
+    $.ajax({
+      url: 'query/RepAlertaU.php',
+      method: 'post',
+      data: 'data=' +microval,
+      dataType:"JSON",
+    }).done(function(data){
+      //console.log(data);
+      var count = 1;
+      data.forEach(function(item){
+        if(item.promultra==null){
+          console.log(item.nombre);
+          $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+parseFloat(item.sumpluvi).toFixed(2)+" MM"+'</h6><hr>');
         }
-        $(document).ready(function(){
-          setInterval(recargaralerta, 30000);
-        });
-      </script>
+        else {
+          $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+        }
+        count+=1;
+      });
+    });
+  });
+  </script>
+  <script type="text/javascript">
+  function recargaralerta (){
+    $('#alerta').empty();
+    $.ajax({
+      url: 'query/RepAlerta.php',
+      method: 'post',
+      dataType:"JSON",
+    }).done(function(data){
+      //console.log(data);
+      var count = 1;
+      data.forEach(function(item){
+        if(item.promultra==null){
+          $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+        }
+        else {
+          $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+        }
+        count+=1;
+      });
+    });
+  }
+  $(document).ready(function(){
+    setInterval(recargaralerta, 30000);
+  });
+  </script>
 
 
-    <style>
+  <style>
   img {
     max-width: 100%;
     height: auto;
@@ -378,57 +378,57 @@
   }
 
   .table {
-   display: block !important;
- }
+    display: block !important;
+  }
   </style>
   <link rel="stylesheet" type="text/css" href="static/css/inicio.css" th:href="@{static/css/index.css}">
 
-  </head>
-  <body>
-    <style type="text/css">
-       body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
-    </style>
+</head>
+<body>
+  <style type="text/css">
+  body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+  </style>
 
 
-    <nav class="navbar navbar-expand-lg  navbar-light bg-white">
-  <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarColor03">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link text-dark" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="Localidades.html"> Localidades </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="Graficos.php"> Graficos </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="valoresh.html"> Valores Historicos (BD) </a>
-      </li>
+  <nav class="navbar navbar-expand-lg  navbar-light bg-white">
+    <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-dark" href="Inicio.html"> Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="Localidades.html"> Localidades </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="Graficos.php"> Graficos </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="valoresh.html"> Valores Historicos (BD) </a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="nosotros.html"> Nosotros </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="nosotros.html"> Nosotros </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
           <div id="alerta" class="dropdown-menu dropdown-menu-right">
             <div class="table-responsive">
             </div>
           </div>
-      </li>
-    </ul>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarColor03">
+        </li>
+      </ul>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarColor03">
 
-    <p>&nbsp;&nbsp;</p>
+        <p>&nbsp;&nbsp;</p>
 
-    <form method="post">
-      <button id="cerrarc" name="csesion" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Cerrar sesion</button>
-    </form>
-      <?php
+        <form method="post">
+          <button id="cerrarc" name="csesion" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Cerrar sesion</button>
+        </form>
+        <?php
         if(isset($_POST['csesion'])){
           $_SESSION['loggedin']=false;
           echo '<script type="text/javascript">
@@ -437,191 +437,191 @@
         }
 
         if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-        echo  '<script type="text/javascript">
-        $("#cerrarc").hide()
-        </script>';
-      }
-      ?>
-      <form method="post">
-      <button  id="iniciar" name="iniciar" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Iniciar sesion</button>
-    </form>
-    <?php
-      if(isset($_POST['iniciar'])){
-        $_SESSION['loggedin']=false;
-        echo '<script type="text/javascript">
-        window.location="index.php";
-        </script>';
-      }
-
-      if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-      echo  '<script type="text/javascript">
-      $("#iniciar").show()
-      </script>';
-      }
-      else
-      {
-        echo  '<script type="text/javascript">
-        $("#iniciar").hide()
-        </script>';
-      }
-    ?>
-
-    </div>
-  </div>
-
-  <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
-    ALL-RIGHTS RESERVED 2019</p>
-</nav>
-  <br>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-3 my-2">
-      <div class="card  bg-white text-dark" >
-
-        <div class="card-body">
-            <p class="card-title bg-white"> Monitoreo <i class="fas fa-info-circle"></i></p>
-            <hr>
-          <p class="card-title">Cercania al nivel tierra</p>
-          <h6 id="ultrasonico"> <?php include("ConnBaseDatos.php"); echo$fila1[0]; ?> cm </h6>
-          <hr>
-          <p class="card-title">Rango Seguro</p>
-          <!-- <h6 id="altsegura"> <?php include("ConnBaseDatos.php"); echo$fila12[0]; ?> - <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </h6> -->
-          <div style="overflow: hidden;">
-            <h6 style="float: left;" id="rango_i" ><?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>&nbsp;</h6>
-
-            <h6 style="float: center;" id="rango_s">- <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </h6>
-
-          </div>
-          <hr>
-          <p class="card-title">Cant Lluvia</p>
-          <p class="text-muted"> (Dia actual) </p><h6 id="pluviometro"> <?php include("ConnBaseDatos.php"); echo$fila2[0]*0.30303; ?> mm </h6>
-          <hr>
-          <p class="card-title">Temperatura y Carga CPU </p>
-          <div class="pb-2" style="overflow: hidden;">
-            <h6 style="float: left;" id="temp_cpu"> <?php include("ConnBaseDatos.php"); echo$fila4[0]; ?> °C &nbsp;</h6>
-            <h6 style="float: center;" id="load_cpu">/&nbsp; <?php include("ConnBaseDatos.php"); echo$fila3[0]; ?> % </h6>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6 my-2">
-
-      <div class=" card border-light mb-3">
-        <div class="card-header text-center" ><h4>Estado de las alerta en: </h4><font color="blue"><h5 id="Local"></h5></font></div>
-        <script type="text/javascript">
-          var microval = '<?php
-          $local = $_SESSION['microses'];
-          $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-          $query25 = ("SELECT sector.nombre FROM sector where sector_id = (Select localidad from micro where id = $local);");
-          $nombre = pg_query($con,$query25);
-          $fila25= pg_fetch_row($nombre);
-          echo$fila25[0];
-          ?>';
-
-          document.getElementById("Local").innerHTML = microval;
-        </script>
-
-          <div class="card-body text-center" id="estadoalerta">
-            <h4 id="TipoAlerta"></h4>
-          </div>
-
-          <script type="text/javascript">
-          function actualizarestado(){
-              var microval = '<?php echo $_SESSION['microses']; ?>';
-                $.ajax({
-                  url: 'query/RepEstado.php',
-                  type: 'post',
-                  data: 'data=' +microval,
-                }).done(function(response){
-                  console.log(response);
-                  var json = JSON.parse(response);
-                  if (response == "[]"){
-                    document.getElementById('TipoAlerta').innerHTML = "No hay alertas";
-                    document.getElementById("estadoalerta").className = "card-body text-center";
-                  };
-                  json.forEach(function(item){
-                    //console.log(item.tipo);
-                    if (item.tipo== 1){
-                      document.getElementById('TipoAlerta').innerHTML = "Alerta Verde";
-                      document.getElementById("estadoalerta").className = "card-body text-center text-white bg-success";
-                    };
-                    if (item.tipo== 2){
-                      document.getElementById('TipoAlerta').innerHTML = "Alerta Amarilla";
-                      document.getElementById("estadoalerta").className = "card-body text-center text-white bg-warning";
-                    };
-                    if (item.tipo== 3){
-                      document.getElementById('TipoAlerta').innerHTML = "Alerta Roja";
-                      document.getElementById("estadoalerta").className = "card-body text-center text-white bg-danger";
-                    };
-                  });
-                });
-          }
-
-          $(document).ready(function(){
-            setInterval(actualizarestado, 10000);
-          });
-        </script>
-        <script type="text/javascript">
-        actualizarestado()
-        </script>
-      </div>
-
-      <div style="text-align: center" id="foto">
-        <p>
-        <?php
-          $local = $_SESSION['microses'];
-          global $path;    // path to directory has to be global, using it later in html
-          $dir = "C:/xampp/htdocs/Fotos/Micro$local";
-          $files = scandir($dir, 1);                // read directory backkwards
-          $picture = ($files[0]);                   // get las picture file name
-          $path = "C:/xampp/htdocs/Fotos/Micro$local";
-
-          echo ' <img width="535" height="280" class="alignnone size-large" src="../Fotos/Micro'.$local.'/'.$picture.'"> '
+          echo  '<script type="text/javascript">
+          $("#cerrarc").hide()
+          </script>';
+        }
         ?>
-        <p>
-      </div> <!-- Foto -->
+        <form method="post">
+          <button  id="iniciar" name="iniciar" type="submit" class="btn btn btn-dark"> <i class="far fa-user"></i> Iniciar sesion</button>
+        </form>
+        <?php
+        if(isset($_POST['iniciar'])){
+          $_SESSION['loggedin']=false;
+          echo '<script type="text/javascript">
+          window.location="index.php";
+          </script>';
+        }
 
-    </div>
-
-    <div class="col-sm-3 my-2">
-      <div class="card text-dark bg-white" >
-
-        <div class="card-body">
-        <p class="card-title bg-white">Datos GPS <i class="fas fa-location-arrow"></i></p>
-        <hr>
-          <p class="card-title">Hora y Fecha</p>
-          <div style="overflow: hidden;">
-            <h6 style="float: left;" id="hora"><?php include('ConnBaseDatos.php'); echo$fila5[0];?></h6>
-            <h6 style="float: right;" id="fecha">- <?php include("ConnBaseDatos.php"); echo$fila6[0];?></h6>
-
-          </div>
-          <hr>
-          <p class="card-title">Latitud</p>
-          <h6 id="latitud"><?php include("ConnBaseDatos.php"); echo(substr($fila7[0], 0, 7))-0.0002;?></h6>
-          <hr>
-
-          <p class="card-title">Longitud</p>
-          <h6 id="longitud"><?php include("ConnBaseDatos.php"); echo(substr($fila9[0], 0, 8));?></h6>
-          <hr>
-          <div class="card-title bg-white"> Estado Bateria <i class="fas fa-battery-three-quarters"></i></div>
-          <h6 id="bateria" class="pb-5"> <?php include("ConnBaseDatos.php"); echo$fila11[0]; ?> % </h6>
-
-
-        </div>
-
+        if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+          echo  '<script type="text/javascript">
+          $("#iniciar").show()
+          </script>';
+        }
+        else
+        {
+          echo  '<script type="text/javascript">
+          $("#iniciar").hide()
+          </script>';
+        }
+        ?>
 
       </div>
     </div>
-  </div>
-</div>
 
-  <div class=" fixed-bottom mb-4 alert alert-dismissible alert-warning">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <h4 class="alert-heading">Aviso!</h4>
-  <p class="mb-0"> Inundaciones en Jarabacoa, La Vega. <a href="#" class="alert-link"> Ver mas detalles</a>.</p>
-  </div>
-</div>
-<br><br>
-  </body>
-</html>
+    <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
+      ALL-RIGHTS RESERVED 2019</p>
+    </nav>
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 my-2">
+          <div class="card  bg-white text-dark" >
+
+            <div class="card-body">
+              <p class="card-title bg-white"> Monitoreo <i class="fas fa-info-circle"></i></p>
+              <hr>
+              <p class="card-title">Cercania al nivel tierra</p>
+              <h6 id="ultrasonico"> <?php include("ConnBaseDatos.php"); echo$fila1[0]; ?> cm </h6>
+              <hr>
+              <p class="card-title">Rango Seguro</p>
+              <!-- <h6 id="altsegura"> <?php include("ConnBaseDatos.php"); echo$fila12[0]; ?> - <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </h6> -->
+              <div style="overflow: hidden;">
+                <h6 style="float: left;" id="rango_i" ><?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>&nbsp;</h6>
+
+                <h6 style="float: center;" id="rango_s">- <?php include("ConnBaseDatos.php"); echo$fila13[0]; ?> cm </h6>
+
+              </div>
+              <hr>
+              <p class="card-title">Cant Lluvia</p>
+              <p class="text-muted"> (Dia actual) </p><h6 id="pluviometro"> <?php include("ConnBaseDatos.php"); echo$fila2[0]*0.30303; ?> mm </h6>
+              <hr>
+              <p class="card-title">Temperatura y Carga CPU </p>
+              <div class="pb-2" style="overflow: hidden;">
+                <h6 style="float: left;" id="temp_cpu"> <?php include("ConnBaseDatos.php"); echo$fila4[0]; ?> °C &nbsp;</h6>
+                <h6 style="float: center;" id="load_cpu">/&nbsp; <?php include("ConnBaseDatos.php"); echo$fila3[0]; ?> % </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 my-2">
+
+          <div class=" card border-light mb-3">
+            <div class="card-header text-center" ><h4>Estado de las alerta en: </h4><font color="blue"><h5 id="Local"></h5></font></div>
+            <script type="text/javascript">
+            var microval = '<?php
+            $local = $_SESSION['microses'];
+            $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
+            $query25 = ("SELECT sector.nombre FROM sector where sector_id = (Select localidad from micro where id = $local);");
+            $nombre = pg_query($con,$query25);
+            $fila25= pg_fetch_row($nombre);
+            echo$fila25[0];
+            ?>';
+
+            document.getElementById("Local").innerHTML = microval;
+            </script>
+
+            <div class="card-body text-center" id="estadoalerta">
+              <h4 id="TipoAlerta"></h4>
+            </div>
+
+            <script type="text/javascript">
+            function actualizarestado(){
+              var microval = '<?php echo $_SESSION['microses']; ?>';
+              $.ajax({
+                url: 'query/RepEstado.php',
+                type: 'post',
+                data: 'data=' +microval,
+              }).done(function(response){
+                console.log(response);
+                var json = JSON.parse(response);
+                if (response == "[]"){
+                  document.getElementById('TipoAlerta').innerHTML = "No hay alertas";
+                  document.getElementById("estadoalerta").className = "card-body text-center";
+                };
+                json.forEach(function(item){
+                  //console.log(item.tipo);
+                  if (item.tipo== 1){
+                    document.getElementById('TipoAlerta').innerHTML = "Alerta Verde";
+                    document.getElementById("estadoalerta").className = "card-body text-center text-white bg-success";
+                  };
+                  if (item.tipo== 2){
+                    document.getElementById('TipoAlerta').innerHTML = "Alerta Amarilla";
+                    document.getElementById("estadoalerta").className = "card-body text-center text-white bg-warning";
+                  };
+                  if (item.tipo== 3){
+                    document.getElementById('TipoAlerta').innerHTML = "Alerta Roja";
+                    document.getElementById("estadoalerta").className = "card-body text-center text-white bg-danger";
+                  };
+                });
+              });
+            }
+
+            $(document).ready(function(){
+              setInterval(actualizarestado, 10000);
+            });
+            </script>
+            <script type="text/javascript">
+            actualizarestado()
+            </script>
+          </div>
+
+          <div style="text-align: center" id="foto">
+            <p>
+              <?php
+              $local = $_SESSION['microses'];
+              global $path;    // path to directory has to be global, using it later in html
+              $dir = "C:/xampp/htdocs/Fotos/Micro$local";
+              $files = scandir($dir, 1);                // read directory backkwards
+              $picture = ($files[0]);                   // get las picture file name
+              $path = "C:/xampp/htdocs/Fotos/Micro$local";
+
+              echo ' <img width="535" height="280" class="alignnone size-large" src="../Fotos/Micro'.$local.'/'.$picture.'"> '
+              ?>
+              <p>
+              </div> <!-- Foto -->
+
+            </div>
+
+            <div class="col-sm-3 my-2">
+              <div class="card text-dark bg-white" >
+
+                <div class="card-body">
+                  <p class="card-title bg-white">Datos GPS <i class="fas fa-location-arrow"></i></p>
+                  <hr>
+                  <p class="card-title">Hora y Fecha</p>
+                  <div style="overflow: hidden;">
+                    <h6 style="float: left;" id="hora"><?php include('ConnBaseDatos.php'); echo$fila5[0];?></h6>
+                    <h6 style="float: right;" id="fecha">- <?php include("ConnBaseDatos.php"); echo$fila6[0];?></h6>
+
+                  </div>
+                  <hr>
+                  <p class="card-title">Latitud</p>
+                  <h6 id="latitud"><?php include("ConnBaseDatos.php"); echo(substr($fila7[0], 0, 7))-0.0002;?></h6>
+                  <hr>
+
+                  <p class="card-title">Longitud</p>
+                  <h6 id="longitud"><?php include("ConnBaseDatos.php"); echo(substr($fila9[0], 0, 8));?></h6>
+                  <hr>
+                  <div class="card-title bg-white"> Estado Bateria <i class="fas fa-battery-three-quarters"></i></div>
+                  <h6 id="bateria" class="pb-5"> <?php include("ConnBaseDatos.php"); echo$fila11[0]; ?> % </h6>
+
+
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class=" fixed-bottom mb-4 alert alert-dismissible alert-warning">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h4 class="alert-heading">Aviso!</h4>
+          <p class="mb-0"> Inundaciones en Jarabacoa, La Vega. <a href="#" class="alert-link"> Ver mas detalles</a>.</p>
+        </div>
+      </div>
+      <br><br>
+    </body>
+    </html>
