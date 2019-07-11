@@ -89,7 +89,7 @@
               <div class="form-group">
                   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                       <div class="input-group-addon" style="width: 2.6rem"></div>
-                      <input type="text" class="form-control" id="username"
+                      <input type="text" class="form-control"onpaste="return false;" onCopy="return false" onCut="return false" id="username"
                              placeholder="Nombre usuario" required autofocus>
                   </div>
               </div>
@@ -98,7 +98,7 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input  type="password" name="clave" class="form-control" placeholder="Contrasena" required autofocus>
+                        <input  type="password" name="clave" class="form-control" onpaste="return false;" onCopy="return false" onCut="return false" placeholder="Contrasena" required autofocus>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input type="password" name="cclave" class="form-control" placeholder="Confirme Contrasena" required autofocus>
+                        <input type="password" name="cclave" class="form-control" onpaste="return false;" onCopy="return false" onCut="return false" placeholder="Confirme Contrasena" required autofocus>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input type="text" id="nombres" name="nombre" class="form-control" placeholder="Nombres" data-role="tagsinput" required>
+                        <input type="text" id="nombres" name="nombre"  onpaste="return false;" onCopy="return false" onCut="return false" class="form-control" placeholder="Nombres" data-role="tagsinput" required>
 
 <script type="text/javascript">
   setTimeout(function()
@@ -142,7 +142,7 @@
                 <div class="form-group has-danger">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input type="text" id="apellidos" name="apellido" class="form-control" placeholder="Apellidos" required>
+                        <input type="text" id="apellidos" onpaste="return false;" onCopy="return false" onCut="return false" name="apellido" class="form-control" placeholder="Apellidos" required>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                         <div class="input-group-addon" style="width: 2.6rem">
 
                         </div>
-                        <input type="email" name="correo" class="form-control" placeholder="Correo electronico"required>
+                        <input type="email" name="correo" onpaste="return false;" onCopy="return false" onCut="return false" class="form-control" placeholder="Correo electronico"required>
                         <script type="text/javascript">
                           setTimeout(function()
                           {
@@ -180,7 +180,7 @@
                         <div class="input-group-addon" style="width: 2.6rem">
 
                         </div>
-                        <input required type="number" id="celular" name="celular" class="form-control" placeholder="Telefono Celular"required>
+                        <input required type="number" id="celular" onpaste="return false;" onCopy="return false" onCut="return false" name="celular" class="form-control" placeholder="Telefono Celular"required>
 <script type="text/javascript">
   var input=  document.getElementById('celular');
   input.addEventListener('input',function(){
@@ -200,7 +200,7 @@
                             <div class="input-group-addon" style="width: 2.6rem">
 
                             </div>
-                            <input required type="number"id="telefono" name="telefono" class="form-control" placeholder="Telefono residencial"required>
+                            <input required type="number"id="telefono" onpaste="return false;" onCopy="return false" onCut="return false" name="telefono" class="form-control" placeholder="Telefono residencial"required>
 
                             <script type="text/javascript">
                               var input=  document.getElementById('telefono');
@@ -223,7 +223,7 @@
                         <div class="input-group-addon" style="width: 2.6rem">
 
                         </div>
-                        <input  type="text"  name="direccion" class="form-control" placeholder="Direccion" required>
+                        <input  type="text"  onpaste="return false;" onCopy="return false" onCut="return false"  name="direccion" class="form-control" placeholder="Direccion" required>
                     </div>
                 </div>
             </div>
@@ -238,7 +238,7 @@
 
                         </div>
                         <div class="dropdownprov" >
-                        <select type="button" name="provi" id="provi" class="dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
+                        <select type="button" name="provi" id="provi" onpaste="return false;" onCopy="return false" onCut="return false" class="dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
                              <option selected="" disabled="">Provincia</option>
                               <?php
                               require 'FuncionesProv.php';
@@ -259,7 +259,7 @@
 
                             </div>
                             <div class="dropdownci">
-                            <select type="button" name="Ciudades" id="Ciudades" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                            <select type="button" name="Ciudades" id="Ciudades" onpaste="return false;" onCopy="return false" onCut="return false" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                                   <option selected="" disabled="">Seleccione una provincia</option>
                             </select>
                             </div>
@@ -278,7 +278,7 @@
 
                 </div>
                 <div class="dropdownse">
-                <select type="button" name="Sectores" id="Sectores" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <select type="button" name="Sectores" id="Sectores" onpaste="return false;" onCopy="return false" onCut="return false" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <option selected="" disabled="">Seleccione una ciudad</option>
                 </select>
                 </div>
@@ -293,7 +293,7 @@
 
                     </div>
                     <div class="dropdownsex">
-                    <select type="button" name="sexo" id="sexo" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <select type="button" name="sexo" id="sexo" onpaste="return false;" onCopy="return false" onCut="return false"  class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                          <option selected="" disabled="">Sexo</option>
                          <option>Masculino</option>
                          <option>Femenino</option>
