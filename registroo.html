@@ -351,6 +351,7 @@
                  exit();
                }
                else {
+                 $clave = password_hash($clave,PASSWORD_DEFAULT);
                  $query1 = "INSERT INTO usuario (nombre, apellido, correo, celular, telefono, direccion, sector, id, privilegio, nombre_usu, clave, sexo)
                  VALUES ('$nombre', '$apellido', '$correo', '$celular', '$telefono', '$direccion', (SELECT sector_id from sector where nombre = '$sector'),
                  (SELECT MAX(id) FROM usuario)+1, 1, lower('$usuario'), '$clave', '$sexo')";
