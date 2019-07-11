@@ -18,15 +18,12 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <script type="text/javascript">
 
@@ -301,7 +298,7 @@
           });
         }
         $(document).ready(function(){
-          setInterval(recargaralerta, 10000);
+          setInterval(recargaralerta, 30000);
         });
       </script>
 
@@ -310,6 +307,7 @@
   img {
     max-width: 100%;
     height: auto;
+    max-height: 294px;
 
   }
 
@@ -369,20 +367,30 @@
     border-radius: 34px;
   }
 
+
   .slider.round:before {
     border-radius: 50%;
   }
+
+  .dropdown-menu{
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .table {
+   display: block !important;
+ }
   </style>
   <link rel="stylesheet" type="text/css" href="static/css/inicio.css" th:href="@{static/css/index.css}">
 
   </head>
   <body>
-    <br>
     <style type="text/css">
        body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
     </style>
 
-    <nav class="fixed-top navbar navbar-expand-lg  navbar-light bg-white">
+
+    <nav class="navbar navbar-expand-lg  navbar-light bg-white">
   <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -405,14 +413,14 @@
       <li class="nav-item">
         <a class="nav-link text-dark" href="nosotros.html"> Nosotros </a>
       </li>
-
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
-        <div id="alerta" class="dropdown-menu dropdown-menu-right">
-        </div>
+          <div id="alerta" class="dropdown-menu dropdown-menu-right">
+            <div class="table-responsive">
+            </div>
+          </div>
       </li>
     </ul>
-
     <div class="collapse navbar-collapse justify-content-end" id="navbarColor03">
 
     <p>&nbsp;&nbsp;</p>
@@ -464,10 +472,8 @@
   <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
     ALL-RIGHTS RESERVED 2019</p>
 </nav>
+  <br>
 <div class="container">
-</div>
-  <br><br><br>
-<div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 my-2">
       <div class="card  bg-white text-dark" >
@@ -616,6 +622,6 @@
   <p class="mb-0"> Inundaciones en Jarabacoa, La Vega. <a href="#" class="alert-link"> Ver mas detalles</a>.</p>
   </div>
 </div>
-<br><br><br><br><br><br>
+<br><br>
   </body>
 </html>

@@ -483,12 +483,18 @@ session_start();
         });
       }
       $(document).ready(function(){
-        setInterval(recargaralerta, 10000);
+        setInterval(recargaralerta, 30000);
       });
     </script>
 
 
    <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+   <style>
+     .dropdown-menu{
+       max-height: 400px;
+       overflow-y: auto;
+   }
+   </style>
    </head>
    <body>
      <style type="text/css">
@@ -520,6 +526,8 @@ session_start();
          <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
            <div id="alerta" class="dropdown-menu dropdown-menu-right">
+             <div class="table-responsive">
+             </div>
            </div>
          </li>
        </ul>
