@@ -8,7 +8,6 @@ session_start();
   <html lang="en" dir="ltr">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <head>
-    <script type="text/javascript"> delete window.map; </script>
     <meta charset="utf-8">
     <title>Localidades</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -196,11 +195,7 @@ session_start();
           });
         </script>
 
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&libraries=places&callback=initMap"> </script>
-
           <script type="text/javascript">
-            //var service;
-            //var infowindow;
             function initMap() {
               var place = new google.maps.LatLng(18.8969, -70.3714);
               var contenido = 'CFMS '
@@ -376,22 +371,6 @@ session_start();
                   })
                 })
              </script>
-              <!-- <script type="text/javascript">
-                window.onload = function() {
-                  document.getElementById("sesiones").onclick = function fun() {
-                      console.log("Activo");
-                      f1();
-                  }
-                }
-                function f1() {
-                  $.ajax({
-                    url: 'query/sesion.php',
-                    type: 'post',
-                    data: 'data=' +xxx,
-                  }).done(function(response){
-                    console.log("hecho");
-                  });
-                }
-              </script> -->
+               <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&libraries=places&callback=initMap"> </script>
       </body>
       </html>
