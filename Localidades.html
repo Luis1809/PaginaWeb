@@ -216,13 +216,88 @@ session_start();
                 $.each(data, function(i, jsonData){
                   //var coords = results.features[i].geometry.coordinates;
                   var latLng = new google.maps.LatLng(jsonData.latitud,jsonData.longitud);
+                  var contentString = '<div id="content">'+
+                      '<div id="siteNotice">'+
+                      '</div>'+
+                      '<h5 id="firstHeading" class="firstHeading">CFMS</h5>'+
+                      '<div id="bodyContent">'+
+                      '<p> Dispositivo '+ jsonData.micro +'</p>'+
+                      '<p>Para visitar: <a href="query/sesion.php?id='+jsonData.micro +'" id="sesiones">'+
+                      'http://cfms.sytes.net/Inicio.html</a></p>'+
+                      '</div>'+
+                      '</div>';
+
+                  var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                  });
+
                   var marker = new google.maps.Marker({
                     position: latLng,
                     map: window.map
                   });
+
+                  marker.addListener('click', function() {
+                    infowindow.open(window.map, marker);
+                  });
+
+                  circuloalerta();
                 })
               })
             }
+
+            function circuloalerta(){
+              $.ajax({
+                url: 'query/circulomap.php',
+                type: 'post',
+              }).done(function(response){
+                console.log(response);
+                var json = JSON.parse(response);
+                json.forEach(function(item){
+                  var latLng = new google.maps.LatLng(item.latitud,item.longitud);
+                  //console.log(item.tipo);
+                  if (item.tipo== 1){
+                    var cityCircle = new google.maps.Circle({
+                      strokeColor: '#19ce08',
+                      strokeOpacity: 0.8,
+                      strokeWeight: 2,
+                      fillColor: '#19ce08',
+                      fillOpacity: 0.35,
+                      map: window.map,
+                      center: latLng,
+                      radius: Math.sqrt(300) * 100
+                    });
+                  };
+                  if (item.tipo== 2){
+                    var cityCircle = new google.maps.Circle({
+                      strokeColor: '#f4e22f',
+                      strokeOpacity: 0.8,
+                      strokeWeight: 2,
+                      fillColor: '#f4e22f',
+                      fillOpacity: 0.35,
+                      map: window.map,
+                      center: latLng,
+                      radius: Math.sqrt(300) * 100
+                    });
+                  };
+                  if (item.tipo== 3){
+                    var cityCircle = new google.maps.Circle({
+                      strokeColor: '#FF0000',
+                      strokeOpacity: 0.8,
+                      strokeWeight: 2,
+                      fillColor: '#FF0000',
+                      fillOpacity: 0.35,
+                      map: window.map,
+                      center: latLng,
+                      radius: Math.sqrt(300) * 100
+                    });
+                  };
+                });
+              });
+            }
+
+            // $(document).ready(function(){
+            //   setInterval(circuloalerta, 10000);
+            // });
 
             function reloadMap(place){
               var request = {
@@ -300,6 +375,23 @@ session_start();
                     reloadMapC(place);
                   })
                 })
-              </script>
+             </script>
+              <!-- <script type="text/javascript">
+                window.onload = function() {
+                  document.getElementById("sesiones").onclick = function fun() {
+                      console.log("Activo");
+                      f1();
+                  }
+                }
+                function f1() {
+                  $.ajax({
+                    url: 'query/sesion.php',
+                    type: 'post',
+                    data: 'data=' +xxx,
+                  }).done(function(response){
+                    console.log("hecho");
+                  });
+                }
+              </script> -->
       </body>
       </html>
