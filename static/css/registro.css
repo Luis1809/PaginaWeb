@@ -1,6 +1,9 @@
 .dropdown{
-  width: 500px;
+  width: 485px;
+  overflow:scroll;
 }
+
+
 .dropdownprov{
 
   margin-left: 35PX;
@@ -10,7 +13,7 @@
 
 .dropdownci{
 
-    margin-left: 35PX;
+    margin-left: 35px;
 }
 
 .dropdownse{
@@ -34,6 +37,6 @@ margin-left: -350px;
 
 }
 body{
-background: url("static/image/fondoregistro.jpg");
+background: url("../image/fondoregistro.jpg");
 
 }
