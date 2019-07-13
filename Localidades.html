@@ -8,123 +8,20 @@ session_start();
   <html lang="en" dir="ltr">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <head>
+    <script type="text/javascript"> delete window.map; </script>
     <meta charset="utf-8">
     <title>Localidades</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 
-    <script type="text/javascript">
-      //var service;
-      //var infowindow;
-      function initMap() {
-        var place = new google.maps.LatLng(18.8969, -70.3714);
-        var contenido = 'CFMS '
-        var conterido2 = '\n Sistema Principal'
-        window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8});
-
-        $.ajax({
-          url: 'query/localidad.php',
-          method: 'post',
-        }).done(function(data){
-          //console.log(data);
-          data = JSON.parse(data);
-          $.each(data, function(i, jsonData){
-            //var coords = results.features[i].geometry.coordinates;
-            var latLng = new google.maps.LatLng(jsonData.latitud,jsonData.longitud);
-            var marker = new google.maps.Marker({
-              position: latLng,
-              map: window.map
-            });
-          })
-        })
-      }
-
-      function reloadMap(place){
-        var request = {
-          query: place.join(),
-          fields: ['name', 'geometry'],
-        };
-        service = new google.maps.places.PlacesService(map);
-        service.findPlaceFromQuery(request, function(results, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            window.map.setCenter(results[0].geometry.location);
-            window.map.setZoom(10);
-          }
-        });
-      }
-      function reloadMapC(place){
-        var request = {
-          query: place.join(),
-          fields: ['name', 'geometry'],
-        };
-        service = new google.maps.places.PlacesService(map);
-        service.findPlaceFromQuery(request, function(results, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            window.map.setCenter(results[0].geometry.location);
-            if(place.length==2){
-              window.map.setZoom(13);}
-              else {
-                window.map.setZoom(16);}
-              }
-            });
-          }
-          $(document).ready(function(){
-            $("#provi").change(function(){
-              var provincia = ($("#provi").val()).substr(0, 3);
-              var provincian = [($("#provi").val()).substr(3, 40),"Republica Dominicana"];
-              window.provincian = ($("#provi").val()).substr(3, 40);
-              reloadMap(provincian);
-              $.ajax({
-                url: 'FuncionesProv.php',
-                method: 'post',
-                data: 'provincia=' +provincia,
-              }).done(function(Ciudades){
-                console.log(Ciudades);
-                Ciudades = JSON.parse(Ciudades);
-                $('#Ciudades').empty();
-                $('#Sectores').empty();
-                $('#Sectores').append('<option selected="" disabled="">Seleccione una ciudad</option>')
-                $('#Ciudades').append('<option selected="" disabled="">Ciudad</option>')
-                Ciudades.forEach(function(Ciudad){
-                  $('#Ciudades').append('<option>' + Ciudad.nombre + '</option>')
-                })
-              })
-            })
-            $("#Ciudades").change(function(){
-              var Ciudades = $("#Ciudades").val();
-              window.Ciudades = $("#Ciudades").val();
-              var place = [Ciudades,window.provincian];
-              reloadMapC(place);
-              $.ajax({
-                url: 'FuncionesProv.php',
-                method: 'post',
-                data: 'Ciudades=' +Ciudades
-              }).done(function(Sectores){
-                console.log(Sectores);
-                Sectores = JSON.parse(Sectores);
-                $('#Sectores').empty();
-                $('#Sectores').append('<option selected="" disabled="">Sector</option>')
-                Sectores.forEach(function(Sector){
-                  $('#Sectores').append('<option>' + Sector.nombre + '</option>')
-                })
-              })
-            })
-            $("#Sectores").change(function(){
-              var Sectores = $("#Sectores").val();
-              var place = [Sectores,window.Ciudades,window.provincian];
-              reloadMapC(place);
-            })
-          })
-        </script>
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&libraries=places&callback=initMap">
-      </script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <style>
         .dropdown-menu{
           max-height: 400px;
@@ -273,31 +170,136 @@ session_start();
           </div>
           <br><br>
         </div>
-      </body>
-
-      <script type="text/javascript">
-        function recargaralerta (){
-          $('#alerta').empty();
-          $.ajax({
-            url: 'query/RepAlerta.php',
-            method: 'post',
-            dataType:"JSON",
-          }).done(function(data){
-            //console.log(data);
-            var count = 1;
-            data.forEach(function(item){
-              if(item.promultra==null){
-                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
-              }
-              else {
-                $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
-              }
-              count+=1;
+        <script type="text/javascript">
+          function recargaralerta (){
+            $('#alerta').empty();
+            $.ajax({
+              url: 'query/RepAlerta.php',
+              method: 'post',
+              dataType:"JSON",
+            }).done(function(data){
+              //console.log(data);
+              var count = 1;
+              data.forEach(function(item){
+                if(item.promultra==null){
+                  $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Cant. lluvia (Ultima hora): "+item.sumpluvi+" MM"+'</h6><hr>');
+                }
+                else {
+                  $('#alerta').append('<h6 class="dropdown-item" >'+count+" -> Nombre: "+item.nombre+" - Fecha: "+item.fecha+" - Hora (0-24): "+item.hora+" - Tipo: "+item.tipo+" - Prom. ultrasonico: "+item.promultra+" CM"+'</h6><hr>');
+                }
+                count+=1;
+              });
             });
+          }
+          $(document).ready(function(){
+            setInterval(recargaralerta, 30000);
           });
-        }
-        $(document).ready(function(){
-          setInterval(recargaralerta, 30000);
-        });
-      </script>
+        </script>
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADLFlKRzQU-hdOSbgH9m0FihmHrbGplQk&libraries=places&callback=initMap"> </script>
+
+          <script type="text/javascript">
+            //var service;
+            //var infowindow;
+            function initMap() {
+              var place = new google.maps.LatLng(18.8969, -70.3714);
+              var contenido = 'CFMS '
+              var conterido2 = '\n Sistema Principal'
+              window.map = new google.maps.Map(document.getElementById('googleMap'), {center: place, zoom: 8});
+
+              $.ajax({
+                url: 'query/localidad.php',
+                method: 'post',
+              }).done(function(data){
+                //console.log(data);
+                data = JSON.parse(data);
+                $.each(data, function(i, jsonData){
+                  //var coords = results.features[i].geometry.coordinates;
+                  var latLng = new google.maps.LatLng(jsonData.latitud,jsonData.longitud);
+                  var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: window.map
+                  });
+                })
+              })
+            }
+
+            function reloadMap(place){
+              var request = {
+                query: place.join(),
+                fields: ['name', 'geometry'],
+              };
+              service = new google.maps.places.PlacesService(map);
+              service.findPlaceFromQuery(request, function(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  window.map.setCenter(results[0].geometry.location);
+                  window.map.setZoom(10);
+                }
+              });
+            }
+            function reloadMapC(place){
+              var request = {
+                query: place.join(),
+                fields: ['name', 'geometry'],
+              };
+              service = new google.maps.places.PlacesService(map);
+              service.findPlaceFromQuery(request, function(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  window.map.setCenter(results[0].geometry.location);
+                  if(place.length==2){
+                    window.map.setZoom(13);}
+                    else {
+                      window.map.setZoom(16);}
+                    }
+                  });
+                }
+                $(document).ready(function(){
+                  $("#provi").change(function(){
+                    var provincia = ($("#provi").val()).substr(0, 3);
+                    var provincian = [($("#provi").val()).substr(3, 40),"Republica Dominicana"];
+                    window.provincian = ($("#provi").val()).substr(3, 40);
+                    reloadMap(provincian);
+                    $.ajax({
+                      url: 'FuncionesProv.php',
+                      method: 'post',
+                      data: 'provincia=' +provincia,
+                    }).done(function(Ciudades){
+                      console.log(Ciudades);
+                      Ciudades = JSON.parse(Ciudades);
+                      $('#Ciudades').empty();
+                      $('#Sectores').empty();
+                      $('#Sectores').append('<option selected="" disabled="">Seleccione una ciudad</option>')
+                      $('#Ciudades').append('<option selected="" disabled="">Ciudad</option>')
+                      Ciudades.forEach(function(Ciudad){
+                        $('#Ciudades').append('<option>' + Ciudad.nombre + '</option>')
+                      })
+                    })
+                  })
+                  $("#Ciudades").change(function(){
+                    var Ciudades = $("#Ciudades").val();
+                    window.Ciudades = $("#Ciudades").val();
+                    var place = [Ciudades,window.provincian];
+                    reloadMapC(place);
+                    $.ajax({
+                      url: 'FuncionesProv.php',
+                      method: 'post',
+                      data: 'Ciudades=' +Ciudades
+                    }).done(function(Sectores){
+                      console.log(Sectores);
+                      Sectores = JSON.parse(Sectores);
+                      $('#Sectores').empty();
+                      $('#Sectores').append('<option selected="" disabled="">Sector</option>')
+                      Sectores.forEach(function(Sector){
+                        $('#Sectores').append('<option>' + Sector.nombre + '</option>')
+                      })
+                    })
+                  })
+                  $("#Sectores").change(function(){
+                    var Sectores = $("#Sectores").val();
+                    var place = [Sectores,window.Ciudades,window.provincian];
+                    reloadMapC(place);
+                  })
+                })
+              </script>
+      </body>
       </html>
