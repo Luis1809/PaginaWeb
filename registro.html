@@ -1,11 +1,5 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-<!------ Include the above in your HEAD tag ---------->
-<link rel="stylesheet" type="text/css" href="static/css/registro.css" th:href="@{static/css/index.css}">
-
-
+<!DOCTYPE html>
 <?php
 session_start();
 #$usuario = "";
@@ -20,7 +14,6 @@ session_start();
 #$sector = "";
 #$sexo = "";
 ?>
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Standard Meta -->
@@ -31,6 +24,18 @@ session_start();
   <!-- Site Properties -->
   <title>Registro</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+  <!------ Include the above in your HEAD tag ---------->
+  <link rel="stylesheet" type="text/css" href="static/css/registro.css" th:href="@{static/css/index.css}">
+
   <script type="text/javascript">
     $(document).ready(function(){
       $("#provi").change(function(){
@@ -68,13 +73,11 @@ session_start();
         })
       })
     })
-  </script>
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
+    </script>
 
 </head>
 <body>
+  <br><br>
   <div class="container">
     <form class="col-12"  role="form" method="POST" action="">
       <div class="row">
@@ -89,8 +92,9 @@ session_start();
           <div class="form-group">
             <div class="input-group mb-2 mr-sm-2 mb-sm-0">
               <div class="input-group-addon" style="width: 2.6rem"></div>
-              <input type="text" class="form-control"onpaste="return false;" onCopy="return false" onCut="return false" id="username"
-              placeholder="Nombre usuario" required autofocus>
+                <!-- <span class="input-group-addon"><i class="fas fa-user"></i></span> -->
+
+              <input type="text" class="form-control" onpaste="return false;" onCopy="return false" onCut="return false" id="username" name="username"  placeholder="Nombre usuario" required autofocus>
             </div>
           </div>
         </div>
@@ -129,7 +133,7 @@ session_start();
                 {
                   $('#nombres').bind('keyup blur',function(){
                     var node = $(this);
-                    node.val(node.val().replace(/[^a-z ]/g,'') ); }
+                    node.val(node.val().replace(/[^a-zA-Z ]/g,'') ); }
                     );
                   },500);
 
@@ -148,7 +152,7 @@ session_start();
                   {
                     $('#apellidos').bind('keyup blur',function(){
                       var node = $(this);
-                      node.val(node.val().replace(/[^a-z ]/g,'') ); }
+                      node.val(node.val().replace(/[^a-zA-Z ]/g,'') ); }
                       );
                     },500);
 
@@ -185,8 +189,8 @@ session_start();
                   <script type="text/javascript">
                     var input=  document.getElementById('celular');
                     input.addEventListener('input',function(){
-                      if (this.value.length > 11)
-                      this.value = this.value.slice(0,11);
+                      if (this.value.length > 10)
+                      this.value = this.value.slice(0,10);
                     })
                   </script>
 
@@ -206,8 +210,8 @@ session_start();
                   <script type="text/javascript">
                     var input=  document.getElementById('telefono');
                     input.addEventListener('input',function(){
-                      if (this.value.length > 11)
-                      this.value = this.value.slice(0,11);
+                      if (this.value.length > 10)
+                      this.value = this.value.slice(0,10);
                     })
                   </script>
 
@@ -239,7 +243,7 @@ session_start();
 
                   </div>
                   <div class="dropdownprov" >
-                    <select type="button" name="provi" id="provi" onpaste="return false;" onCopy="return false" onCut="return false" class="dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
+                    <select type="dropdown-menu" name="provi" id="provi" onpaste="return false;" onCopy="return false" onCut="return false" class="dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >
                       <option selected="" disabled="">Provincia</option>
                       <?php
                       require 'FuncionesProv.php';
@@ -253,14 +257,14 @@ session_start();
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mx-auto">
               <div class="form-group">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                   <div class="input-group-addon" style="width: 2.6rem">
 
                   </div>
                   <div class="dropdownci">
-                    <select type="button" name="Ciudades" id="Ciudades" onpaste="return false;" onCopy="return false" onCut="return false" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <select type="dropdown-menu" name="Ciudades" id="Ciudades" onpaste="return false;" onCopy="return false" onCut="return false" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                       <option selected="" disabled="">Seleccione una provincia</option>
                     </select>
                   </div>
@@ -279,7 +283,7 @@ session_start();
 
                   </div>
                   <div class="dropdownse">
-                    <select type="button" name="Sectores" id="Sectores" onpaste="return false;" onCopy="return false" onCut="return false" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <select type="dropdown-menu" name="Sectores" id="Sectores" onpaste="return false;" onCopy="return false" onCut="return false" class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <option selected="" disabled="">Seleccione una ciudad</option>
                     </select>
                   </div>
@@ -294,7 +298,7 @@ session_start();
 
                   </div>
                   <div class="dropdownsex">
-                    <select type="button" name="sexo" id="sexo" onpaste="return false;" onCopy="return false" onCut="return false"  class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <select type="dropdown-menu" name="sexo" id="sexo" onpaste="return false;" onCopy="return false" onCut="return false"  class="form-control dropdown text-center btn btn-secondary dropdown-toggle ml-1"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <option selected="" disabled="">Sexo</option>
                       <option>Masculino</option>
                       <option>Femenino</option>
@@ -308,7 +312,9 @@ session_start();
           <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-              <button name="registro" type="submit" class="btn btn-primary" style="margin-left:190;width:200;">><i class="fa fa-user-plus"></i> Registrarse</button>
+              <div class="text-center">
+              <button name="registro" type="submit" class="btn btn-primary" style="margin-left:190;width:200;"><i class="fa fa-user-plus"></i> Registrarse</button>
+              </div>
               <?php
               #error_reporting(0);
               if(isset($_POST['registro'])){
@@ -369,4 +375,5 @@ session_start();
     </div>
 
   </div>
+  <br>
 </body>
