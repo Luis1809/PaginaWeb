@@ -265,7 +265,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                     <div style="max-width: 90rem;">
                       <div class="card border-light mb-3" style="max-width: 100rem;">
                         <div class="card-header form-inline">
-                          <h5> Selecione un rango de data </h5>
+                          <h5> Seleccione un rango de data </h5>
                           <form class="form-inline ml-auto">
                             <select id="micro" name="micro" class="custom-select">
                               <option value="1" selected disabled="">Seleccione un dispositivo</option>
@@ -319,7 +319,92 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                             </script>
                           <br><hr><br>
                           <div id="chart_ultra">
+                            <div style="max-width: 90rem;">
+                              <div class="card border-light mb-3" style="max-width: 100rem;">
+                                <div class="card-header form-inline">
+                                  <h5> Alertas </h5>
+                                  <br>
+                                  </div>
+                                  <div class="card-body">
+                                  <form class="form-inline ml-auto">
+                                    <table class="table" id="tabla1">
+                                      <tbody>
+                                      <thead class="bg-white text-info" >
+                                        <tr>
 
+                                          <th class="text-sm-center text-info" scope="col">Fecha</th>
+                                          <th class="text-sm-center text-info" scope="col">Hora</th>
+                                          <th class="text-sm-center text-info " scope="col">Cantidad Lluvia (Ultima Hora)</th>
+                                          <th class="text-sm-center text-info " scope="col">Tipo</th>
+                                          <th class="text-sm-center text-info " scope="col">Profundidad Rio</th>
+
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <style type="text/css">
+                                           body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+                                        </style>
+
+                                        <script type="text/javascript">
+                                        //var elemento = ['nombredp','Sector','temp_cpu2','load_cpu2','rango_i2','rango_s2'];
+
+                                        function cargar(){
+                                            console.log(microval);
+                                          // console.log(i);
+                                          var microval = ($("#micro").val());
+                                          var rango = ($("#rango").val());
+
+
+                                          //console.log(page);
+                                          $.ajax({
+                                            url: 'query/admin/tabla.php',
+                                            type: 'post',
+                                            // async: false,
+                                            data: {"data": microval, "rango": rango},
+
+                                            success: function(response) {
+
+                                              var a = response;
+                                              var json = JSON.parse(a);
+                                              //console.log(json[2].nombre);
+
+                                              llenartb(json);
+
+                                            }
+                                          })
+                                        }
+
+
+                                        function llenartb(json){
+                                          window.cont = 0;
+                                          var tabli = document.getElementById("tabla1");
+                                          for (i = 0; i < (9); i++){
+                                            window.cont = window.cont+1;
+                                            // console.log("activo");
+
+                                            tabli.rows[window.cont].cells[0].innerHTML = json[window.cont-1].hora;
+                                            tabli.rows[window.cont].cells[1].innerHTML = json[window.cont-1].fecha;
+                                            tabli.rows[window.cont].cells[2].innerHTML = json[window.cont-1].sumpluvi+' mm ';
+                                            tabli.rows[window.cont].cells[3].innerHTML = json[window.cont-1].tipo;
+                                            tabli.rows[window.cont].cells[4].innerHTML = json[window.cont-1].promultra+' cm ';
+
+
+                                          }
+                                        }
+                                        $(document).ready(function(){
+                                          $("#rango").change(function(){
+                                            cargar();
+                                          });
+                                        });
+
+  </script>
+
+                                        </tbody>
+                                      </table>
+                                  </form>
+
+                                </div>
+                              </div>
 
 
 
@@ -329,6 +414,8 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
 
                       </div>
                     </div>
+
+                </div>
                   </div>
                   <footer class="footer footer-black  footer-white ">
                     <div class="container-fluid">
@@ -405,14 +492,16 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                 document.getElementById('dispositivoAvailable').appendChild(div);
 
                 var microval = ($("#micro").val());
-                console.log(microval);
+
+
 
                 $.ajax({
                   url: 'query/admin/microval.php',
                   type: 'post',
                   data: 'data=' +microval,
                 }).done(function(response){
-                  console.log(response);
+
+
                   // var json = JSON.parse(response);
                   var localresp = response ;
                   document.getElementById("Local").innerHTML = localresp;
@@ -423,7 +512,8 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                     type: 'post',
                     data: 'data=' +microval,
                   }).done(function(response){
-                    console.log(response);
+
+
                     var json = JSON.parse(response);
                     if (response == 0){
 
