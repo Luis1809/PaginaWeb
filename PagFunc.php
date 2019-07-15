@@ -1,6 +1,6 @@
 <?php
 
-function pagination($query, $per_page = 10,$page = 1, $url = '?'){
+function pagination($query, $per_page = 7,$page = 1, $url = '?'){
   $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
   $query = "SELECT COUNT(*) as num FROM {$query}";
   $row = pg_fetch_array(pg_query($con,$query));

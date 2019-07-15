@@ -9,9 +9,20 @@
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 <style>
   .dropdown-menu{
-    max-height: 400px;
+    max-height: 600px;
     overflow-y: auto;
+
+   /* body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */ */
 }
+   .my-custom-scrollbar {
+position: relative;
+height: 400px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
 </style>
   <head>
     <meta charset="utf-8">
@@ -25,6 +36,10 @@
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
     <link href="pagination/css/pagination.css" rel="stylesheet" type="text/css" />
     <link href="pagination/css/A_green.css" rel="stylesheet" type="text/css" />
+
+    <script src="plugin/simple-bootstrap-paginator.js"></script>
+    <script src="js/pagination.js"></script>
+
 
     <script type="text/javascript">
      $(document).ready(function(){
@@ -79,7 +94,7 @@
 
   <body>
     <style type="text/css">
-       body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
     </style>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
       <span class="navbar-brand text-dark "> Cities Flood Monitoring System <i class="fas fa-city"></i></span>
@@ -163,49 +178,50 @@
 
     <h3></h3>
     <br>
-
-
         <div class="col-md-12 d-flex justify-content-center">
           <div class="card">
             <div class="card-body">
               <div class="table-responsive">
 
     <form role="form" method="post" action="">
-    <div class="container" >
-      <div class="col-sm bg-white">
-        <td>Desde&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <div class="container mx-auto" >
+
+      <td>Ver Datos Desde:&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td><input type="date" id="bd-desde"/></td>
-        <td>Hasta&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;Hasta:&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td><input type="date" id="bd-hasta"/></td>
-<table class="table" id="tabla1">
+        &nbsp;&nbsp;&nbsp;<button id="cargarfechas">Buscar</button>
+        &nbsp;&nbsp;&nbsp;<button id="borrarbusqueda">Borrar Busqueda</button>
+
+      <div class="col-sm bg-white">
+        <br>
+
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+<table class="table" id="tabla21">
 
   <thead class="bg-white text-info" >
-    <tr>
 
-      <th scope="col ">#</th>
-      <th class="text-sm-center text-info" scope="col">ID_Micro</th>
-      <th class="text-sm-center text-info" scope="col">Hora y Fecha</th>
-      <th class="text-sm-center text-info " scope="col">Ultrasonico</th>
-      <th class="text-sm-center text-info" scope="col">Cant Lluvia</th>
-      <th class="text-sm-center text-info" scope="col">Temperatura CPU</th>
-      <th class="text-sm-center text-info" scope="col">Carga CPU</th>
-      <th class="text-sm-center text-info" scope="col">Porcentaje de bateria</th>
-    </tr>
+      <th class="text-sm-center text-info" >Hora</th>
+      <th class="text-sm-center text-info" >Fecha</th>
+      <th class="text-sm-center text-info" >Ultrasonico</th>
+      <th class="text-sm-center text-info" >Cant Lluvia</th>
+      <th class="text-sm-center text-info" >Carga CPU</th>
+      <th class="text-sm-center text-info" >Temperatura CPU</th>
+      <th class="text-sm-center text-info" >Porcentaje de bateria</th>
+
   </thead>
-  <tbody>
-    <style type="text/css">
-       body { background: hsl(15, 1%, 95%) !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
-    </style>
+  <tbody id="content">
+    <div class="table-responsive">
 
       <?php
 
         include("PagFunc.php");
         $page = (int) (!isset($_GET["page"]) ? 1 : $_GET["page"]);
-        $limit = 8;
+        $limit = 7;
         $startpoint= ($page * $limit) - $limit;
         $microval = $_SESSION['microses'];
         $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-          $query1 = ("CREATE TEMPORARY VIEW datos AS SELECT datos_ultrasonicos.profundida_act,datos_pluviometro.movimiento, datos_micro.cpu_usage, datos_micro.cpu_temp, datos_micro.hora,datos_micro.fecha, datos_bateria.porcentaje FROM datos_ultrasonicos, datos_pluviometro,datos_micro, datos_bateria WHERE datos_ultrasonicos.fecha = datos_pluviometro.fecha AND datos_pluviometro.fecha = datos_micro.fecha AND datos_micro.fecha = datos_bateria.fecha AND datos_ultrasonicos.hora = datos_pluviometro.hora AND datos_pluviometro.hora = datos_micro.hora AND datos_micro.hora = datos_bateria.hora AND datos_pluviometro.micro=$microval;");
+        $query1 = ("CREATE TEMPORARY VIEW datos AS SELECT datos_ultrasonicos.profundida_act,datos_pluviometro.movimiento, datos_micro.cpu_usage, datos_micro.cpu_temp, datos_micro.hora,datos_micro.fecha, datos_bateria.porcentaje FROM datos_ultrasonicos, datos_pluviometro,datos_micro, datos_bateria WHERE datos_ultrasonicos.fecha = datos_pluviometro.fecha AND datos_pluviometro.fecha = datos_micro.fecha AND datos_micro.fecha = datos_bateria.fecha AND datos_ultrasonicos.hora = datos_pluviometro.hora AND datos_pluviometro.hora = datos_micro.hora AND datos_micro.hora = datos_bateria.hora AND datos_pluviometro.micro=$microval;");
 
         $cview = pg_query($con,$query1);
         $statement = ("datos");
@@ -215,13 +231,12 @@
           $rs = pg_fetch_all($view);
           $numero=0;
           foreach ($rs as $dt){
-            echo '<tr><th scope="row" class="bg-white">'.++$numero.
-              '</th><td class="text-sm-center">'.$microval.
-              '</td><td class="text-sm-center">'.$dt['hora']. ' - ' .$dt['fecha'].
+            echo '<tr><td class="text-sm-center">'.$dt['hora'] .
+              '</td><td class="text-sm-center">'.$dt['fecha'] .
               '</td><td class="text-sm-center">'.$dt['profundida_act']. ' cm ' .
               '</td><td class="text-sm-center">'.($dt['movimiento'])*0.30303. ' mm ' .
-              '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .
               '</td><td class="text-sm-center">'.$dt['cpu_usage']. ' % ' .
+              '</td><td class="text-sm-center">'.$dt['cpu_temp']. ' °C ' .
               '</td><td class="text-sm-center">'.$dt['porcentaje']. ' % ' .
               '</td></tr>';
           }
@@ -231,8 +246,10 @@
           window.location="Inicio.html";</script>';
         }
       ?>
+      </div>
     </tbody>
   </table>
+  </div>
     </div>
   </div>
 </div>
@@ -240,7 +257,7 @@
 </div>
 </div>
     <br>
-        <div class="d-flex justify-content-center">
+        <div id="elborrado" class="d-flex justify-content-center">
           <ul class="pagination d-flex justify-content-center">
             <?php
               echo "<li class='page-item active' id='pagingg'>";
@@ -252,5 +269,63 @@
     </form>
 
 </div>
+
+<script type="text/javascript">
+//var elemento = ['nombredp','Sector','temp_cpu2','load_cpu2','rango_i2','rango_s2'];
+
+
+    function cambiartabla(){
+    document.getElementById("borrarbusqueda").disabled = false;
+    // console.log(i);
+    var micro= '<?php echo $_SESSION['microses']; ?>';
+    var page = '<?php echo$page; ?>';
+    var datedesde = document.getElementById("bd-desde").value;
+    var datehasta = document.getElementById("bd-hasta").value;
+    console.log(datedesde);
+    console.log(datehasta);
+    if(!datedesde){
+      alert("La fecha desde no esta seleccionada")
+    }
+    else if(!datehasta){
+      alert("La fecha hasta no esta seleccionada")
+    }
+    else if(datedesde>datehasta){
+      alert("La fecha desde debe ser menor que la fecha hasta")
+      window.location="valoresh.html";
+    }
+    //console.log(datedesde);
+    //console.log(datehasta);
+    $.ajax({
+      url: 'valoresh.php',
+      method:"POST",
+			dataType: "json",
+      // async: false,
+      data: {"data": micro, "pagina": page, "desde": datedesde, "hasta": datehasta},
+
+      success: function(response) {
+        console.log(response);
+        if(response.length == 0){
+          alert("No se encontraron datos en el sistema para estas fechas")
+          window.location="valoresh.html";
+        }
+        // var a = response;
+        // var json = JSON.parse(a);
+        //console.log(json[2].nombre);
+        // console.log(json[0]);
+        else {
+          $('#content').html(response.html);
+          $('#pagingg').remove();
+        }
+      }
+    });
+    return false;
+  }
+
+document.getElementById("borrarbusqueda").disabled = true;
+document.getElementById("cargarfechas").onclick = cambiartabla;
+
+document.getElementById("borrarbusqueda").onclick = borrarbusqueda;
+</script>
+  <script src="../assets/js/core/jquery.min.js"></script>
   </body>
 </html>
