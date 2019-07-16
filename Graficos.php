@@ -234,7 +234,7 @@ header("Location: index.php");}*/
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.horadia;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-350,-600]]);
+              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
             });
 
             var options = {
@@ -262,7 +262,7 @@ header("Location: index.php");}*/
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.dia;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-350,-600]]);
+              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
             });
 
             var options = {
@@ -290,7 +290,7 @@ header("Location: index.php");}*/
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.mes;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-350,-600]]);
+              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
             });
 
             var options = {
@@ -318,7 +318,7 @@ header("Location: index.php");}*/
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.ano;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-350,-600]]);
+              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
             });
 
             var options = {

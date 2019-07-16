@@ -76,6 +76,7 @@ session_start();
             if($privilegio==2){
               $_SESSION['user']=$username;
               $_SESSION['privilegio']=$privilegio;
+              $_SESSION['microses']=$fila1[0];
               header("location: administrador.html");}
             }
             else

@@ -12,18 +12,17 @@
     overflow-y: auto;
   }
   .my-custom-scrollbar {
-position: relative;
-height: auto;
-max-height: 400px;
-overflow: auto;
-}
-.table-wrapper-scroll-y {
-display: block;
-}
-.palcentro {
+  position: relative;
+  height: auto;
+  max-height: 400px;
+  overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+  display: block;
+  }
+  .palcentro {
     width: 80%;
     margin: 0 auto;
-
   }
   </style>
   <head>
@@ -326,12 +325,28 @@ display: block;
                               <script id="scriptDispAvailable" type="text/html">
                                 <div class="card border-dark mb-3">
                                   <div class="card-header text-center">
-                                    <h4 id="estadodisp">Estado de las alerta en:</h4>
+                                    <h4 id="estadodisp">Estado del sistema:</h4>
                                       <font color="blue"><h5 id="Local"></h5></font></div>
                                       <div class="container">
                                       <div class="card-body text-center" id="estadodisp">
                                     <h4 id="TipoAlerta"></h4>
                                   </div>
+                                </div>
+                              </div>
+                              </script>
+                              <br><hr><br><br>
+                              <div class="palcentro" id="dispositivoAvailable2"></div>
+                              <script id="scriptDispAvailable2" type="text/html">
+                                <div class="card border-dark mb-3">
+                                  <div class="card-header text-center">
+                                    <h5 id="estadodisp2">Estado de dispositivos del sistema:</h5>
+                                      <div class="container">
+                                      <div class="card-body text-center" id="estadodisps1">
+                                    <h6 id="SensorUltra"></h6>
+                                  </div>
+                                    <div class="card-body text-center" id="estadodisps2">
+                                  <h6 id="Temp"></h6>
+                                </div>
                                 </div>
                               </div>
                               </script>
@@ -443,7 +458,7 @@ display: block;
                 function actualizarestado(){
                   $("#variablediv").remove();
                   var div = document.createElement('div');
-                  div.setAttribute('id','variablediv','class', 'card border-light mb-3');
+                  div.setAttribute('id','variablediv','class', 'card border-dark mb-3');
                   div.innerHTML = document.getElementById('scriptDispAvailable').innerHTML;
                   document.getElementById('dispositivoAvailable').appendChild(div);
 
@@ -453,8 +468,6 @@ display: block;
                     type: 'post',
                     data: 'data=' +microval,
                   }).done(function(response){
-
-
                     // var json = JSON.parse(response);
                     var localresp = response ;
                     document.getElementById("Local").innerHTML = localresp;
@@ -481,14 +494,54 @@ display: block;
                     });
                   }
 
-                  //var elemento = ['nombredp','Sector','temp_cpu2','load_cpu2','rango_i2','rango_s2'];
+                  /////////////////////////////////////////////////////////////////////////////////////////////////////
+                  function actualizarestadoDispSistem(){
+                    $("#variablediv2").remove();
+                    var div = document.createElement('div');
+                    div.setAttribute('id','variablediv2','class', 'card border-dark mb-3');
+                    div.innerHTML = document.getElementById('scriptDispAvailable2').innerHTML;
+                    document.getElementById('dispositivoAvailable2').appendChild(div);
+
+                    var microval = ($("#micro").val());
+
+                      $.ajax({
+                        url: 'query/admin/estadosensoresdisp.php',
+                        type: 'post',
+                        data: 'data=' +microval,
+                        dataType:"JSON",
+                      }).done(function(response){
+                        console.log(response);
+                        if (response.length == 0){
+                          document.getElementById('SensorUltra').innerHTML = "Verifique si el dispositivo esta activo";
+                          document.getElementById("SensorUltra").className = "card-body text-center text-white bg-danger";
+                        }
+                        else{
+                          response.forEach(function(item){
+                            if(item.profundidad==0){
+                              document.getElementById('SensorUltra').innerHTML = "El sensor de altura del caudal no esta operando correctamente";
+                              document.getElementById("SensorUltra").className = "card-body text-center text-white bg-danger";
+                            }
+                            else {
+                              document.getElementById('SensorUltra').innerHTML = "El sensor de altura del caudal esta funcionando corectamente";
+                              document.getElementById("SensorUltra").className = "card-body text-center text-white bg-success";
+                            }
+                            if(item.temp>=70){
+                              document.getElementById('Temp').innerHTML = "La temperatura se encuentra mas alta de lo normal";
+                              document.getElementById("Temp").className = "card-body text-center text-white bg-danger";
+                            }
+                            else {
+                              document.getElementById('Temp').innerHTML = "La temperatura es esta en el rango normal";
+                              document.getElementById("Temp").className = "card-body text-center text-white bg-success";
+                            }
+                          });
+                        }
+                      });
+                    }
+                  ////////////////////////////////////////////////////////////////////////////////////////
 
                   function cargar(){
                     var microval = ($("#micro").val());
                     var rango = ($("#rango").val());
-                    //console.log(microval);
-                    //console.log(rango);
-                    //console.log(page);
                     $.ajax({
                       url: 'query/admin/tabla.php',
                       type: 'post',
@@ -522,11 +575,23 @@ display: block;
                       $('#rango').append('<option value="3">' + "Mes" + '</option>');
                       $('#rango').append('<option value="4">' + "Año" + '</option>');
                       actualizarestado();
+                      actualizarestadoDispSistem();
                       $("#alertacard").show();
                       $("#cuerpotabla").empty();
                       cargar();
+                      settime1();
                     })
                   })
+
+                  function settime1(){
+                    $(document).ready(function(){
+                      setInterval(actualizarestado, 60000);
+                      setInterval(actualizarestadoDispSistem, 60000);
+                      setInterval(cargar, 60000);
+                    });
+                  }
+
+
                   </script>
               </body>
               </html>
