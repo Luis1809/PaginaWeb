@@ -703,6 +703,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                       <div class="card-footer ">
                         <hr>
                         <div class="stats">
+                          <br>
 
                         </div>
                       </div>
@@ -799,7 +800,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                                       $view = pg_query($con,$query1);
                                       $fila= pg_fetch_row($view);
                                       echo$fila[0];
-                                    ?>                                  
+                                    ?>
                                   </p>
                                 </div>
                               </div>

@@ -158,18 +158,18 @@ display: block;
           </script>';
         }
 
-  if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
-  echo  '<script type="text/javascript">
-  $("#iniciar").show()
-  </script>';
-  }
-  else
-  {
-    echo  '<script type="text/javascript">
-    $("#iniciar").hide()
-    </script>';
-  }
-  ?>
+        if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false){
+        echo  '<script type="text/javascript">
+        $("#iniciar").show()
+        </script>';
+        }
+        else
+        {
+          echo  '<script type="text/javascript">
+          $("#iniciar").hide()
+          </script>';
+        }
+        ?>
       </div>
       </div>
       <p class="fixed-bottom bg-dark text-white clearfix mb-0 d-flex justify-content-center">
