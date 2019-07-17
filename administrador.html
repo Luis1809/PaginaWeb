@@ -154,14 +154,14 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
             $("#rango").change(function(){
               var rango = ($("#rango").val());
               var microval = ($("#micro").val());
-              console.log(microval);
+              //console.log(microval);
               $.ajax({
                 url: 'query/graficolluvia2.php',
                 method: 'post',
                 data: {"rango": rango, "microval": microval},
                 dataType:"JSON",
               }).done(function(data){
-                console.log(data);
+                //console.log(data);
                 if(rango==1){
                   drawBasic(data);
                 }
@@ -182,14 +182,14 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
             $("#micro").change(function(){
               var rango = ($("#rango").val());
               var microval = ($("#micro").val());
-              console.log(microval);
+              //console.log(microval);
               $.ajax({
                 url: 'query/graficolluvia2.php',
                 method: 'post',
                 data: {"rango": rango, "microval": microval},
                 dataType:"JSON",
               }).done(function(data){
-                console.log(data);
+                //console.log(data);
                 if(rango==1){
                   drawBasic(data);
                 }
@@ -215,7 +215,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
               data: {"rango": rango, "microval": microval},
               dataType:"JSON",
             }).done(function(data){
-              console.log(data);
+              //console.log(data);
               if(rango==1){
                 drawBasic(data);
               }
@@ -246,7 +246,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.horadia;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
+              var rango_i = jsonData.rango_i;
+              var rango_s = jsonData.rango_s;
+              data.addRows([[hora,lluvia,-rango_i,-rango_s]]);
             });
 
             var options = {
@@ -274,7 +276,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.dia;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
+              var rango_i = jsonData.rango_i;
+              var rango_s = jsonData.rango_s;
+              data.addRows([[hora,lluvia,-rango_i,-rango_s]]);
             });
 
             var options = {
@@ -302,7 +306,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.mes;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
+              var rango_i = jsonData.rango_i;
+              var rango_s = jsonData.rango_s;
+              data.addRows([[hora,lluvia,-rango_i,-rango_s]]);
             });
 
             var options = {
@@ -330,7 +336,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
             $.each(chart_data, function(i, jsonData){
               var hora = jsonData.ano;
               var lluvia = -+parseFloat($.trim(jsonData.cantidad));
-              data.addRows([[hora,lluvia,-<?php include("ConnBaseDatos.php"); echo$fila13[0]; ?>,-<?php include("ConnBaseDatos.php"); echo$fila12[0]; ?>]]);
+              var rango_i = jsonData.rango_i;
+              var rango_s = jsonData.rango_s;
+              data.addRows([[hora,lluvia,-rango_i,-rango_s]]);
             });
 
             var options = {
@@ -362,7 +370,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                 data: {"rango": rango, "microval": microval},
                 dataType:"JSON",
               }).done(function(data){
-                console.log(data);
+                //console.log(data);
                 if(rango==1){
                   drawBackgroundColor(data);
                 }
@@ -389,7 +397,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                 data: {"rango": rango, "microval": microval},
                 dataType:"JSON",
               }).done(function(data){
-                console.log(data);
+                //console.log(data);
                 if(rango==1){
                   drawBackgroundColor(data);
                 }
@@ -415,7 +423,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
               data: {"rango": rango, "microval": microval},
               dataType:"JSON",
             }).done(function(data){
-              console.log(data);
+              //console.log(data);
               if(rango==1){
                 drawBackgroundColor(data);
               }
@@ -456,7 +464,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
               data: {"rango": rango, "microval": microval},
               dataType:"JSON",
             }).done(function(data){
-              console.log(data);
+              //console.log(data);
               if(rango==1){
                 drawBasic(data);
               }
@@ -489,7 +497,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
               data: {"rango": rango, "microval": microval},
               dataType:"JSON",
             }).done(function(data){
-              console.log(data);
+              //console.log(data);
               if(rango==1){
                 drawBackgroundColor(data);
               }
@@ -838,7 +846,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                             url: 'query/micro.php',
                             method: 'post',
                           }).done(function(data){
-                            console.log(data);
+                            //console.log(data);
                             data = JSON.parse(data);
                             data.forEach(function(micro){
                               $('#micro').append('<option value="'+micro.id+'">' + micro.nombre + '</option>');
@@ -848,22 +856,17 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin']==false || $_SESSION['p
                         }
 
                         </script>
-
-
-
                         <script type="text/javascript">
                         $(document).ready(function(){
                           $("#micro").change(function(){
                             document.getElementById("rango").disabled = false;
                           })
                         })
-
                         </script>
 
                         <script type="text/javascript">
                         loadmicro();
                         </script>
-
 
                         <div class="card-body">
                           <div class="container">

@@ -366,8 +366,8 @@
                                         <thead class="bg-white text-info" >
                                           <tr>
 
-                                            <th class="text-sm-center text-info" scope="col">Fecha</th>
                                             <th class="text-sm-center text-info" scope="col">Hora</th>
+                                            <th class="text-sm-center text-info" scope="col">Fecha</th>
                                             <th class="text-sm-center text-info " scope="col">Tipo</th>
                                             <th class="text-sm-center text-info " scope="col">Cantidad Lluvia</th>
                                             <th class="text-sm-center text-info " scope="col">Profundidad Rio</th>
@@ -383,6 +383,38 @@
                                 </div>
                             </div>
                           </div>
+                          <br><hr><br><br>
+                          <div class="palcentro" id="alertacard2">
+                            <div style="max-width: 90rem;">
+                              <div class="card border-dark mb-3" style="max-width: 35rem;">
+                                <div class="card-header mx-auto">
+                                  <h5> Record de errores del sistema </h5>
+                                  <br>
+                                  </div>
+                                  <div class="card-body">
+                                  <form class="form-inline ml-auto">
+                                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                    <table class="table" id="tabla2">
+                                      <tbody id="cuerpotabla2">
+                                      <thead class="bg-white text-info" >
+                                        <tr>
+
+                                          <th class="text-sm-center text-info" scope="col">Fecha</th>
+                                          <th class="text-sm-center text-info" scope="col">Hora</th>
+                                          <th class="text-sm-center text-info " scope="col">Temperatura Disp</th>
+                                          <th class="text-sm-center text-info " scope="col">Sensor altura de caudal</th>
+
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      </tbody>
+                                      </table>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                          </div>
+                        </div>
                         </div>
                       </div>
 
@@ -510,7 +542,7 @@
                         data: 'data=' +microval,
                         dataType:"JSON",
                       }).done(function(response){
-                        console.log(response);
+                        //console.log(response);
                         if (response.length == 0){
                           document.getElementById('SensorUltra').innerHTML = "Verifique si el dispositivo esta activo";
                           document.getElementById("SensorUltra").className = "card-body text-center text-white bg-danger";
@@ -555,14 +587,34 @@
                     return false;
                   }
 
+                  function cargar2(){
+                    console.log("de lo mio");
+                    var microval = ($("#micro").val());
+                    var rango = ($("#rango").val());
+                    $.ajax({
+                      url: 'query/admin/tabla2.php',
+                      type: 'post',
+                      dataType: "json",
+                      data: {"data": microval, "rango": rango},
+                      success: function(response) {
+                          console.log("klk wawawa");
+                          $('#cuerpotabla2').html(response.html);
+                      }
+                    })
+                    return false;
+                  }
+
                   $(document).ready(function(){
                     $("#alertacard").hide();
+                    $("#alertacard2").hide();
                   });
 
                   $(document).ready(function(){
                     $("#rango").change(function(){
                       $("#cuerpotabla").empty();
+                      $("#cuerpotabla2").empty();
                       cargar();
+                      cargar2();
                     });
                   });
 
@@ -577,8 +629,11 @@
                       actualizarestado();
                       actualizarestadoDispSistem();
                       $("#alertacard").show();
+                      $("#alertacard2").show();
                       $("#cuerpotabla").empty();
+                      $("#cuerpotabla2").empty();
                       cargar();
+                      cargar2();
                       settime1();
                     })
                   })
@@ -588,6 +643,7 @@
                       setInterval(actualizarestado, 60000);
                       setInterval(actualizarestadoDispSistem, 60000);
                       setInterval(cargar, 60000);
+                      setInterval(cargar2, 60000);
                     });
                   }
 
