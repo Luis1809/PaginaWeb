@@ -401,8 +401,9 @@
 
                                           <th class="text-sm-center text-info" scope="col">Fecha</th>
                                           <th class="text-sm-center text-info" scope="col">Hora</th>
-                                          <th class="text-sm-center text-info " scope="col">Temperatura Disp</th>
-                                          <th class="text-sm-center text-info " scope="col">Sensor altura de caudal</th>
+                                          <th class="text-sm-center text-info" scope="col">Temperatura Disp</th>
+                                          <th class="text-sm-center text-info" scope="col">Sensor altura de caudal</th>
+                                          <th class="text-sm-center text-info" scope="col">Micro Activo?</th>
 
                                         </tr>
                                       </thead>
@@ -562,7 +563,7 @@
                               document.getElementById("Temp").className = "card-body text-center text-white bg-danger";
                             }
                             else {
-                              document.getElementById('Temp').innerHTML = "La temperatura es esta en el rango normal";
+                              document.getElementById('Temp').innerHTML = "La temperatura esta en el rango normal";
                               document.getElementById("Temp").className = "card-body text-center text-white bg-success";
                             }
                           });
@@ -588,7 +589,7 @@
                   }
 
                   function cargar2(){
-                    console.log("de lo mio");
+                    //console.log("de lo mio");
                     var microval = ($("#micro").val());
                     var rango = ($("#rango").val());
                     $.ajax({
@@ -597,7 +598,7 @@
                       dataType: "json",
                       data: {"data": microval, "rango": rango},
                       success: function(response) {
-                          console.log("klk wawawa");
+                          //console.log("klk wawawa");
                           $('#cuerpotabla2').html(response.html);
                       }
                     })
