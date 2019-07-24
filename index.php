@@ -30,7 +30,9 @@ session_start();
     $nombre_micro= $_POST['micro'];
     //echo "<script>console.log( 'Debug Objects: " . $nombre_micro . "' );</script>";
     $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-    $query1 = pg_query($con,("SELECT id FROM micro where nombre = '$nombre_micro';"));
+    #$query1 = pg_query($con,("SELECT id FROM micro where nombre = '$nombre_micro';"));
+    $query1 = pg_prepare($con, "my_query", 'SELECT id FROM micro where nombre = $1');
+    $query1 = pg_execute($con, "my_query", array($nombre_micro));
     $fila1= pg_fetch_row($query1);
 
     //echo "<script>console.log( 'Debug Objects: " .$fila1[0]. "' );</script>";
@@ -44,7 +46,9 @@ session_start();
     $nombre_micro= $_POST['micro'];
     echo "<script>console.log( 'Debug Objects: " . $nombre_micro . "' );</script>";
     $con= pg_connect("host=localhost port=5432 dbname=Proyecto user=LuisR password=ProyGA99");
-    $query1 = pg_query($con,("SELECT id FROM micro where nombre = '$nombre_micro';"));
+    #$query1 = pg_query($con,("SELECT id FROM micro where nombre = '$nombre_micro';"));
+    $query1 = pg_prepare($con, "my_query", 'SELECT id FROM micro where nombre = $1');
+    $query1 = pg_execute($con, "my_query", array($nombre_micro));
     $fila1= pg_fetch_row($query1);
 
     echo "<script>console.log( 'Debug Objects: " .$fila1[0]. "' );</script>";
@@ -54,7 +58,9 @@ session_start();
     $useri = strtolower($_POST['user']);
     $passi = $_POST['pass'];
 
-    $sql = pg_query($con,("SELECT * FROM usuario WHERE lower(nombre_usu) LIKE lower('$useri');"));
+    #$sql = pg_query($con,("SELECT * FROM usuario WHERE lower(nombre_usu) LIKE lower('$useri');"));
+    $sql = pg_prepare($con, "my_query", 'SELECT * FROM usuario WHERE lower(nombre_usu) LIKE lower($1)');
+    $sql = pg_execute($con, "my_query", array($useri));
     if(pg_num_rows($sql)){
       $rs=pg_fetch_array($sql);
       $username= strtolower($rs['nombre_usu']);

@@ -516,7 +516,7 @@
                       var json = JSON.parse(response);
                       if (response == 0){
 
-                        document.getElementById('TipoAlerta').innerHTML = "El dispositivo no esta activo";
+                        document.getElementById('TipoAlerta').innerHTML = "El dispositivo no esta activo o esta leyendo datos antiguos";
                         document.getElementById("TipoAlerta").className = "card-body text-center text-white bg-danger";
                       };
                       if (response != 0){
