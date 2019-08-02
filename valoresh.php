@@ -15,7 +15,7 @@
       datos_micro.cpu_temp, datos_micro.hora,datos_micro.fecha, datos_bateria.porcentaje FROM datos_ultrasonicos, datos_pluviometro,datos_micro,
       datos_bateria WHERE datos_ultrasonicos.fecha = datos_pluviometro.fecha AND datos_pluviometro.fecha = datos_micro.fecha AND
       datos_micro.fecha = datos_bateria.fecha AND datos_ultrasonicos.hora = datos_pluviometro.hora AND datos_pluviometro.hora = datos_micro.hora
-      AND datos_micro.hora = datos_bateria.hora AND datos_pluviometro.micro=$microval AND datos_pluviometro.fecha >= '$desdeOri' AND datos_pluviometro.fecha <= '$hastaOri';");
+      AND datos_micro.hora = datos_bateria.hora AND datos_pluviometro.micro=$microval AND datos_pluviometro.fecha >= '$desdeOri' AND datos_pluviometro.fecha <= '$hastaOri' ORDER BY datos_pluviometro.fecha, datos_pluviometro.hora ASC;");
 
   // $cview = pg_query($con,$query1);
   // $statement = ("datos");
